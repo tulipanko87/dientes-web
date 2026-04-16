@@ -1,0 +1,345 @@
+export default function DentalHygienaPage() {
+  const benefits = [
+    {
+      title: "Profesionálne odstránenie povlaku a zubného kameňa",
+      text: "Šetrné a dôkladné odstránenie nánosov pre čistý, svieži a zdravší úsmev."
+    },
+    {
+      title: "Prevencia zápalu ďasien a kazov",
+      text: "Pravidelná dentálna hygiena pomáha predchádzať problémom a udržiava chrup v dobrej kondícii."
+    },
+    {
+      title: "Jemný a individuálny prístup",
+      text: "Každé ošetrenie prispôsobujeme citlivosti, stavu chrupu aj vašim potrebám."
+    },
+    {
+      title: "Odporúčania pre domácu starostlivosť",
+      text: "Ukážeme vám, ako si výsledok udržať čo najdlhšie aj mimo ambulancie."
+    }
+  ];
+
+  const steps = [
+    "Vyšetrenie stavu chrupu a ďasien",
+    "Odstránenie zubného kameňa a povlakov",
+    "Pieskovanie a jemné dočistenie povrchov",
+    "Leštenie zubov pre hladký a príjemný pocit",
+    "Odporúčania pre domácu hygienu a prevenciu"
+  ];
+
+  const prices = [
+    { name: "Vstupná dentálna hygiena", price: "od 55 €" },
+    { name: "Pravidelná dentálna hygiena", price: "od 45 €" },
+    { name: "Kontrola a konzultácia", price: "podľa dohody" }
+  ];
+
+  const bookingUrl = "https://booking.reservanto.cz/Modal/?id=21591";
+  const navItems = [
+    { label: "Služby", href: "#sluzby" },
+    { label: "Priebeh", href: "#priebeh" },
+    { label: "Rezervácia", href: "#rezervacia" },
+    { label: "Cenník", href: "#cennik" },
+    { label: "Kontakt", href: "#kontakt" }
+  ];
+
+  const heroStats = [
+    ["30–60 min", "trvanie ošetrenia"],
+    ["Jemný prístup", "aj pri citlivosti"],
+    ["Prevencia", "zdravšie ďasná a zuby"],
+    ["Starostlivosť", "na mieru pre vás"]
+  ];
+
+  const bookingItems = [
+    ["Vstupná dentálna hygiena", "60 min • od 55 €", "Voľné termíny"],
+    ["Pravidelná dentálna hygiena", "45 min • od 45 €", "Voľné termíny"],
+    ["Kontrola a konzultácia", "30 min • podľa dohody", "Na objednanie"]
+  ];
+
+  return (
+    <div className="min-h-screen bg-[#F7F1EA] text-[#5F5148]">
+      <header className="sticky top-0 z-50 border-b border-[#E4D7CA]/80 bg-[#FBF8F3]/90 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+          <a href="#top" className="flex items-center gap-3">
+            <img src="/logo.png" alt="Dientes logo" className="h-12 w-12 rounded-full object-contain" />
+            <div>
+              <div className="font-serif text-2xl tracking-[0.18em] text-[#B37E74]">DIENTES</div>
+              <div className="-mt-1 text-sm italic text-[#B79A73]">dentálna hygiena</div>
+            </div>
+          </a>
+
+          <nav className="hidden items-center gap-8 lg:flex">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="text-sm font-medium text-[#7D6A60] transition hover:text-[#B37E74]"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          <a
+            href="#rezervacia"
+            className="rounded-full bg-[#B37E74] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#9F6F66]"
+          >
+            Rezervovať termín
+          </a>
+        </div>
+      </header>
+
+      <main id="top">
+        <section className="relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(179,126,116,0.16),_transparent_32%),radial-gradient(circle_at_bottom_right,_rgba(183,154,115,0.18),_transparent_28%)]" />
+          <div className="relative mx-auto max-w-7xl px-6 py-16 lg:py-24">
+            <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
+              <div>
+                <span className="inline-flex items-center rounded-full border border-[#E6D7C8] bg-[#FBF8F3] px-4 py-2 text-sm text-[#B37E74] shadow-sm">
+                  Elegantná a šetrná starostlivosť o úsmev
+                </span>
+
+                <h1 className="mt-7 max-w-3xl font-serif text-5xl leading-[1.05] text-[#A86F67] md:text-6xl">
+                  Dientes
+                </h1>
+                <p className="mt-2 text-2xl italic text-[#B79A73] md:text-3xl">dentálna hygiena</p>
+
+                <p className="mt-8 max-w-2xl text-lg leading-relaxed text-[#75665D] md:text-xl">
+                  Jemná, moderná a profesionálna dentálna hygiena v elegantnom štýle, ktorý pôsobí čisto,
+                  pokojne a dôveryhodne. Pomôžeme vám získať zdravší úsmev aj lepší pocit z vašich zubov.
+                </p>
+
+                <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+                  <a
+                    href="#rezervacia"
+                    className="rounded-full bg-[#B37E74] px-7 py-4 text-center font-semibold text-white shadow-lg shadow-[#B37E74]/20 transition hover:-translate-y-0.5 hover:bg-[#9F6F66]"
+                  >
+                    Rezervovať termín
+                  </a>
+                  <a
+                    href="#sluzby"
+                    className="rounded-full border border-[#DCCBBB] bg-[#FBF8F3] px-7 py-4 text-center font-semibold text-[#8A7265] transition hover:bg-[#F4ECE4]"
+                  >
+                    Pozrieť služby
+                  </a>
+                </div>
+              </div>
+
+              <div className="relative">
+                <div className="absolute -left-4 top-10 hidden h-24 w-24 rounded-full bg-[#E9DED1] blur-2xl lg:block" />
+                <div className="absolute -right-6 bottom-10 hidden h-28 w-28 rounded-full bg-[#D9B6A7]/50 blur-3xl lg:block" />
+
+                <div className="relative rounded-[2rem] border border-[#E2D4C7] bg-[#FBF8F3] p-8 shadow-[0_20px_60px_rgba(130,100,85,0.12)]">
+                  <div className="flex justify-center">
+                    <img src="/logo.png" alt="Dientes" className="h-72 w-auto object-contain md:h-80" />
+                  </div>
+
+                  <div className="mt-8 grid grid-cols-2 gap-4">
+                    {heroStats.map(([title, subtitle]) => (
+                      <div key={title} className="rounded-2xl border border-[#E7DBCF] bg-[#F7F1EA] p-4">
+                        <div className="font-serif text-xl text-[#A86F67]">{title}</div>
+                        <div className="mt-1 text-sm text-[#8A7669]">{subtitle}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="sluzby" className="mx-auto max-w-7xl px-6 py-16 lg:py-20">
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">Služby a benefity</p>
+            <h2 className="mt-4 font-serif text-4xl text-[#4E4139] md:text-5xl">
+              Profesionálna hygiena v štýle, ktorý ladí s vaším úsmevom
+            </h2>
+            <p className="mt-5 text-lg leading-relaxed text-[#786960]">
+              Dizajn stránky sme zladili podľa loga Dientes – jemné púdrové tóny, elegantná typografia a čisté
+              rozloženie vytvárajú prémiový, no stále príjemný dojem.
+            </p>
+          </div>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {benefits.map((item) => (
+              <div
+                key={item.title}
+                className="rounded-[1.75rem] border border-[#E5D8CB] bg-[#FBF8F3] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#EEDFD6] text-lg font-bold text-[#B37E74]">
+                  ✦
+                </div>
+                <h3 className="mt-5 font-serif text-2xl leading-snug text-[#5B4D45]">{item.title}</h3>
+                <p className="mt-3 leading-relaxed text-[#7B6D64]">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="priebeh" className="border-y border-[#E5D8CB] bg-[#FBF8F3]">
+          <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 lg:grid-cols-2 lg:items-start lg:py-20">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">Priebeh ošetrenia</p>
+              <h2 className="mt-4 font-serif text-4xl text-[#4E4139] md:text-5xl">
+                Jednoduchý proces, príjemná skúsenosť
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-[#786960]">
+                Každý krok je navrhnutý tak, aby ošetrenie pôsobilo profesionálne, pokojne a bez zbytočného stresu.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              {steps.map((step, index) => (
+                <div
+                  key={step}
+                  className="flex gap-4 rounded-[1.5rem] border border-[#E7DBCF] bg-[#F7F1EA] p-5"
+                >
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#B37E74] font-semibold text-white">
+                    {index + 1}
+                  </div>
+                  <div className="pt-2 text-lg text-[#65574F]">{step}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="rezervacia" className="mx-auto max-w-7xl px-6 py-16 lg:py-20">
+          <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">Online rezervácia</p>
+              <h2 className="mt-4 font-serif text-4xl text-[#4E4139] md:text-5xl">
+                Rezervujte si termín pohodlne online
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-[#786960]">
+                Priamo na stránke si klient vyberie službu, termín a vyplní svoje údaje. Celý proces je rýchly,
+                čistý a prehľadný.
+              </p>
+
+              <div className="mt-8 rounded-[1.75rem] border border-[#E5D8CB] bg-[#FBF8F3] p-6 shadow-sm">
+                <div className="space-y-4">
+                  {bookingItems.map(([title, meta, badge]) => (
+                    <div
+                      key={title}
+                      className="flex items-center justify-between rounded-2xl border border-[#E7DBCF] p-4"
+                    >
+                      <div>
+                        <div className="font-semibold text-[#564943]">{title}</div>
+                        <div className="text-sm text-[#8E7C70]">{meta}</div>
+                      </div>
+                      <span className="rounded-full bg-[#EFE2D7] px-3 py-1 text-sm font-medium text-[#B37E74]">
+                        {badge}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="overflow-hidden rounded-[2rem] border border-[#E2D4C7] bg-[#FBF8F3] shadow-[0_20px_60px_rgba(130,100,85,0.12)]">
+              <div className="flex items-center justify-between border-b border-[#E5D8CB] px-5 py-4">
+                <div>
+                  <div className="font-serif text-2xl text-[#A86F67]">Online rezervácia</div>
+                  <div className="text-sm text-[#8B796D]">Dientes dentálna hygiena</div>
+                </div>
+                <a
+                  href={bookingUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-full bg-[#B37E74] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#9F6F66]"
+                >
+                  Otvoriť samostatne
+                </a>
+              </div>
+              <iframe src={bookingUrl} title="Online rezervácia" className="h-[760px] w-full bg-white" />
+            </div>
+          </div>
+        </section>
+
+        <section id="cennik" className="border-y border-[#E5D8CB] bg-[#FBF8F3]">
+          <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 lg:grid-cols-2 lg:items-start lg:py-20">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">Cenník</p>
+              <h2 className="mt-4 font-serif text-4xl text-[#4E4139] md:text-5xl">
+                Transparentné ceny bez prekvapení
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-[#786960]">
+                Cenník je pripravený na úpravu podľa vašich finálnych služieb a cien.
+              </p>
+            </div>
+
+            <div className="overflow-hidden rounded-[1.75rem] border border-[#E5D8CB] bg-white shadow-sm">
+              {prices.map((item, index) => {
+                const borderClass = index !== prices.length - 1 ? "border-b border-[#E5D8CB]" : "";
+
+                return (
+                  <div key={item.name} className={`flex items-center justify-between px-6 py-5 ${borderClass}`}>
+                    <span className="text-lg text-[#65574F]">{item.name}</span>
+                    <span className="font-serif text-2xl text-[#A86F67]">{item.price}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section id="kontakt" className="mx-auto max-w-7xl px-6 py-16 lg:py-20">
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">Kontakt</p>
+              <h2 className="mt-4 font-serif text-4xl text-[#4E4139] md:text-5xl">
+                Kontaktujte Dientes
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-[#786960]">
+                Ak chcete doplniť vlastné kontaktné údaje, adresu alebo sociálne siete, túto sekciu upravíme podľa
+                vašich finálnych informácií.
+              </p>
+            </div>
+
+            <div className="rounded-[2rem] border border-[#E2D4C7] bg-[#FBF8F3] p-8 shadow-[0_20px_60px_rgba(130,100,85,0.12)]">
+              <h3 className="font-serif text-3xl text-[#A86F67]">Napíšte nám</h3>
+              <p className="mt-2 text-[#88766A]">Vyplňte formulár a ozveme sa vám späť.</p>
+
+              <form className="mt-6 space-y-4">
+                <input
+                  type="text"
+                  placeholder="Vaše meno"
+                  className="w-full rounded-2xl border border-[#DDCFC3] bg-white px-4 py-3 outline-none transition focus:ring-2 focus:ring-[#C89286]"
+                />
+                <input
+                  type="tel"
+                  placeholder="Telefón"
+                  className="w-full rounded-2xl border border-[#DDCFC3] bg-white px-4 py-3 outline-none transition focus:ring-2 focus:ring-[#C89286]"
+                />
+                <input
+                  type="email"
+                  placeholder="E-mail"
+                  className="w-full rounded-2xl border border-[#DDCFC3] bg-white px-4 py-3 outline-none transition focus:ring-2 focus:ring-[#C89286]"
+                />
+                <textarea
+                  rows={4}
+                  placeholder="Správa alebo preferovaný termín"
+                  className="w-full rounded-2xl border border-[#DDCFC3] bg-white px-4 py-3 outline-none transition focus:ring-2 focus:ring-[#C89286]"
+                />
+                <button
+                  type="button"
+                  className="w-full rounded-full bg-[#B37E74] py-4 font-semibold text-white transition hover:bg-[#9F6F66]"
+                >
+                  Odoslať nezáväzný dopyt
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-[#E5D8CB] bg-[#6F5A4D] text-[#F5EDE4]">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
+          <div>
+            <div className="font-serif text-2xl tracking-[0.14em]">DIENTES</div>
+            <div className="text-sm italic text-[#E0CCB7]">dentálna hygiena</div>
+          </div>
+          <div className="text-sm text-[#EBDDCE]">© 2026 Dientes • Elegantná dentálna hygiena</div>
+        </div>
+      </footer>
+    </div>
+  );
+}
