@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import homeContent from "../content/home.json";
 
 export default function DentalHygienaPage() {
@@ -23,21 +23,6 @@ export default function DentalHygienaPage() {
   ];
 
   const heroStats: any[] = data.hero?.stats ?? [];
-  const heroImages: any[] = (data.hero?.images?.length ? data.hero.images : [{ image: data.hero?.image ?? data.logoImage ?? "/logo.png", alt: data.hero?.imageAlt ?? "Dientes" }]).filter((item: any) => item?.image);
-  const heroSliderIntervalSeconds = Number(data.hero?.sliderIntervalSeconds ?? 5);
-  const heroSliderIntervalMs = Math.max(heroSliderIntervalSeconds, 1) * 1000;
-  const [activeHeroImage, setActiveHeroImage] = useState(0);
-  const currentHeroImage = heroImages[activeHeroImage] ?? heroImages[0];
-
-  useEffect(() => {
-    if (heroImages.length <= 1) return;
-
-    const timer = window.setInterval(() => {
-      setActiveHeroImage((current) => (current + 1) % heroImages.length);
-    }, heroSliderIntervalMs);
-
-    return () => window.clearInterval(timer);
-  }, [heroImages.length, heroSliderIntervalMs]);
 
   const bookingServices: any[] = data.bookingServices ?? [];
 
@@ -146,27 +131,8 @@ export default function DentalHygienaPage() {
                 <div className="absolute -right-6 bottom-10 hidden h-28 w-28 rounded-full bg-[#D9B6A7]/50 blur-3xl lg:block" />
 
                 <div className="relative rounded-[2rem] border border-[#E2D4C7] bg-[#FBF8F3] p-8 shadow-[0_20px_60px_rgba(130,100,85,0.12)]">
-                  <div className="relative overflow-hidden rounded-3xl bg-white/60">
-                    <img
-                      key={currentHeroImage?.image}
-                      src={currentHeroImage?.image ?? data.logoImage ?? "/logo.png"}
-                      alt={currentHeroImage?.alt ?? data.hero?.imageAlt ?? "Dientes"}
-                      className="h-72 w-full object-contain transition-opacity duration-700 md:h-80"
-                    />
-
-                    {heroImages.length > 1 ? (
-                      <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
-                        {heroImages.map((image: any, index: number) => (
-                          <button
-                            key={`${image.image}-${index}`}
-                            type="button"
-                            aria-label={`Zobraziť obrázok ${index + 1}`}
-                            onClick={() => setActiveHeroImage(index)}
-                            className={`h-2.5 rounded-full transition-all ${index === activeHeroImage ? "w-8 bg-[#B37E74]" : "w-2.5 bg-[#DCCBBB]"}`}
-                          />
-                        ))}
-                      </div>
-                    ) : null}
+                  <div className="flex justify-center">
+                    <img src={data.hero?.image ?? data.logoImage ?? "/logo.png"} alt={data.hero?.imageAlt ?? "Dientes"} className="h-72 w-auto object-contain md:h-80" />
                   </div>
 
                   <div className="mt-8 grid grid-cols-2 gap-4">

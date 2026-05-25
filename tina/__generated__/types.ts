@@ -171,12 +171,6 @@ export type HomeHeader = {
   brandSubtitle?: Maybe<Scalars['String']['output']>;
 };
 
-export type HomeHeroImages = {
-  __typename?: 'HomeHeroImages';
-  image?: Maybe<Scalars['String']['output']>;
-  alt?: Maybe<Scalars['String']['output']>;
-};
-
 export type HomeHeroStats = {
   __typename?: 'HomeHeroStats';
   title?: Maybe<Scalars['String']['output']>;
@@ -191,8 +185,6 @@ export type HomeHero = {
   description?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Scalars['String']['output']>;
   imageAlt?: Maybe<Scalars['String']['output']>;
-  sliderIntervalSeconds?: Maybe<Scalars['Float']['output']>;
-  images?: Maybe<Array<Maybe<HomeHeroImages>>>;
   stats?: Maybe<Array<Maybe<HomeHeroStats>>>;
 };
 
@@ -296,21 +288,6 @@ export type HomeHeaderFilter = {
   brandSubtitle?: InputMaybe<StringFilter>;
 };
 
-export type NumberFilter = {
-  lt?: InputMaybe<Scalars['Float']['input']>;
-  lte?: InputMaybe<Scalars['Float']['input']>;
-  gte?: InputMaybe<Scalars['Float']['input']>;
-  gt?: InputMaybe<Scalars['Float']['input']>;
-  eq?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
-};
-
-export type HomeHeroImagesFilter = {
-  image?: InputMaybe<ImageFilter>;
-  alt?: InputMaybe<StringFilter>;
-};
-
 export type HomeHeroStatsFilter = {
   title?: InputMaybe<StringFilter>;
   subtitle?: InputMaybe<StringFilter>;
@@ -323,8 +300,6 @@ export type HomeHeroFilter = {
   description?: InputMaybe<StringFilter>;
   image?: InputMaybe<ImageFilter>;
   imageAlt?: InputMaybe<StringFilter>;
-  sliderIntervalSeconds?: InputMaybe<NumberFilter>;
-  images?: InputMaybe<HomeHeroImagesFilter>;
   stats?: InputMaybe<HomeHeroStatsFilter>;
 };
 
@@ -480,11 +455,6 @@ export type HomeHeaderMutation = {
   brandSubtitle?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type HomeHeroImagesMutation = {
-  image?: InputMaybe<Scalars['String']['input']>;
-  alt?: InputMaybe<Scalars['String']['input']>;
-};
-
 export type HomeHeroStatsMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   subtitle?: InputMaybe<Scalars['String']['input']>;
@@ -497,8 +467,6 @@ export type HomeHeroMutation = {
   description?: InputMaybe<Scalars['String']['input']>;
   image?: InputMaybe<Scalars['String']['input']>;
   imageAlt?: InputMaybe<Scalars['String']['input']>;
-  sliderIntervalSeconds?: InputMaybe<Scalars['Float']['input']>;
-  images?: InputMaybe<Array<InputMaybe<HomeHeroImagesMutation>>>;
   stats?: InputMaybe<Array<InputMaybe<HomeHeroStatsMutation>>>;
 };
 
@@ -571,14 +539,14 @@ export type HomeMutation = {
   contactSection?: InputMaybe<HomeContactSectionMutation>;
 };
 
-export type HomePartsFragment = { __typename: 'Home', businessName?: string | null, businessAddress?: string | null, logoImage?: string | null, steps?: Array<string | null> | null, header?: { __typename: 'HomeHeader', brandTitle?: string | null, brandSubtitle?: string | null } | null, hero?: { __typename: 'HomeHero', badge?: string | null, title?: string | null, subtitle?: string | null, description?: string | null, image?: string | null, imageAlt?: string | null, sliderIntervalSeconds?: number | null, images?: Array<{ __typename: 'HomeHeroImages', image?: string | null, alt?: string | null } | null> | null, stats?: Array<{ __typename: 'HomeHeroStats', title?: string | null, subtitle?: string | null } | null> | null } | null, servicesSection?: { __typename: 'HomeServicesSection', label?: string | null, title?: string | null, description?: string | null } | null, benefits?: Array<{ __typename: 'HomeBenefits', title?: string | null, text?: string | null, image?: string | null, imageAlt?: string | null } | null> | null, gallery?: { __typename: 'HomeGallery', label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomeGalleryItems', image?: string | null, alt?: string | null, caption?: string | null } | null> | null } | null, priceSection?: { __typename: 'HomePriceSection', label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomePriceSectionItems', name?: string | null, price?: string | null } | null> | null } | null, bookingServices?: Array<{ __typename: 'HomeBookingServices', id?: string | null, name?: string | null, duration?: string | null, price?: string | null, description?: string | null } | null> | null, contactSection?: { __typename: 'HomeContactSection', label?: string | null, title?: string | null, description?: string | null, mapTitle?: string | null, mapDescription?: string | null } | null };
+export type HomePartsFragment = { __typename: 'Home', businessName?: string | null, businessAddress?: string | null, logoImage?: string | null, steps?: Array<string | null> | null, header?: { __typename: 'HomeHeader', brandTitle?: string | null, brandSubtitle?: string | null } | null, hero?: { __typename: 'HomeHero', badge?: string | null, title?: string | null, subtitle?: string | null, description?: string | null, image?: string | null, imageAlt?: string | null, stats?: Array<{ __typename: 'HomeHeroStats', title?: string | null, subtitle?: string | null } | null> | null } | null, servicesSection?: { __typename: 'HomeServicesSection', label?: string | null, title?: string | null, description?: string | null } | null, benefits?: Array<{ __typename: 'HomeBenefits', title?: string | null, text?: string | null, image?: string | null, imageAlt?: string | null } | null> | null, gallery?: { __typename: 'HomeGallery', label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomeGalleryItems', image?: string | null, alt?: string | null, caption?: string | null } | null> | null } | null, priceSection?: { __typename: 'HomePriceSection', label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomePriceSectionItems', name?: string | null, price?: string | null } | null> | null } | null, bookingServices?: Array<{ __typename: 'HomeBookingServices', id?: string | null, name?: string | null, duration?: string | null, price?: string | null, description?: string | null } | null> | null, contactSection?: { __typename: 'HomeContactSection', label?: string | null, title?: string | null, description?: string | null, mapTitle?: string | null, mapDescription?: string | null } | null };
 
 export type HomeQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type HomeQuery = { __typename?: 'Query', home: { __typename: 'Home', id: string, businessName?: string | null, businessAddress?: string | null, logoImage?: string | null, steps?: Array<string | null> | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, header?: { __typename: 'HomeHeader', brandTitle?: string | null, brandSubtitle?: string | null } | null, hero?: { __typename: 'HomeHero', badge?: string | null, title?: string | null, subtitle?: string | null, description?: string | null, image?: string | null, imageAlt?: string | null, sliderIntervalSeconds?: number | null, images?: Array<{ __typename: 'HomeHeroImages', image?: string | null, alt?: string | null } | null> | null, stats?: Array<{ __typename: 'HomeHeroStats', title?: string | null, subtitle?: string | null } | null> | null } | null, servicesSection?: { __typename: 'HomeServicesSection', label?: string | null, title?: string | null, description?: string | null } | null, benefits?: Array<{ __typename: 'HomeBenefits', title?: string | null, text?: string | null, image?: string | null, imageAlt?: string | null } | null> | null, gallery?: { __typename: 'HomeGallery', label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomeGalleryItems', image?: string | null, alt?: string | null, caption?: string | null } | null> | null } | null, priceSection?: { __typename: 'HomePriceSection', label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomePriceSectionItems', name?: string | null, price?: string | null } | null> | null } | null, bookingServices?: Array<{ __typename: 'HomeBookingServices', id?: string | null, name?: string | null, duration?: string | null, price?: string | null, description?: string | null } | null> | null, contactSection?: { __typename: 'HomeContactSection', label?: string | null, title?: string | null, description?: string | null, mapTitle?: string | null, mapDescription?: string | null } | null } };
+export type HomeQuery = { __typename?: 'Query', home: { __typename: 'Home', id: string, businessName?: string | null, businessAddress?: string | null, logoImage?: string | null, steps?: Array<string | null> | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, header?: { __typename: 'HomeHeader', brandTitle?: string | null, brandSubtitle?: string | null } | null, hero?: { __typename: 'HomeHero', badge?: string | null, title?: string | null, subtitle?: string | null, description?: string | null, image?: string | null, imageAlt?: string | null, stats?: Array<{ __typename: 'HomeHeroStats', title?: string | null, subtitle?: string | null } | null> | null } | null, servicesSection?: { __typename: 'HomeServicesSection', label?: string | null, title?: string | null, description?: string | null } | null, benefits?: Array<{ __typename: 'HomeBenefits', title?: string | null, text?: string | null, image?: string | null, imageAlt?: string | null } | null> | null, gallery?: { __typename: 'HomeGallery', label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomeGalleryItems', image?: string | null, alt?: string | null, caption?: string | null } | null> | null } | null, priceSection?: { __typename: 'HomePriceSection', label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomePriceSectionItems', name?: string | null, price?: string | null } | null> | null } | null, bookingServices?: Array<{ __typename: 'HomeBookingServices', id?: string | null, name?: string | null, duration?: string | null, price?: string | null, description?: string | null } | null> | null, contactSection?: { __typename: 'HomeContactSection', label?: string | null, title?: string | null, description?: string | null, mapTitle?: string | null, mapDescription?: string | null } | null } };
 
 export type HomeConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -590,7 +558,7 @@ export type HomeConnectionQueryVariables = Exact<{
 }>;
 
 
-export type HomeConnectionQuery = { __typename?: 'Query', homeConnection: { __typename?: 'HomeConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HomeConnectionEdges', cursor: string, node?: { __typename: 'Home', id: string, businessName?: string | null, businessAddress?: string | null, logoImage?: string | null, steps?: Array<string | null> | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, header?: { __typename: 'HomeHeader', brandTitle?: string | null, brandSubtitle?: string | null } | null, hero?: { __typename: 'HomeHero', badge?: string | null, title?: string | null, subtitle?: string | null, description?: string | null, image?: string | null, imageAlt?: string | null, sliderIntervalSeconds?: number | null, images?: Array<{ __typename: 'HomeHeroImages', image?: string | null, alt?: string | null } | null> | null, stats?: Array<{ __typename: 'HomeHeroStats', title?: string | null, subtitle?: string | null } | null> | null } | null, servicesSection?: { __typename: 'HomeServicesSection', label?: string | null, title?: string | null, description?: string | null } | null, benefits?: Array<{ __typename: 'HomeBenefits', title?: string | null, text?: string | null, image?: string | null, imageAlt?: string | null } | null> | null, gallery?: { __typename: 'HomeGallery', label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomeGalleryItems', image?: string | null, alt?: string | null, caption?: string | null } | null> | null } | null, priceSection?: { __typename: 'HomePriceSection', label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomePriceSectionItems', name?: string | null, price?: string | null } | null> | null } | null, bookingServices?: Array<{ __typename: 'HomeBookingServices', id?: string | null, name?: string | null, duration?: string | null, price?: string | null, description?: string | null } | null> | null, contactSection?: { __typename: 'HomeContactSection', label?: string | null, title?: string | null, description?: string | null, mapTitle?: string | null, mapDescription?: string | null } | null } | null } | null> | null } };
+export type HomeConnectionQuery = { __typename?: 'Query', homeConnection: { __typename?: 'HomeConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HomeConnectionEdges', cursor: string, node?: { __typename: 'Home', id: string, businessName?: string | null, businessAddress?: string | null, logoImage?: string | null, steps?: Array<string | null> | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, header?: { __typename: 'HomeHeader', brandTitle?: string | null, brandSubtitle?: string | null } | null, hero?: { __typename: 'HomeHero', badge?: string | null, title?: string | null, subtitle?: string | null, description?: string | null, image?: string | null, imageAlt?: string | null, stats?: Array<{ __typename: 'HomeHeroStats', title?: string | null, subtitle?: string | null } | null> | null } | null, servicesSection?: { __typename: 'HomeServicesSection', label?: string | null, title?: string | null, description?: string | null } | null, benefits?: Array<{ __typename: 'HomeBenefits', title?: string | null, text?: string | null, image?: string | null, imageAlt?: string | null } | null> | null, gallery?: { __typename: 'HomeGallery', label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomeGalleryItems', image?: string | null, alt?: string | null, caption?: string | null } | null> | null } | null, priceSection?: { __typename: 'HomePriceSection', label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomePriceSectionItems', name?: string | null, price?: string | null } | null> | null } | null, bookingServices?: Array<{ __typename: 'HomeBookingServices', id?: string | null, name?: string | null, duration?: string | null, price?: string | null, description?: string | null } | null> | null, contactSection?: { __typename: 'HomeContactSection', label?: string | null, title?: string | null, description?: string | null, mapTitle?: string | null, mapDescription?: string | null } | null } | null } | null> | null } };
 
 export const HomePartsFragmentDoc = gql`
     fragment HomeParts on Home {
@@ -611,12 +579,6 @@ export const HomePartsFragmentDoc = gql`
     description
     image
     imageAlt
-    sliderIntervalSeconds
-    images {
-      __typename
-      image
-      alt
-    }
     stats {
       __typename
       title

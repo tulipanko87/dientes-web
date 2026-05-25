@@ -11,18 +11,8 @@
     "title": "Dientes",
     "subtitle": "dentálna hygiena",
     "description": "Jemná, moderná a profesionálna dentálna hygiena v elegantnom štýle, ktorý pôsobí čisto, pokojne a dôveryhodne. Pomôžeme vám získať zdravší úsmev aj lepší pocit z vašich zubov.",
-    "image": "",
+    "image": "/uploads/logo.png",
     "imageAlt": "Dientes dentálna hygiena",
-    "sliderIntervalSeconds": 5,
-    "images": [
-      {
-        "image": "/uploads/2a894d9c-f0a9-404c-8272-38baa2fe97df.png",
-        "alt": "Dientes dentálna hygiena"
-      },
-      {
-        "image": "/uploads/1e7b3506-c26b-401f-ad85-4d776af4d5d3.png"
-      }
-    ],
     "stats": [
       {
         "title": "30–60 min",
@@ -76,8 +66,13 @@
   "gallery": {
     "label": "Galéria",
     "title": "Fotky prevádzky a práce",
-    "description": "Sem si môžete cez administráciu pridávať fotografie prevádzky, detailov alebo atmosféry.",
-    "items": []
+    "description": "",
+    "items": [
+      {
+        "image": "/uploads/2a894d9c-f0a9-404c-8272-38baa2fe97df.png",
+        "alt": "Krásne zúbky"
+      }
+    ]
   },
   "steps": [
     "Vyšetrenie stavu chrupu a ďasien",

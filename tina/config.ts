@@ -34,17 +34,8 @@ export default defineConfig({
               { type: "string", name: "title", label: "Hlavný nadpis" },
               { type: "string", name: "subtitle", label: "Podnadpis" },
               { type: "string", name: "description", label: "Popis", ui: { component: "textarea" } },
-              imageField("image", "Hlavný obrázok vpravo (záloha)"),
+              imageField("image", "Hlavný obrázok vpravo"),
               { type: "string", name: "imageAlt", label: "Popis obrázka pre Google" },
-              { type: "number", name: "sliderIntervalSeconds", label: "Čas prepínania obrázkov v sekundách" },
-              {
-                type: "object", name: "images", label: "Obrázky v úvodnom slajderi", list: true,
-                ui: { itemProps: (item: { alt?: string; image?: string }) => ({ label: item?.alt || item?.image || "Obrázok" }) },
-                fields: [
-                  imageField("image", "Obrázok"),
-                  { type: "string", name: "alt", label: "Popis obrázka pre Google" }
-                ]
-              },
               {
                 type: "object", name: "stats", label: "Štatistiky pod obrázkom", list: true,
                 ui: { itemProps: (item: { title?: string }) => ({ label: item?.title || "Štatistika" }) },

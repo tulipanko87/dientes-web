@@ -92,11 +92,6 @@ type HomeHeader {
   brandSubtitle: String
 }
 
-type HomeHeroImages {
-  image: String
-  alt: String
-}
-
 type HomeHeroStats {
   title: String
   subtitle: String
@@ -109,8 +104,6 @@ type HomeHero {
   description: String
   image: String
   imageAlt: String
-  sliderIntervalSeconds: Float
-  images: [HomeHeroImages]
   stats: [HomeHeroStats]
 }
 
@@ -205,21 +198,6 @@ input HomeHeaderFilter {
   brandSubtitle: StringFilter
 }
 
-input NumberFilter {
-  lt: Float
-  lte: Float
-  gte: Float
-  gt: Float
-  eq: Float
-  exists: Boolean
-  in: [Float]
-}
-
-input HomeHeroImagesFilter {
-  image: ImageFilter
-  alt: StringFilter
-}
-
 input HomeHeroStatsFilter {
   title: StringFilter
   subtitle: StringFilter
@@ -232,8 +210,6 @@ input HomeHeroFilter {
   description: StringFilter
   image: ImageFilter
   imageAlt: StringFilter
-  sliderIntervalSeconds: NumberFilter
-  images: HomeHeroImagesFilter
   stats: HomeHeroStatsFilter
 }
 
@@ -341,11 +317,6 @@ input HomeHeaderMutation {
   brandSubtitle: String
 }
 
-input HomeHeroImagesMutation {
-  image: String
-  alt: String
-}
-
 input HomeHeroStatsMutation {
   title: String
   subtitle: String
@@ -358,8 +329,6 @@ input HomeHeroMutation {
   description: String
   image: String
   imageAlt: String
-  sliderIntervalSeconds: Float
-  images: [HomeHeroImagesMutation]
   stats: [HomeHeroStatsMutation]
 }
 
