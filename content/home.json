@@ -1,0 +1,138 @@
+{
+  "businessName": "Dientes dentálna hygiena",
+  "businessAddress": "Pribinova 788/8, 040 01 Košice",
+  "logoImage": "/uploads/logo (2).png",
+  "header": {
+    "brandTitle": "DIENTES",
+    "brandSubtitle": "dentálna hygiena"
+  },
+  "hero": {
+    "badge": "Elegantná a šetrná starostlivosť o úsmev",
+    "title": "Dientes",
+    "subtitle": "dentálna hygiena",
+    "description": "Jemná, moderná a profesionálna dentálna hygiena v elegantnom štýle, ktorý pôsobí čisto, pokojne a dôveryhodne. Pomôžeme vám získať zdravší úsmev aj lepší pocit z vašich zubov.",
+    "image": "",
+    "imageAlt": "Dientes dentálna hygiena",
+    "sliderIntervalSeconds": 5,
+    "images": [
+      {
+        "image": "/uploads/2a894d9c-f0a9-404c-8272-38baa2fe97df.png",
+        "alt": "Dientes dentálna hygiena"
+      },
+      {
+        "image": "/uploads/1e7b3506-c26b-401f-ad85-4d776af4d5d3.png"
+      }
+    ],
+    "stats": [
+      {
+        "title": "30–60 min",
+        "subtitle": "trvanie ošetrenia"
+      },
+      {
+        "title": "Jemný prístup",
+        "subtitle": "aj pri citlivosti"
+      },
+      {
+        "title": "Prevencia",
+        "subtitle": "zdravšie ďasná a zuby"
+      },
+      {
+        "title": "Starostlivosť",
+        "subtitle": "na mieru pre vás"
+      }
+    ]
+  },
+  "servicesSection": {
+    "label": "Služby a benefity",
+    "title": "Profesionálna hygiena v štýle, ktorý ladí s vaším úsmevom",
+    "description": "Dizajn stránky sme zladili podľa loga Dientes – jemné púdrové tóny, elegantná typografia a čisté rozloženie vytvárajú prémiový, no stále príjemný dojem."
+  },
+  "benefits": [
+    {
+      "title": "Profesionálne odstránenie povlaku a zubného kameňa",
+      "text": "Šetrné a dôkladné odstránenie nánosov pre čistý, svieži a zdravší úsmev.",
+      "image": "",
+      "imageAlt": ""
+    },
+    {
+      "title": "Prevencia zápalu ďasien a kazov",
+      "text": "Pravidelná dentálna hygiena pomáha predchádzať problémom a udržiava chrup v dobrej kondícii.",
+      "image": "",
+      "imageAlt": ""
+    },
+    {
+      "title": "Jemný a individuálny prístup",
+      "text": "Každé ošetrenie prispôsobujeme citlivosti, stavu chrupu aj vašim potrebám.",
+      "image": "",
+      "imageAlt": ""
+    },
+    {
+      "title": "Odporúčania pre domácu starostlivosť",
+      "text": "Ukážeme vám, ako si výsledok udržať čo najdlhšie aj mimo ambulancie.",
+      "image": "",
+      "imageAlt": ""
+    }
+  ],
+  "gallery": {
+    "label": "Galéria",
+    "title": "Fotky prevádzky a práce",
+    "description": "Sem si môžete cez administráciu pridávať fotografie prevádzky, detailov alebo atmosféry.",
+    "items": []
+  },
+  "steps": [
+    "Vyšetrenie stavu chrupu a ďasien",
+    "Odstránenie zubného kameňa a povlakov",
+    "Pieskovanie a jemné dočistenie povrchov",
+    "Leštenie zubov pre hladký a príjemný pocit",
+    "Odporúčania pre domácu hygienu a prevenciu"
+  ],
+  "priceSection": {
+    "label": "Cenník",
+    "title": "Transparentné ceny bez prekvapení",
+    "description": "Cenník je pripravený na úpravu podľa vašich finálnych služieb a cien.",
+    "items": [
+      {
+        "name": "Vstupná dentálna hygiena",
+        "price": "od 55 €"
+      },
+      {
+        "name": "Pravidelná dentálna hygiena",
+        "price": "od 45 €"
+      },
+      {
+        "name": "Kontrola a konzultácia",
+        "price": "podľa dohody"
+      }
+    ]
+  },
+  "bookingServices": [
+    {
+      "id": "vstupna",
+      "name": "Vstupná dentálna hygiena",
+      "duration": "60 min",
+      "price": "od 55 €",
+      "description": "Kompletné profesionálne čistenie, vstupná konzultácia a odporúčania na domácu starostlivosť."
+    },
+    {
+      "id": "pravidelna",
+      "name": "Pravidelná dentálna hygiena",
+      "duration": "45 min",
+      "price": "od 45 €",
+      "description": "Pravidelné odstránenie povlaku a pigmentov pre klientov po vstupnom ošetrení."
+    },
+    {
+      "id": "konzultacia",
+      "name": "Kontrola a konzultácia",
+      "duration": "30 min",
+      "price": "podľa dohody",
+      "description": "Krátka konzultácia stavu ďasien, citlivosti alebo odporúčanie vhodného typu hygieny."
+    }
+  ],
+  "contactSection": {
+    "label": "Kontakt a mapa",
+    "title": "Kde nás nájdete",
+    "description": "Prevádzku Dientes nájdete jednoducho podľa mapy.",
+    "mapTitle": "Mapa prevádzky",
+    "mapDescription": "Kliknutím na mapu si viete pozrieť polohu alebo naplánovať trasu."
+  }
+}

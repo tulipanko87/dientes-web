@@ -1,0 +1,84 @@
+fragment HomeParts on Home {
+  __typename
+  businessName
+  businessAddress
+  logoImage
+  header {
+    __typename
+    brandTitle
+    brandSubtitle
+  }
+  hero {
+    __typename
+    badge
+    title
+    subtitle
+    description
+    image
+    imageAlt
+    sliderIntervalSeconds
+    images {
+      __typename
+      image
+      alt
+    }
+    stats {
+      __typename
+      title
+      subtitle
+    }
+  }
+  servicesSection {
+    __typename
+    label
+    title
+    description
+  }
+  benefits {
+    __typename
+    title
+    text
+    image
+    imageAlt
+  }
+  gallery {
+    __typename
+    label
+    title
+    description
+    items {
+      __typename
+      image
+      alt
+      caption
+    }
+  }
+  steps
+  priceSection {
+    __typename
+    label
+    title
+    description
+    items {
+      __typename
+      name
+      price
+    }
+  }
+  bookingServices {
+    __typename
+    id
+    name
+    duration
+    price
+    description
+  }
+  contactSection {
+    __typename
+    label
+    title
+    description
+    mapTitle
+    mapDescription
+  }
+}
