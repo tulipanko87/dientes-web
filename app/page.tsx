@@ -35,6 +35,9 @@ export default function DentalHygienaPage() {
     { name: "Pravidelná dentálna hygiena", price: "od 45 €" },
     { name: "Kontrola a konzultácia", price: "podľa dohody" }
   ];
+
+  const businessAddress = "Pribinova 788/8, 040 01 Košice";
+  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(businessAddress)}&output=embed`;
   const navItems = [
     { label: "Služby", href: "#sluzby" },
     { label: "Priebeh", href: "#priebeh" },
@@ -510,29 +513,7 @@ export default function DentalHygienaPage() {
               {prices.map((item, index) => {
                 const borderClass = index !== prices.length - 1 ? "border-b border-[#E5D8CB]" : "";
 
-                const [selectedService, setSelectedService] = useState("vstupna");
-  const [selectedDate, setSelectedDate] = useState("27");
-  const [selectedTime, setSelectedTime] = useState("09:15");
-  const [gdprAccepted, setGdprAccepted] = useState(false);
-  const [sent, setSent] = useState(false);
-
-  const activeService = useMemo(
-    () => bookingServices.find((service) => service.id === selectedService) ?? bookingServices[0],
-    [selectedService]
-  );
-
-  const handleBookingSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (!gdprAccepted) {
-      alert("Prosím, potvrďte súhlas so spracovaním osobných údajov.");
-      return;
-    }
-
-    setSent(true);
-  };
-
-  return (
+                return (
                   <div key={item.name} className={`flex items-center justify-between px-6 py-5 ${borderClass}`}>
                     <span className="text-lg text-[#65574F]">{item.name}</span>
                     <span className="font-serif text-2xl text-[#A86F67]">{item.price}</span>
@@ -544,50 +525,47 @@ export default function DentalHygienaPage() {
         </section>
 
         <section id="kontakt" className="mx-auto max-w-7xl px-6 py-16 lg:py-20">
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">Kontakt</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">Kontakt a mapa</p>
               <h2 className="mt-4 font-serif text-4xl text-[#4E4139] md:text-5xl">
-                Kontaktujte Dientes
+                Kde nás nájdete
               </h2>
               <p className="mt-5 text-lg leading-relaxed text-[#786960]">
-                Ak chcete doplniť vlastné kontaktné údaje, adresu alebo sociálne siete, túto sekciu upravíme podľa
-                vašich finálnych informácií.
-              </p>
+                Prevádzku Dientes nájdete jednoducho podľa mapy.              </p>
+
+              <div className="mt-8 space-y-4">
+                <div className="rounded-[1.5rem] border border-[#E5D8CB] bg-[#FBF8F3] p-5">
+                  <div className="text-sm font-semibold uppercase tracking-[0.16em] text-[#B37E74]">Adresa prevádzky</div>
+                  <div className="mt-2 font-serif text-2xl text-[#4E4139]">Dientes dentálna hygiena</div>
+                  <p className="mt-2 text-[#7B6D64]">Pribinova 788/8, 040 01 Košice</p>
+                </div>
+
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(businessAddress)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex rounded-full bg-[#B37E74] px-6 py-3 font-semibold text-white shadow-lg shadow-[#B37E74]/20 transition hover:-translate-y-0.5 hover:bg-[#9F6F66]"
+                >
+                  Otvoriť trasu v Google Maps
+                </a>
+              </div>
             </div>
 
-            <div className="rounded-[2rem] border border-[#E2D4C7] bg-[#FBF8F3] p-8 shadow-[0_20px_60px_rgba(130,100,85,0.12)]">
-              <h3 className="font-serif text-3xl text-[#A86F67]">Napíšte nám</h3>
-              <p className="mt-2 text-[#88766A]">Vyplňte formulár a ozveme sa vám späť.</p>
+            <div className="overflow-hidden rounded-[2rem] border border-[#E2D4C7] bg-[#FBF8F3] shadow-[0_20px_60px_rgba(130,100,85,0.12)]">
+              <div className="border-b border-[#E5D8CB] px-6 py-5">
+                <h3 className="font-serif text-3xl text-[#A86F67]">Mapa prevádzky</h3>
+                <p className="mt-1 text-[#88766A]">Kliknutím na mapu si viete pozrieť polohu alebo naplánovať trasu.</p>
+              </div>
 
-              <form className="mt-6 space-y-4">
-                <input
-                  type="text"
-                  placeholder="Vaše meno"
-                  className="w-full rounded-2xl border border-[#DDCFC3] bg-white px-4 py-3 outline-none transition focus:ring-2 focus:ring-[#C89286]"
-                />
-                <input
-                  type="tel"
-                  placeholder="Telefón"
-                  className="w-full rounded-2xl border border-[#DDCFC3] bg-white px-4 py-3 outline-none transition focus:ring-2 focus:ring-[#C89286]"
-                />
-                <input
-                  type="email"
-                  placeholder="E-mail"
-                  className="w-full rounded-2xl border border-[#DDCFC3] bg-white px-4 py-3 outline-none transition focus:ring-2 focus:ring-[#C89286]"
-                />
-                <textarea
-                  rows={4}
-                  placeholder="Správa alebo preferovaný termín"
-                  className="w-full rounded-2xl border border-[#DDCFC3] bg-white px-4 py-3 outline-none transition focus:ring-2 focus:ring-[#C89286]"
-                />
-                <button
-                  type="button"
-                  className="w-full rounded-full bg-[#B37E74] py-4 font-semibold text-white transition hover:bg-[#9F6F66]"
-                >
-                  Odoslať nezáväzný dopyt
-                </button>
-              </form>
+              <iframe
+                title="Mapa prevádzky Dientes"
+                src={mapSrc}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="h-[420px] w-full border-0"
+                allowFullScreen
+              />
             </div>
           </div>
         </section>
