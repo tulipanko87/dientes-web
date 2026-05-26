@@ -11,7 +11,6 @@
     "title": "Dientes",
     "subtitle": "dentálna hygiena",
     "description": "Jemná, moderná a profesionálna dentálna hygiena v elegantnom štýle, ktorý pôsobí čisto, pokojne a dôveryhodne. Pomôžeme vám získať zdravší úsmev aj lepší pocit z vašich zubov.",
-    "image": "",
     "imageAlt": "Dientes dentálna hygiena",
     "sliderIntervalSeconds": 5,
     "images": [
@@ -20,7 +19,8 @@
         "alt": "Dientes dentálna hygiena"
       },
       {
-        "image": "/uploads/1e7b3506-c26b-401f-ad85-4d776af4d5d3.png"
+        "image": "/uploads/1e7b3506-c26b-401f-ad85-4d776af4d5d3.png",
+        "alt": "Dientes dentálna hygiena"
       }
     ],
     "stats": [
@@ -50,27 +50,19 @@
   "benefits": [
     {
       "title": "Profesionálne odstránenie povlaku a zubného kameňa",
-      "text": "Šetrné a dôkladné odstránenie nánosov pre čistý, svieži a zdravší úsmev.",
-      "image": "",
-      "imageAlt": ""
+      "text": "Šetrné a dôkladné odstránenie nánosov pre čistý, svieži a zdravší úsmev."
     },
     {
       "title": "Prevencia zápalu ďasien a kazov",
-      "text": "Pravidelná dentálna hygiena pomáha predchádzať problémom a udržiava chrup v dobrej kondícii.",
-      "image": "",
-      "imageAlt": ""
+      "text": "Pravidelná dentálna hygiena pomáha predchádzať problémom a udržiava chrup v dobrej kondícii."
     },
     {
       "title": "Jemný a individuálny prístup",
-      "text": "Každé ošetrenie prispôsobujeme citlivosti, stavu chrupu aj vašim potrebám.",
-      "image": "",
-      "imageAlt": ""
+      "text": "Každé ošetrenie prispôsobujeme citlivosti, stavu chrupu aj vašim potrebám."
     },
     {
       "title": "Odporúčania pre domácu starostlivosť",
-      "text": "Ukážeme vám, ako si výsledok udržať čo najdlhšie aj mimo ambulancie.",
-      "image": "",
-      "imageAlt": ""
+      "text": "Ukážeme vám, ako si výsledok udržať čo najdlhšie aj mimo ambulancie."
     }
   ],
   "gallery": {
