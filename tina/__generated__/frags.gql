@@ -16,6 +16,12 @@ fragment HomeParts on Home {
     description
     image
     imageAlt
+    sliderIntervalSeconds
+    images {
+      __typename
+      image
+      alt
+    }
     stats {
       __typename
       title

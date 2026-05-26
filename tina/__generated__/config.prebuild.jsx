@@ -38,8 +38,20 @@ var config_default = defineConfig({
               { type: "string", name: "title", label: "Hlavn\xFD nadpis" },
               { type: "string", name: "subtitle", label: "Podnadpis" },
               { type: "string", name: "description", label: "Popis", ui: { component: "textarea" } },
-              imageField("image", "Hlavn\xFD obr\xE1zok vpravo"),
+              imageField("image", "Hlavn\xFD obr\xE1zok vpravo (z\xE1loha)"),
               { type: "string", name: "imageAlt", label: "Popis obr\xE1zka pre Google" },
+              { type: "number", name: "sliderIntervalSeconds", label: "\u010Cas prep\xEDnania obr\xE1zkov v sekund\xE1ch" },
+              {
+                type: "object",
+                name: "images",
+                label: "Obr\xE1zky v \xFAvodnom slajderi",
+                list: true,
+                ui: { itemProps: (item) => ({ label: item?.alt || item?.image || "Obr\xE1zok" }) },
+                fields: [
+                  imageField("image", "Obr\xE1zok"),
+                  { type: "string", name: "alt", label: "Popis obr\xE1zka pre Google" }
+                ]
+              },
               {
                 type: "object",
                 name: "stats",
