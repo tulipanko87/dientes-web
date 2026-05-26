@@ -68,8 +68,12 @@
   "gallery": {
     "label": "Galéria",
     "title": "Fotky prevádzky a práce",
-    "description": "Sem si môžete cez administráciu pridávať fotografie prevádzky, detailov alebo atmosféry.",
-    "items": []
+    "description": "",
+    "items": [
+      {
+        "image": "/uploads/3792c3b5-e34d-48e8-9fa8-3936e81c4649.png"
+      }
+    ]
   },
   "steps": [
     "Vyšetrenie stavu chrupu a ďasien",
