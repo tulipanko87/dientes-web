@@ -11,7 +11,8 @@ export default function DentalHygienaPage() {
 
   const prices: any[] = data.priceSection?.items ?? [];
 
-  const businessAddress = data.businessAddress ?? "Pribinova 788/8, 040 01 Košice";
+  const businessAddress =
+    data.businessAddress ?? "Pribinova 788/8, 040 01 Košice";
   const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(businessAddress)}&output=embed`;
   const navItems = [
     { label: "Služby", href: "#sluzby" },
@@ -19,12 +20,24 @@ export default function DentalHygienaPage() {
     { label: "Galéria", href: "#galeria" },
     { label: "Rezervácia", href: "#rezervacia" },
     { label: "Cenník", href: "#cennik" },
-    { label: "Kontakt", href: "#kontakt" }
+    { label: "Kontakt", href: "#kontakt" },
   ];
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const heroStats: any[] = data.hero?.stats ?? [];
-  const heroImages: any[] = (data.hero?.images?.length ? data.hero.images : [{ image: data.hero?.image ?? data.logoImage ?? "/logo.png", alt: data.hero?.imageAlt ?? "Dientes" }]).filter((item: any) => item?.image);
-  const heroSliderIntervalSeconds = Number(data.hero?.sliderIntervalSeconds ?? 5);
+  const heroImages: any[] = (
+    data.hero?.images?.length
+      ? data.hero.images
+      : [
+          {
+            image: data.hero?.image ?? data.logoImage ?? "/logo.png",
+            alt: data.hero?.imageAlt ?? "Dientes",
+          },
+        ]
+  ).filter((item: any) => item?.image);
+  const heroSliderIntervalSeconds = Number(
+    data.hero?.sliderIntervalSeconds ?? 5,
+  );
   const heroSliderIntervalMs = Math.max(heroSliderIntervalSeconds, 1) * 1000;
   const [activeHeroImage, setActiveHeroImage] = useState(0);
   const currentHeroImage = heroImages[activeHeroImage] ?? heroImages[0];
@@ -46,10 +59,18 @@ export default function DentalHygienaPage() {
     { day: "Ut", date: "28", month: "máj" },
     { day: "St", date: "29", month: "máj" },
     { day: "Št", date: "30", month: "máj" },
-    { day: "Pi", date: "31", month: "máj" }
+    { day: "Pi", date: "31", month: "máj" },
   ];
 
-  const bookingTimes = ["08:30", "09:15", "10:00", "11:30", "13:00", "14:45", "16:00"];
+  const bookingTimes = [
+    "08:30",
+    "09:15",
+    "10:00",
+    "11:30",
+    "13:00",
+    "14:45",
+    "16:00",
+  ];
 
   const [selectedService, setSelectedService] = useState("vstupna");
   const [selectedDate, setSelectedDate] = useState("27");
@@ -58,8 +79,10 @@ export default function DentalHygienaPage() {
   const [sent, setSent] = useState(false);
 
   const activeService = useMemo(
-    () => bookingServices.find((service: any) => service.id === selectedService) ?? bookingServices[0],
-    [selectedService]
+    () =>
+      bookingServices.find((service: any) => service.id === selectedService) ??
+      bookingServices[0],
+    [selectedService],
   );
 
   const handleBookingSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -74,14 +97,26 @@ export default function DentalHygienaPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F1EA] text-[#5F5148]">
+    <div className="min-h-screen overflow-x-hidden bg-[#F7F1EA] text-[#5F5148]">
       <header className="sticky top-0 z-50 border-b border-[#E4D7CA]/80 bg-[#FBF8F3]/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-          <a href="#top" className="flex items-center gap-3">
-            <img src={data.logoImage ?? "/logo.png"} alt="Dientes logo" className="h-12 w-12 rounded-full object-contain" />
-            <div>
-              <div className="font-serif text-2xl tracking-[0.18em] text-[#B37E74]">{data.header?.brandTitle ?? "DIENTES"}</div>
-              <div className="-mt-1 text-sm italic text-[#B79A73]">{data.header?.brandSubtitle ?? "dentálna hygiena"}</div>
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:py-4">
+          <a
+            href="#top"
+            className="flex min-w-0 items-center gap-3"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <img
+              src={data.logoImage ?? "/logo.png"}
+              alt="Dientes logo"
+              className="h-10 w-10 rounded-full object-contain sm:h-12 sm:w-12"
+            />
+            <div className="min-w-0">
+              <div className="truncate font-serif text-xl tracking-[0.14em] text-[#B37E74] sm:text-2xl sm:tracking-[0.18em]">
+                {data.header?.brandTitle ?? "DIENTES"}
+              </div>
+              <div className="-mt-1 truncate text-xs italic text-[#B79A73] sm:text-sm">
+                {data.header?.brandSubtitle ?? "dentálna hygiena"}
+              </div>
             </div>
           </a>
 
@@ -97,32 +132,113 @@ export default function DentalHygienaPage() {
             ))}
           </nav>
 
+          <div className="hidden items-center gap-3 sm:flex">
+            <a
+              href="#rezervacia"
+              className="rounded-full bg-[#B37E74] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#9F6F66]"
+            >
+              Rezervovať termín
+            </a>
+          </div>
+
+          <button
+            type="button"
+            aria-label={mobileMenuOpen ? "Zavrieť menu" : "Otvoriť menu"}
+            aria-expanded={mobileMenuOpen}
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#E4D7CA] bg-white/70 text-[#8A7265] shadow-sm transition hover:bg-[#F4ECE4] lg:hidden"
+          >
+            <span className="sr-only">Menu</span>
+            <span className="relative flex h-5 w-5 flex-col justify-center gap-1.5">
+              <span
+                className={`block h-0.5 w-5 rounded-full bg-current transition ${mobileMenuOpen ? "translate-y-2 rotate-45" : ""}`}
+              />
+              <span
+                className={`block h-0.5 w-5 rounded-full bg-current transition ${mobileMenuOpen ? "opacity-0" : ""}`}
+              />
+              <span
+                className={`block h-0.5 w-5 rounded-full bg-current transition ${mobileMenuOpen ? "-translate-y-2 -rotate-45" : ""}`}
+              />
+            </span>
+          </button>
+        </div>
+
+        <div
+          className={`fixed inset-0 z-40 bg-[#3F332C]/35 backdrop-blur-sm transition-opacity lg:hidden ${
+            mobileMenuOpen
+              ? "pointer-events-auto opacity-100"
+              : "pointer-events-none opacity-0"
+          }`}
+          onClick={() => setMobileMenuOpen(false)}
+        />
+        <aside
+          className={`fixed right-0 top-0 z-50 flex h-dvh w-[86%] max-w-sm flex-col border-l border-[#E4D7CA] bg-[#FBF8F3] px-6 py-6 shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
+            mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <div className="font-serif text-2xl tracking-[0.16em] text-[#B37E74]">
+                {data.header?.brandTitle ?? "DIENTES"}
+              </div>
+              <div className="-mt-1 text-sm italic text-[#B79A73]">
+                {data.header?.brandSubtitle ?? "dentálna hygiena"}
+              </div>
+            </div>
+            <button
+              type="button"
+              aria-label="Zavrieť menu"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#E4D7CA] bg-white text-2xl leading-none text-[#8A7265]"
+            >
+              ×
+            </button>
+          </div>
+
+          <nav className="mt-10 flex flex-col gap-2">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="rounded-2xl border border-[#E7DBCF] bg-white/70 px-5 py-4 text-lg font-semibold text-[#6F5A4D] transition hover:border-[#B37E74]/50 hover:bg-[#F4ECE4]"
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
           <a
             href="#rezervacia"
-            className="rounded-full bg-[#B37E74] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#9F6F66]"
+            onClick={() => setMobileMenuOpen(false)}
+            className="mt-8 rounded-full bg-[#B37E74] px-6 py-4 text-center font-semibold text-white shadow-lg shadow-[#B37E74]/20 transition hover:bg-[#9F6F66]"
           >
             Rezervovať termín
           </a>
-        </div>
+        </aside>
       </header>
 
       <main id="top">
         <section className="relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(179,126,116,0.16),_transparent_32%),radial-gradient(circle_at_bottom_right,_rgba(183,154,115,0.18),_transparent_28%)]" />
-          <div className="relative mx-auto max-w-7xl px-6 py-16 lg:py-24">
-            <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="relative mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:py-24">
+            <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
               <div>
                 <span className="inline-flex items-center rounded-full border border-[#E6D7C8] bg-[#FBF8F3] px-4 py-2 text-sm text-[#B37E74] shadow-sm">
-                  {data.hero?.badge ?? "Elegantná a šetrná starostlivosť o úsmev"}
+                  {data.hero?.badge ??
+                    "Elegantná a šetrná starostlivosť o úsmev"}
                 </span>
 
-                <h1 className="mt-7 max-w-3xl font-serif text-5xl leading-[1.05] text-[#A86F67] md:text-6xl">
+                <h1 className="mt-6 max-w-3xl font-serif text-4xl leading-[1.08] text-[#A86F67] sm:text-5xl md:text-6xl">
                   {data.hero?.title ?? "Dientes"}
                 </h1>
-                <p className="mt-2 text-2xl italic text-[#B79A73] md:text-3xl">{data.hero?.subtitle ?? "dentálna hygiena"}</p>
+                <p className="mt-2 text-xl italic text-[#B79A73] sm:text-2xl md:text-3xl">
+                  {data.hero?.subtitle ?? "dentálna hygiena"}
+                </p>
 
-                <p className="mt-8 max-w-2xl text-lg leading-relaxed text-[#75665D] md:text-xl">
-                  {data.hero?.description ?? "Jemná, moderná a profesionálna dentálna hygiena v elegantnom štýle."}
+                <p className="mt-6 max-w-2xl text-base leading-relaxed text-[#75665D] sm:text-lg md:text-xl">
+                  {data.hero?.description ??
+                    "Jemná, moderná a profesionálna dentálna hygiena v elegantnom štýle."}
                 </p>
 
                 <div className="mt-9 flex flex-col gap-4 sm:flex-row">
@@ -145,13 +261,19 @@ export default function DentalHygienaPage() {
                 <div className="absolute -left-4 top-10 hidden h-24 w-24 rounded-full bg-[#E9DED1] blur-2xl lg:block" />
                 <div className="absolute -right-6 bottom-10 hidden h-28 w-28 rounded-full bg-[#D9B6A7]/50 blur-3xl lg:block" />
 
-                <div className="relative rounded-[2rem] border border-[#E2D4C7] bg-[#FBF8F3] p-8 shadow-[0_20px_60px_rgba(130,100,85,0.12)]">
+                <div className="relative rounded-[1.5rem] border border-[#E2D4C7] bg-[#FBF8F3] p-4 sm:rounded-[2rem] sm:p-8 shadow-[0_20px_60px_rgba(130,100,85,0.12)]">
                   <div className="relative overflow-hidden rounded-3xl bg-white/60">
                     <img
                       key={currentHeroImage?.image}
-                      src={currentHeroImage?.image ?? data.logoImage ?? "/logo.png"}
-                      alt={currentHeroImage?.alt ?? data.hero?.imageAlt ?? "Dientes"}
-                      className="h-72 w-full object-contain transition-opacity duration-700 md:h-80"
+                      src={
+                        currentHeroImage?.image ?? data.logoImage ?? "/logo.png"
+                      }
+                      alt={
+                        currentHeroImage?.alt ??
+                        data.hero?.imageAlt ??
+                        "Dientes"
+                      }
+                      className="h-64 w-full object-contain transition-opacity duration-700 sm:h-72 md:h-80"
                     />
 
                     {heroImages.length > 1 ? (
@@ -169,11 +291,18 @@ export default function DentalHygienaPage() {
                     ) : null}
                   </div>
 
-                  <div className="mt-8 grid grid-cols-2 gap-4">
+                  <div className="mt-6 grid grid-cols-1 gap-3 sm:mt-8 sm:grid-cols-2 sm:gap-4">
                     {heroStats.map((stat: any) => (
-                      <div key={stat.title} className="rounded-2xl border border-[#E7DBCF] bg-[#F7F1EA] p-4">
-                        <div className="font-serif text-xl text-[#A86F67]">{stat.title}</div>
-                        <div className="mt-1 text-sm text-[#8A7669]">{stat.subtitle}</div>
+                      <div
+                        key={stat.title}
+                        className="rounded-2xl border border-[#E7DBCF] bg-[#F7F1EA] p-4"
+                      >
+                        <div className="font-serif text-xl text-[#A86F67]">
+                          {stat.title}
+                        </div>
+                        <div className="mt-1 text-sm text-[#8A7669]">
+                          {stat.subtitle}
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -183,14 +312,20 @@ export default function DentalHygienaPage() {
           </div>
         </section>
 
-        <section id="sluzby" className="mx-auto max-w-7xl px-6 py-16 lg:py-20">
+        <section
+          id="sluzby"
+          className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:py-20"
+        >
           <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">{data.servicesSection?.label ?? "Služby a benefity"}</p>
-            <h2 className="mt-4 font-serif text-4xl text-[#4E4139] md:text-5xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">
+              {data.servicesSection?.label ?? "Služby a benefity"}
+            </p>
+            <h2 className="mt-4 font-serif text-3xl text-[#4E4139] sm:text-4xl md:text-5xl">
               {data.servicesSection?.title ?? "Profesionálna hygiena"}
             </h2>
-            <p className="mt-5 text-lg leading-relaxed text-[#786960]">
-              {data.servicesSection?.description ?? "Jemná a profesionálna dentálna hygiena."}
+            <p className="mt-4 text-base leading-relaxed text-[#786960] sm:mt-5 sm:text-lg">
+              {data.servicesSection?.description ??
+                "Jemná a profesionálna dentálna hygiena."}
             </p>
           </div>
 
@@ -201,46 +336,82 @@ export default function DentalHygienaPage() {
                 className="rounded-[1.75rem] border border-[#E5D8CB] bg-[#FBF8F3] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
               >
                 {item.image ? (
-                  <img src={item.image} alt={item.imageAlt || item.title} className="mb-5 h-40 w-full rounded-2xl object-cover" />
+                  <img
+                    src={item.image}
+                    alt={item.imageAlt || item.title}
+                    className="mb-5 h-40 w-full rounded-2xl object-cover"
+                  />
                 ) : (
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#EEDFD6] text-lg font-bold text-[#B37E74]">
                     ✦
                   </div>
                 )}
-                <h3 className="mt-5 font-serif text-2xl leading-snug text-[#5B4D45]">{item.title}</h3>
-                <p className="mt-3 leading-relaxed text-[#7B6D64]">{item.text}</p>
+                <h3 className="mt-5 font-serif text-2xl leading-snug text-[#5B4D45]">
+                  {item.title}
+                </h3>
+                <p className="mt-3 leading-relaxed text-[#7B6D64]">
+                  {item.text}
+                </p>
               </div>
             ))}
           </div>
         </section>
 
         {data.gallery?.items?.length ? (
-          <section id="galeria" className="mx-auto max-w-7xl px-6 pb-16 lg:pb-20">
+          <section
+            id="galeria"
+            className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 sm:pb-16 lg:pb-20"
+          >
             <div className="max-w-3xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">{data.gallery?.label ?? "Galéria"}</p>
-              <h2 className="mt-4 font-serif text-4xl text-[#4E4139] md:text-5xl">{data.gallery?.title ?? "Fotky prevádzky"}</h2>
-              {data.gallery?.description ? <p className="mt-5 text-lg leading-relaxed text-[#786960]">{data.gallery.description}</p> : null}
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">
+                {data.gallery?.label ?? "Galéria"}
+              </p>
+              <h2 className="mt-4 font-serif text-3xl text-[#4E4139] sm:text-4xl md:text-5xl">
+                {data.gallery?.title ?? "Fotky prevádzky"}
+              </h2>
+              {data.gallery?.description ? (
+                <p className="mt-4 text-base leading-relaxed text-[#786960] sm:mt-5 sm:text-lg">
+                  {data.gallery.description}
+                </p>
+              ) : null}
             </div>
             <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
               {data.gallery.items.map((photo: any) => (
-                <figure key={photo.image} className="overflow-hidden rounded-[1.75rem] border border-[#E5D8CB] bg-[#FBF8F3] shadow-sm">
-                  <img src={photo.image} alt={photo.alt || photo.caption || "Fotka"} className="h-72 w-full object-cover" />
-                  {photo.caption ? <figcaption className="px-5 py-4 text-sm text-[#7B6D64]">{photo.caption}</figcaption> : null}
+                <figure
+                  key={photo.image}
+                  className="overflow-hidden rounded-[1.75rem] border border-[#E5D8CB] bg-[#FBF8F3] shadow-sm"
+                >
+                  <img
+                    src={photo.image}
+                    alt={photo.alt || photo.caption || "Fotka"}
+                    className="h-72 w-full object-cover"
+                  />
+                  {photo.caption ? (
+                    <figcaption className="px-5 py-4 text-sm text-[#7B6D64]">
+                      {photo.caption}
+                    </figcaption>
+                  ) : null}
                 </figure>
               ))}
             </div>
           </section>
         ) : null}
 
-        <section id="priebeh" className="border-y border-[#E5D8CB] bg-[#FBF8F3]">
-          <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 lg:grid-cols-2 lg:items-start lg:py-20">
+        <section
+          id="priebeh"
+          className="border-y border-[#E5D8CB] bg-[#FBF8F3]"
+        >
+          <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-2 lg:items-start lg:gap-10 lg:py-20">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">Priebeh ošetrenia</p>
-              <h2 className="mt-4 font-serif text-4xl text-[#4E4139] md:text-5xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">
+                Priebeh ošetrenia
+              </p>
+              <h2 className="mt-4 font-serif text-3xl text-[#4E4139] sm:text-4xl md:text-5xl">
                 Jednoduchý proces, príjemná skúsenosť
               </h2>
-              <p className="mt-5 text-lg leading-relaxed text-[#786960]">
-                Každý krok je navrhnutý tak, aby ošetrenie pôsobilo profesionálne, pokojne a bez zbytočného stresu.
+              <p className="mt-4 text-base leading-relaxed text-[#786960] sm:mt-5 sm:text-lg">
+                Každý krok je navrhnutý tak, aby ošetrenie pôsobilo
+                profesionálne, pokojne a bez zbytočného stresu.
               </p>
             </div>
 
@@ -260,29 +431,40 @@ export default function DentalHygienaPage() {
           </div>
         </section>
 
-        <section id="rezervacia" className="mx-auto max-w-7xl px-6 py-16 lg:py-20">
-          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <section
+          id="rezervacia"
+          className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:py-20"
+        >
+          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-10">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">Online rezervácia</p>
-              <h2 className="mt-4 font-serif text-4xl text-[#4E4139] md:text-5xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">
+                Online rezervácia
+              </p>
+              <h2 className="mt-4 font-serif text-3xl text-[#4E4139] sm:text-4xl md:text-5xl">
                 Rezervujte si termín pohodlne online
               </h2>
-              <p className="mt-5 text-lg leading-relaxed text-[#786960]">
-                Namiesto externého Reservanto okna je rezervácia priamo súčasťou webu. Klient si vyberie službu,
-                dátum, čas a odošle svoje údaje v čistom Dientes dizajne.
+              <p className="mt-4 text-base leading-relaxed text-[#786960] sm:mt-5 sm:text-lg">
+                Namiesto externého Reservanto okna je rezervácia priamo súčasťou
+                webu. Klient si vyberie službu, dátum, čas a odošle svoje údaje
+                v čistom Dientes dizajne.
               </p>
 
               <div className="mt-8 rounded-[1.75rem] border border-[#E5D8CB] bg-[#FBF8F3] p-6 shadow-sm">
-                <h3 className="font-serif text-2xl text-[#A86F67]">Čo formulár rieši</h3>
+                <h3 className="font-serif text-2xl text-[#A86F67]">
+                  Čo formulár rieši
+                </h3>
                 <div className="mt-5 space-y-4">
                   {[
                     "výber služby podľa dĺžky a ceny",
                     "výber dostupného dátumu a času",
                     "kontaktné údaje klienta",
                     "poznámka k citlivosti, strojčeku alebo ďasnám",
-                    "GDPR súhlas pred odoslaním"
+                    "GDPR súhlas pred odoslaním",
                   ].map((item) => (
-                    <div key={item} className="flex gap-3 rounded-2xl border border-[#E7DBCF] bg-white/60 p-4">
+                    <div
+                      key={item}
+                      className="flex gap-3 rounded-2xl border border-[#E7DBCF] bg-white/60 p-4"
+                    >
                       <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#B37E74] text-sm text-white">
                         ✓
                       </span>
@@ -298,23 +480,31 @@ export default function DentalHygienaPage() {
               className="overflow-hidden rounded-[2rem] border border-[#E2D4C7] bg-[#FBF8F3] shadow-[0_20px_60px_rgba(130,100,85,0.12)]"
             >
               <div className="border-b border-[#E5D8CB] px-6 py-5">
-                <div className="font-serif text-2xl text-[#A86F67]">Objednávka na dentálnu hygienu</div>
-                <div className="text-sm text-[#8B796D]">Dientes dentálna hygiena</div>
+                <div className="font-serif text-2xl text-[#A86F67]">
+                  Objednávka na dentálnu hygienu
+                </div>
+                <div className="text-sm text-[#8B796D]">
+                  Dientes dentálna hygiena
+                </div>
               </div>
 
-              <div className="space-y-8 p-6">
+              <div className="space-y-7 p-4 sm:space-y-8 sm:p-6">
                 <div>
                   <div className="mb-4 flex items-center gap-3">
                     <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#B37E74] font-semibold text-white">
                       1
                     </span>
                     <div>
-                      <h3 className="font-serif text-2xl text-[#4E4139]">Vyberte službu</h3>
-                      <p className="text-sm text-[#8E7C70]">Zvoľte typ návštevy podľa potreby.</p>
+                      <h3 className="font-serif text-2xl text-[#4E4139]">
+                        Vyberte službu
+                      </h3>
+                      <p className="text-sm text-[#8E7C70]">
+                        Zvoľte typ návštevy podľa potreby.
+                      </p>
                     </div>
                   </div>
 
-                  <div className="grid gap-4 md:grid-cols-3">
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {bookingServices.map((service: any) => {
                       const isSelected = selectedService === service.id;
 
@@ -330,13 +520,23 @@ export default function DentalHygienaPage() {
                           }`}
                         >
                           <div className="flex items-start justify-between gap-3">
-                            <h4 className="font-semibold text-[#564943]">{service.name}</h4>
-                            {isSelected ? <span className="text-[#B37E74]">●</span> : null}
+                            <h4 className="font-semibold text-[#564943]">
+                              {service.name}
+                            </h4>
+                            {isSelected ? (
+                              <span className="text-[#B37E74]">●</span>
+                            ) : null}
                           </div>
-                          <p className="mt-3 text-sm leading-relaxed text-[#7B6D64]">{service.description}</p>
+                          <p className="mt-3 text-sm leading-relaxed text-[#7B6D64]">
+                            {service.description}
+                          </p>
                           <div className="mt-4 flex items-center justify-between text-sm">
-                            <span className="text-[#8E7C70]">{service.duration}</span>
-                            <strong className="text-[#A86F67]">{service.price}</strong>
+                            <span className="text-[#8E7C70]">
+                              {service.duration}
+                            </span>
+                            <strong className="text-[#A86F67]">
+                              {service.price}
+                            </strong>
                           </div>
                         </button>
                       );
@@ -350,8 +550,12 @@ export default function DentalHygienaPage() {
                       2
                     </span>
                     <div>
-                      <h3 className="font-serif text-2xl text-[#4E4139]">Vyberte termín</h3>
-                      <p className="text-sm text-[#8E7C70]">Ukážkové dostupné časy pripravené na napojenie databázy.</p>
+                      <h3 className="font-serif text-2xl text-[#4E4139]">
+                        Vyberte termín
+                      </h3>
+                      <p className="text-sm text-[#8E7C70]">
+                        Ukážkové dostupné časy pripravené na napojenie databázy.
+                      </p>
                     </div>
                   </div>
 
@@ -378,7 +582,7 @@ export default function DentalHygienaPage() {
                     })}
                   </div>
 
-                  <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-7">
+                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-7">
                     {bookingTimes.map((time) => {
                       const isSelected = selectedTime === time;
 
@@ -406,14 +610,20 @@ export default function DentalHygienaPage() {
                       3
                     </span>
                     <div>
-                      <h3 className="font-serif text-2xl text-[#4E4139]">Vaše údaje</h3>
-                      <p className="text-sm text-[#8E7C70]">Po odoslaní sa zobrazí potvrdenie rezervácie.</p>
+                      <h3 className="font-serif text-2xl text-[#4E4139]">
+                        Vaše údaje
+                      </h3>
+                      <p className="text-sm text-[#8E7C70]">
+                        Po odoslaní sa zobrazí potvrdenie rezervácie.
+                      </p>
                     </div>
                   </div>
 
                   <div className="grid gap-4 md:grid-cols-2">
                     <label className="block">
-                      <span className="mb-2 block text-sm font-semibold text-[#6E5F56]">Meno a priezvisko</span>
+                      <span className="mb-2 block text-sm font-semibold text-[#6E5F56]">
+                        Meno a priezvisko
+                      </span>
                       <input
                         required
                         className="w-full rounded-2xl border border-[#E0D2C5] bg-white px-4 py-3 text-[#4E4139] outline-none transition focus:border-[#B37E74] focus:ring-4 focus:ring-[#B37E74]/10"
@@ -421,7 +631,9 @@ export default function DentalHygienaPage() {
                       />
                     </label>
                     <label className="block">
-                      <span className="mb-2 block text-sm font-semibold text-[#6E5F56]">Telefón</span>
+                      <span className="mb-2 block text-sm font-semibold text-[#6E5F56]">
+                        Telefón
+                      </span>
                       <input
                         required
                         className="w-full rounded-2xl border border-[#E0D2C5] bg-white px-4 py-3 text-[#4E4139] outline-none transition focus:border-[#B37E74] focus:ring-4 focus:ring-[#B37E74]/10"
@@ -429,7 +641,9 @@ export default function DentalHygienaPage() {
                       />
                     </label>
                     <label className="block md:col-span-2">
-                      <span className="mb-2 block text-sm font-semibold text-[#6E5F56]">E-mail</span>
+                      <span className="mb-2 block text-sm font-semibold text-[#6E5F56]">
+                        E-mail
+                      </span>
                       <input
                         required
                         type="email"
@@ -438,7 +652,9 @@ export default function DentalHygienaPage() {
                       />
                     </label>
                     <label className="block md:col-span-2">
-                      <span className="mb-2 block text-sm font-semibold text-[#6E5F56]">Poznámka</span>
+                      <span className="mb-2 block text-sm font-semibold text-[#6E5F56]">
+                        Poznámka
+                      </span>
                       <textarea
                         className="min-h-24 w-full rounded-2xl border border-[#E0D2C5] bg-white px-4 py-3 text-[#4E4139] outline-none transition focus:border-[#B37E74] focus:ring-4 focus:ring-[#B37E74]/10"
                         placeholder="Napr. citlivé ďasná, strojček, tehotenstvo..."
@@ -448,23 +664,33 @@ export default function DentalHygienaPage() {
                 </div>
 
                 <div className="rounded-[1.5rem] border border-[#E5D8CB] bg-[#F7F1EA] p-5">
-                  <h4 className="font-serif text-2xl text-[#A86F67]">Súhrn rezervácie</h4>
+                  <h4 className="font-serif text-2xl text-[#A86F67]">
+                    Súhrn rezervácie
+                  </h4>
                   <div className="mt-4 space-y-3 text-sm text-[#6E5F56]">
                     <div className="flex justify-between gap-4">
                       <span>Služba</span>
-                      <strong className="text-right text-[#4E4139]">{activeService.name}</strong>
+                      <strong className="text-right text-[#4E4139]">
+                        {activeService.name}
+                      </strong>
                     </div>
                     <div className="flex justify-between">
                       <span>Trvanie</span>
-                      <strong className="text-[#4E4139]">{activeService.duration}</strong>
+                      <strong className="text-[#4E4139]">
+                        {activeService.duration}
+                      </strong>
                     </div>
                     <div className="flex justify-between">
                       <span>Termín</span>
-                      <strong className="text-[#4E4139]">{selectedDate}. máj o {selectedTime}</strong>
+                      <strong className="text-[#4E4139]">
+                        {selectedDate}. máj o {selectedTime}
+                      </strong>
                     </div>
                     <div className="flex justify-between">
                       <span>Cena</span>
-                      <strong className="text-[#4E4139]">{activeService.price}</strong>
+                      <strong className="text-[#4E4139]">
+                        {activeService.price}
+                      </strong>
                     </div>
                   </div>
                 </div>
@@ -477,8 +703,8 @@ export default function DentalHygienaPage() {
                     className="mt-1 h-4 w-4 rounded border-[#D8C8BB]"
                   />
                   <span>
-                    Súhlasím so spracovaním osobných údajov za účelom vybavenia rezervácie a beriem na vedomie
-                    storno podmienky.
+                    Súhlasím so spracovaním osobných údajov za účelom vybavenia
+                    rezervácie a beriem na vedomie storno podmienky.
                   </span>
                 </label>
 
@@ -491,8 +717,9 @@ export default function DentalHygienaPage() {
 
                 {sent ? (
                   <div className="rounded-2xl border border-[#C9D9BE] bg-[#F0F6EA] p-4 text-sm font-medium text-[#526C45]">
-                    Ďakujeme, vaša rezervácia bola pripravená na odoslanie. Ďalší krok je napojiť formulár na databázu
-                    alebo e-mail, aby sa rezervácie reálne ukladali.
+                    Ďakujeme, vaša rezervácia bola pripravená na odoslanie.
+                    Ďalší krok je napojiť formulár na databázu alebo e-mail, aby
+                    sa rezervácie reálne ukladali.
                   </div>
                 ) : null}
               </div>
@@ -501,25 +728,35 @@ export default function DentalHygienaPage() {
         </section>
 
         <section id="cennik" className="border-y border-[#E5D8CB] bg-[#FBF8F3]">
-          <div className="mx-auto grid max-w-7xl gap-10 px-6 py-16 lg:grid-cols-2 lg:items-start lg:py-20">
+          <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-2 lg:items-start lg:gap-10 lg:py-20">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">{data.priceSection?.label ?? "Cenník"}</p>
-              <h2 className="mt-4 font-serif text-4xl text-[#4E4139] md:text-5xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">
+                {data.priceSection?.label ?? "Cenník"}
+              </p>
+              <h2 className="mt-4 font-serif text-3xl text-[#4E4139] sm:text-4xl md:text-5xl">
                 {data.priceSection?.title ?? "Transparentné ceny"}
               </h2>
-              <p className="mt-5 text-lg leading-relaxed text-[#786960]">
+              <p className="mt-4 text-base leading-relaxed text-[#786960] sm:mt-5 sm:text-lg">
                 {data.priceSection?.description ?? ""}
               </p>
             </div>
 
             <div className="overflow-hidden rounded-[1.75rem] border border-[#E5D8CB] bg-white shadow-sm">
               {prices.map((item: any, index: number) => {
-                const borderClass = index !== prices.length - 1 ? "border-b border-[#E5D8CB]" : "";
+                const borderClass =
+                  index !== prices.length - 1
+                    ? "border-b border-[#E5D8CB]"
+                    : "";
 
                 return (
-                  <div key={item.name} className={`flex items-center justify-between px-6 py-5 ${borderClass}`}>
+                  <div
+                    key={item.name}
+                    className={`flex flex-col gap-2 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6 ${borderClass}`}
+                  >
                     <span className="text-lg text-[#65574F]">{item.name}</span>
-                    <span className="font-serif text-2xl text-[#A86F67]">{item.price}</span>
+                    <span className="font-serif text-2xl text-[#A86F67]">
+                      {item.price}
+                    </span>
                   </div>
                 );
               })}
@@ -527,20 +764,31 @@ export default function DentalHygienaPage() {
           </div>
         </section>
 
-        <section id="kontakt" className="mx-auto max-w-7xl px-6 py-16 lg:py-20">
-          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <section
+          id="kontakt"
+          className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:py-20"
+        >
+          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-10">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">{data.contactSection?.label ?? "Kontakt a mapa"}</p>
-              <h2 className="mt-4 font-serif text-4xl text-[#4E4139] md:text-5xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">
+                {data.contactSection?.label ?? "Kontakt a mapa"}
+              </p>
+              <h2 className="mt-4 font-serif text-3xl text-[#4E4139] sm:text-4xl md:text-5xl">
                 {data.contactSection?.title ?? "Kde nás nájdete"}
               </h2>
-              <p className="mt-5 text-lg leading-relaxed text-[#786960]">
-                {data.contactSection?.description ?? "Prevádzku nájdete jednoducho podľa mapy."}</p>
+              <p className="mt-4 text-base leading-relaxed text-[#786960] sm:mt-5 sm:text-lg">
+                {data.contactSection?.description ??
+                  "Prevádzku nájdete jednoducho podľa mapy."}
+              </p>
 
               <div className="mt-8 space-y-4">
                 <div className="rounded-[1.5rem] border border-[#E5D8CB] bg-[#FBF8F3] p-5">
-                  <div className="text-sm font-semibold uppercase tracking-[0.16em] text-[#B37E74]">Adresa prevádzky</div>
-                  <div className="mt-2 font-serif text-2xl text-[#4E4139]">{data.businessName ?? "Dientes dentálna hygiena"}</div>
+                  <div className="text-sm font-semibold uppercase tracking-[0.16em] text-[#B37E74]">
+                    Adresa prevádzky
+                  </div>
+                  <div className="mt-2 font-serif text-2xl text-[#4E4139]">
+                    {data.businessName ?? "Dientes dentálna hygiena"}
+                  </div>
                   <p className="mt-2 text-[#7B6D64]">{businessAddress}</p>
                 </div>
 
@@ -557,8 +805,13 @@ export default function DentalHygienaPage() {
 
             <div className="overflow-hidden rounded-[2rem] border border-[#E2D4C7] bg-[#FBF8F3] shadow-[0_20px_60px_rgba(130,100,85,0.12)]">
               <div className="border-b border-[#E5D8CB] px-6 py-5">
-                <h3 className="font-serif text-3xl text-[#A86F67]">{data.contactSection?.mapTitle ?? "Mapa prevádzky"}</h3>
-                <p className="mt-1 text-[#88766A]">{data.contactSection?.mapDescription ?? "Kliknutím na mapu si viete pozrieť polohu alebo naplánovať trasu."}</p>
+                <h3 className="font-serif text-3xl text-[#A86F67]">
+                  {data.contactSection?.mapTitle ?? "Mapa prevádzky"}
+                </h3>
+                <p className="mt-1 text-[#88766A]">
+                  {data.contactSection?.mapDescription ??
+                    "Kliknutím na mapu si viete pozrieť polohu alebo naplánovať trasu."}
+                </p>
               </div>
 
               <iframe
@@ -566,7 +819,7 @@ export default function DentalHygienaPage() {
                 src={mapSrc}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="h-[420px] w-full border-0"
+                className="h-[320px] w-full border-0 sm:h-[420px]"
                 allowFullScreen
               />
             </div>
@@ -575,12 +828,18 @@ export default function DentalHygienaPage() {
       </main>
 
       <footer className="border-t border-[#E5D8CB] bg-[#6F5A4D] text-[#F5EDE4]">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-8 md:flex-row">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-8 text-center sm:px-6 md:flex-row md:text-left">
           <div>
-            <div className="font-serif text-2xl tracking-[0.14em]">{data.header?.brandTitle ?? "DIENTES"}</div>
-            <div className="text-sm italic text-[#E0CCB7]">{data.header?.brandSubtitle ?? "dentálna hygiena"}</div>
+            <div className="font-serif text-2xl tracking-[0.14em]">
+              {data.header?.brandTitle ?? "DIENTES"}
+            </div>
+            <div className="text-sm italic text-[#E0CCB7]">
+              {data.header?.brandSubtitle ?? "dentálna hygiena"}
+            </div>
           </div>
-          <div className="text-sm text-[#EBDDCE]">© 2026 Dientes • Elegantná dentálna hygiena</div>
+          <div className="text-sm text-[#EBDDCE]">
+            © 2026 Dientes • Elegantná dentálna hygiena
+          </div>
         </div>
       </footer>
     </div>
