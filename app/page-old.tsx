@@ -52,14 +52,6 @@ export default function DentalHygienaPage() {
     return () => window.clearInterval(timer);
   }, [heroImages.length, heroSliderIntervalMs]);
 
-  useEffect(() => {
-    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [mobileMenuOpen]);
-
   const bookingServices: any[] = data.bookingServices ?? [];
 
   const bookingDates = [
@@ -106,7 +98,7 @@ export default function DentalHygienaPage() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#F7F1EA] text-[#5F5148]">
-      <header className="fixed left-0 right-0 top-0 z-50 border-b border-[#E4D7CA]/80 bg-[#FBF8F3]/95 shadow-sm backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-[#E4D7CA]/80 bg-[#FBF8F3]/90 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:py-4">
           <a
             href="#top"
@@ -172,7 +164,7 @@ export default function DentalHygienaPage() {
         </div>
 
         <div
-          className={`fixed inset-0 z-[55] bg-[#3F332C]/35 backdrop-blur-sm transition-opacity lg:hidden ${
+          className={`fixed inset-0 z-40 bg-[#3F332C]/35 backdrop-blur-sm transition-opacity lg:hidden ${
             mobileMenuOpen
               ? "pointer-events-auto opacity-100"
               : "pointer-events-none opacity-0"
@@ -180,7 +172,7 @@ export default function DentalHygienaPage() {
           onClick={() => setMobileMenuOpen(false)}
         />
         <aside
-          className={`fixed right-0 top-0 z-[60] flex h-dvh w-[86%] max-w-sm flex-col border-l border-[#E4D7CA] bg-[#FBF8F3] px-6 py-6 shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
+          className={`fixed right-0 top-0 z-50 flex h-dvh w-[86%] max-w-sm flex-col border-l border-[#E4D7CA] bg-[#FBF8F3] px-6 py-6 shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
             mobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -226,7 +218,7 @@ export default function DentalHygienaPage() {
         </aside>
       </header>
 
-      <main id="top" className="pt-20 sm:pt-24">
+      <main id="top">
         <section className="relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(179,126,116,0.16),_transparent_32%),radial-gradient(circle_at_bottom_right,_rgba(183,154,115,0.18),_transparent_28%)]" />
           <div className="relative mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:py-24">
