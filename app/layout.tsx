@@ -4,8 +4,24 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Dentálna hygiena Košice | Dientes",
+
   description:
     "Profesionálna dentálna hygiena v Košiciach. Airflow, odstránenie zubného kameňa, bielenie zubov a starostlivosť o zdravý úsmev.",
+
+  openGraph: {
+    title: "Dientes – Dentálna hygiena Košice",
+
+    description:
+      "Profesionálna dentálna hygiena v Košiciach.",
+
+    url: "https://dientes.sk",
+
+    siteName: "Dientes",
+
+    locale: "sk_SK",
+
+    type: "website",
+  },
 };
 
 export default function RootLayout({
