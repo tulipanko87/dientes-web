@@ -3,8 +3,9 @@ import "./globals.css";
 
 
 export const metadata: Metadata = {
-  title: "Dientes dentálna hygiena",
-  description: "Profesionálna dentálna hygiena Dientes",
+  title: "Dentálna hygiena Košice | Dientes",
+  description:
+    "Profesionálna dentálna hygiena v Košiciach. Airflow, odstránenie zubného kameňa, bielenie zubov a starostlivosť o zdravý úsmev.",
 };
 
 export default function RootLayout({
