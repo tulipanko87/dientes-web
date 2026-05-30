@@ -130,6 +130,13 @@
       "duration": "30 min",
       "price": "podľa dohody",
       "description": "Krátka konzultácia stavu ďasien, citlivosti alebo odporúčanie vhodného typu hygieny."
+    },
+    {
+      "id": "deti do 10 rokov",
+      "name": "Dentálna hygiena u detí do 10 rokov",
+      "duration": "30 min.",
+      "price": "35",
+      "description": "Šetrná dentálna hygiena zameraná na prevenciu vzniku kazu a budovanie správnych hygienických návykov u detí."
     }
   ],
   "contactSection": {
