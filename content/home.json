@@ -137,6 +137,12 @@
       "duration": "30 min.",
       "price": "35",
       "description": "Šetrná dentálna hygiena zameraná na prevenciu vzniku kazu a budovanie správnych hygienických návykov u detí."
+    },
+    {
+      "name": "Ošetrenie citlivých krčkov",
+      "duration": "",
+      "price": "10 ",
+      "description": "Zmiernenie citlivosti zubných krčkov, ktoré reagujú na studené, teplé alebo sladké podnety."
     }
   ],
   "contactSection": {
