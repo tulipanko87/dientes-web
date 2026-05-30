@@ -149,7 +149,12 @@
       "price": " 180 €",
       "description": "Profesionálne bielenie zubov v ambulancii pre rýchly výsledok"
     },
-    {}
+    {
+      "id": "Kombinované bielenie ",
+      "name": "Kombinované bielenie zubov - Pure Whitening",
+      "price": " 310 €",
+      "description": "Kombinácia ambulantného a domáceho bielenia pre dlhodobý výsledok."
+    }
   ],
   "contactSection": {
     "label": "Kontakt a mapa",
