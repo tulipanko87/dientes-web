@@ -119,10 +119,10 @@
     },
     {
       "id": "pravidelna",
-      "name": "Pravidelná dentál",
+      "name": "Pravidelná dentálna hygiena",
       "duration": "45 min",
-      "price": "od 45 €",
-      "description": "Pravidelné odstránenie povlaku a pigmentov pre klientov po vstupnom ošetrení."
+      "price": "40 €",
+      "description": "Udržiavacie ošetrenie  do 4 mesiacov po vstupnej dentálnej hygiene."
     },
     {
       "id": "konzultacia",
