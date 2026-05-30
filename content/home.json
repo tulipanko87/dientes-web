@@ -142,7 +142,14 @@
       "name": "Domáce bielenie zubov",
       "price": "150 €",
       "description": "Individuálne zhotovené nosiče a postupné bielenie v pohodlí domova."
-    }
+    },
+    {
+      "id": "Ambulantne bielenie",
+      "name": "Ambulantné bielenie zubov",
+      "price": " 180 €",
+      "description": "Profesionálne bielenie zubov v ambulancii pre rýchly výsledok"
+    },
+    {}
   ],
   "contactSection": {
     "label": "Kontakt a mapa",
