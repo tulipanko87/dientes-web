@@ -125,13 +125,6 @@
       "description": "Udržiavacie ošetrenie  do 4 mesiacov po vstupnej dentálnej hygiene."
     },
     {
-      "id": "konzultacia",
-      "name": "Kontrola a konzultácia",
-      "duration": "30 min",
-      "price": "podľa dohody",
-      "description": "Krátka konzultácia stavu ďasien, citlivosti alebo odporúčanie vhodného typu hygieny."
-    },
-    {
       "id": "deti do 10 rokov",
       "name": "Dentálna hygiena u detí do 10 rokov",
       "duration": "30 min.",
@@ -139,7 +132,7 @@
       "description": "Šetrná dentálna hygiena zameraná na prevenciu vzniku kazu a budovanie správnych hygienických návykov u detí."
     },
     {
-      "name": "Ošetrenie citlivých krčkov",
+      "name": "Ošetrenie citlivých krčkov / fluoridácia",
       "duration": "",
       "price": "10 ",
       "description": "Zmiernenie citlivosti zubných krčkov, ktoré reagujú na studené, teplé alebo sladké podnety."
