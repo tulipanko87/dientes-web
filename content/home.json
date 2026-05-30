@@ -112,7 +112,7 @@
   "bookingServices": [
     {
       "id": "vstupna",
-      "name": "Vstupná dentálna hygiena",
+      "name": "Komplexná dentálna hygiena",
       "duration": "60 min",
       "price": "45 ",
       "description": "Komplexné vstupné vyšetrenie a nastavenie individuálneho plánu starostlivosti podľa potrieb pacienta."
