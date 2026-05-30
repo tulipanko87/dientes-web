@@ -136,6 +136,12 @@
       "duration": "",
       "price": "10 ",
       "description": "Zmiernenie citlivosti zubných krčkov, ktoré reagujú na studené, teplé alebo sladké podnety."
+    },
+    {
+      "id": "domace bielenie",
+      "name": "Domáce bielenie zubov",
+      "price": "150 €",
+      "description": "Individuálne zhotovené nosiče a postupné bielenie v pohodlí domova."
     }
   ],
   "contactSection": {
