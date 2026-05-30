@@ -83,11 +83,12 @@
     ]
   },
   "steps": [
-    "Vyšetrenie stavu chrupu a ďasien",
-    "Odstránenie zubného kameňa a povlakov",
-    "Pieskovanie a jemné dočistenie povrchov",
-    "Leštenie zubov pre hladký a príjemný pocit",
-    "Odporúčania pre domácu hygienu a prevenciu"
+    "Vyšetrenie stavu chrupu a ďasien, podľa potreby aj farbenie povlaku pre jeho lepšiu vizualizáciu.",
+    "Inštruktáž správnej domácej techniky čistenia",
+    "Odporúčania pre domácu hygienu a prevenciu",
+    "Airflow čistenie na odstránenie plaku a pigmentácií ",
+    "Odstránenie zubného kameňa ultrazvukom",
+    "Záverečná kontrola pre hladký a príjemný pocit + odporúčania na domácu starostlivosť"
   ],
   "priceSection": {
     "label": "Cenník",
@@ -113,12 +114,12 @@
       "id": "vstupna",
       "name": "Vstupná dentálna hygiena",
       "duration": "60 min",
-      "price": "od 55 €",
-      "description": "Kompletné profesionálne čistenie, vstupná konzultácia a odporúčania na domácu starostlivosť."
+      "price": "45 ",
+      "description": "Komplexné vstupné vyšetrenie a nastavenie individuálneho plánu starostlivosti podľa potrieb pacienta."
     },
     {
       "id": "pravidelna",
-      "name": "Pravidelná dentálna hygiena",
+      "name": "Pravidelná dentál",
       "duration": "45 min",
       "price": "od 45 €",
       "description": "Pravidelné odstránenie povlaku a pigmentov pre klientov po vstupnom ošetrení."
