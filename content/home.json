@@ -115,7 +115,10 @@
         "name": "Domáce bielenie zubov",
         "price": "150 €"
       },
-      {},
+      {
+        "name": "Ambulantné bielenie zubov",
+        "price": "180 €"
+      },
       {}
     ]
   },
