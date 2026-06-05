@@ -119,7 +119,10 @@
         "name": "Ambulantné bielenie zubov",
         "price": "180 €"
       },
-      {}
+      {
+        "name": "Kombinované bielenie - Pure Whitening",
+        "price": "310"
+      }
     ]
   },
   "bookingServices": [
