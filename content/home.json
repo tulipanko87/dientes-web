@@ -106,7 +106,14 @@
       {
         "name": "Dentálna hygiena u detí do 10 rokov",
         "price": "35 €"
-      }
+      },
+      {
+        "name": "Ošetrenie citlivých krčkov/fluoridácia",
+        "price": "10 €"
+      },
+      {},
+      {},
+      {}
     ]
   },
   "bookingServices": [
