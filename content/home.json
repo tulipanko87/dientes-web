@@ -111,7 +111,10 @@
         "name": "Ošetrenie citlivých krčkov/fluoridácia",
         "price": "10 €"
       },
-      {},
+      {
+        "name": "Domáce bielenie zubov",
+        "price": "150 €"
+      },
       {},
       {}
     ]
