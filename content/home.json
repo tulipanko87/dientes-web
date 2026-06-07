@@ -1,7 +1,7 @@
 {
   "businessName": "Dientes dentálna hygiena",
   "businessAddress": "Pribinova 788/8, 040 01 Košice",
-  "logoImage": "/uploads/apple-touch-icon.png",
+  "logoImage": "/uploads/Logo negativ (1).pdf",
   "header": {
     "brandTitle": "DIENTES",
     "brandSubtitle": "dentálna hygiena"
@@ -47,8 +47,8 @@
   },
   "servicesSection": {
     "label": "Služby a benefity",
-    "title": "Profesionálna hygiena v štýle, ktorý ladí s vaším úsmevom",
-    "description": "Dizajn stránky sme zladili podľa loga Dientes – jemné púdrové tóny, elegantná typografia a čisté rozloženie vytvárajú prémiový, no stále príjemný dojem."
+    "title": "Individuálny prístup, šetrné ošetrenie a dôraz na zdravie Vaších úst",
+    "description": "Dentálna hygiena nie je len čistenie zubov.\n\nJe to základ prevencie, zdravých ďasien a dlhodobo stabilného úsmevu. Každé ošetrenie prispôsobujeme individuálne tak, aby bolo šetrné, efektívne a čo najkomfortnejšie."
   },
   "benefits": [
     {
