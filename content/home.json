@@ -11,6 +11,7 @@
     "title": "Dientes",
     "subtitle": "dentálna hygiena",
     "description": "Profesionálna dentálna hygiena pre čisté zuby, zdravé ďasná a prirodzene sebavedomý úsmev.",
+    "image": "/uploads/1779912099264-78b20003-8a28-4360-9240-3125307e4643_2.jpg",
     "imageAlt": "Dientes dentálna hygiena",
     "sliderIntervalSeconds": 5,
     "images": [
@@ -29,7 +30,7 @@
     "stats": [
       {
         "title": "30–60 min",
-        "subtitle": "trvanie ošetrenia"
+        "subtitle": "čas venovaný len Vám"
       },
       {
         "title": "Jemný prístup",
