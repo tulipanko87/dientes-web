@@ -1,7 +1,7 @@
 {
   "businessName": "Dientes dentálna hygiena",
   "businessAddress": "Pribinova 788/8, 040 01 Košice",
-  "logoImage": "/uploads/logo.png",
+  "logoImage": "/uploads/1779912099264-78b20003-8a28-4360-9240-3125307e4643_2.jpg",
   "header": {
     "brandTitle": "DIENTES",
     "brandSubtitle": "dentálna hygiena"
@@ -47,9 +47,9 @@
     ]
   },
   "servicesSection": {
-    "label": "Služby a benefity",
+    "label": "Všetko pre krásny a zdravý úsmev",
     "title": "Individuálny prístup, šetrné ošetrenie a dôraz na zdravie Vašich úst",
-    "description": "Dentálna hygiena nie je len čistenie zubov.\n\nJe to základ prevencie, zdravých ďasien a dlhodobo stabilného úsmevu. Každé ošetrenie prispôsobujeme individuálne tak, aby bolo šetrné, efektívne a čo najkomfortnejšie."
+    "description": "V našej ambulancii dentálnej hygieny Dientes máme ku každému pacientovi individuálny prístup a snažíme sa zabezpečiť čo najpríjemnejší priebeh ošetrenia. O to sa s radosťou postará dentálna hygienička Bc. Gabriela Šenkovičová.\n"
   },
   "benefits": [
     {
