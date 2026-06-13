@@ -24,7 +24,7 @@
         "alt": "Dientes dentálna hygiena"
       },
       {
-        "image": "/uploads/apple-touch-icon.png"
+        "image": ""
       }
     ],
     "stats": [
@@ -89,8 +89,7 @@
     "Odporúčania pre domácu hygienu a prevenciu",
     "Airflow čistenie na odstránenie plaku a pigmentácií ",
     "Odstránenie zubného kameňa ultrazvukom",
-    "Záverečná kontrola pre hladký a príjemný pocit + odporúčania na domácu starostlivosť",
-    ""
+    "Záverečná kontrola pre hladký a príjemný pocit + odporúčania na domácu starostlivosť"
   ],
   "priceSection": {
     "label": "Cenník",
@@ -177,7 +176,7 @@
   "contactSection": {
     "label": "Kontakt a mapa",
     "title": "Kde nás nájdete",
-    "description": "Prevádzku Dientes nájdete jednoducho podľa mapy.\nTel. č.: 0948 718 046",
+    "description": "Prevádzku Dientes nájdete jednoducho podľa mapy.\n\nTel. č.: 0948 718 046",
     "mapTitle": "Mapa prevádzky",
     "mapDescription": "Kliknutím na mapu si viete pozrieť polohu alebo naplánovať trasu."
   }
