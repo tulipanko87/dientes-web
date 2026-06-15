@@ -179,5 +179,17 @@
     "description": "Prevádzku Dientes nájdete jednoducho podľa mapy. \nObjednajte sa na tel. č.: 0948 718 046",
     "mapTitle": "Mapa prevádzky",
     "mapDescription": "Kliknutím na mapu si viete pozrieť polohu alebo naplánovať trasu."
+  },
+  "bookingSettings": {
+    "daysAhead": 90,
+    "slotMinutes": 45,
+    "startTime": "08:00",
+    "endTime": "16:00",
+    "allowedWeekdays": [
+      2,
+      4
+    ],
+    "extraOpenDates": [],
+    "closedDates": []
   }
 }

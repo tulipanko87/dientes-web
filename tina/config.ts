@@ -116,6 +116,38 @@ export default defineConfig({
             ]
           },
           {
+            type: "object",
+            name: "bookingSettings",
+            label: "Nastavenia rezervácií",
+            fields: [
+              { type: "number", name: "daysAhead", label: "Koľko dní dopredu povoliť rezervácie" },
+              { type: "number", name: "slotMinutes", label: "Dĺžka jedného termínu v minútach" },
+              { type: "string", name: "startTime", label: "Začiatok objednávania, napr. 08:00" },
+              { type: "string", name: "endTime", label: "Koniec objednávania, napr. 16:00" },
+              {
+                type: "number",
+                name: "allowedWeekdays",
+                label: "Povolené dni v týždni",
+                list: true,
+                description: "0 = nedeľa, 1 = pondelok, 2 = utorok, 3 = streda, 4 = štvrtok, 5 = piatok, 6 = sobota"
+              },
+              {
+                type: "string",
+                name: "extraOpenDates",
+                label: "Výnimočne otvorené dátumy",
+                list: true,
+                description: "Formát dátumu: RRRR-MM-DD, napr. 2026-07-11"
+              },
+              {
+                type: "string",
+                name: "closedDates",
+                label: "Zatvorené dátumy / dovolenka",
+                list: true,
+                description: "Formát dátumu: RRRR-MM-DD, napr. 2026-08-04"
+              }
+            ]
+          },
+          {
             type: "object", name: "contactSection", label: "Kontakt a mapa", fields: [
               { type: "string", name: "label", label: "Malý nadpis" },
               { type: "string", name: "title", label: "Nadpis" },

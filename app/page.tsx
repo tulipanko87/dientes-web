@@ -3,6 +3,121 @@
 import { useEffect, useMemo, useState } from "react";
 import homeContent from "../content/home.json";
 
+
+type BusySlot = { start?: string; end?: string };
+
+type BookingSettings = {
+  daysAhead: number;
+  slotMinutes: number;
+  startTime: string;
+  endTime: string;
+  allowedWeekdays: number[];
+  extraOpenDates: string[];
+  closedDates: string[];
+};
+
+const DEFAULT_BOOKING_SETTINGS: BookingSettings = {
+  daysAhead: 90,
+  slotMinutes: 45,
+  startTime: "08:00",
+  endTime: "16:00",
+  allowedWeekdays: [2, 4],
+  extraOpenDates: [],
+  closedDates: [],
+};
+
+const DAY_LABELS = ["Ne", "Po", "Ut", "St", "Št", "Pi", "So"];
+
+function toDateInputValue(date: Date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function addDays(date: Date, days: number) {
+  const next = new Date(date);
+  next.setDate(next.getDate() + days);
+  return next;
+}
+
+function parseTimeToMinutes(time: string) {
+  const [hours = "0", minutes = "0"] = time.split(":");
+  return Number(hours) * 60 + Number(minutes);
+}
+
+function minutesToTime(totalMinutes: number) {
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+}
+
+function formatDateLong(value: string) {
+  if (!value) return "Nevybraný dátum";
+  const date = new Date(`${value}T12:00:00`);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString("sk-SK", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+function isDateAllowed(value: string, settings: BookingSettings) {
+  if (!value) return false;
+  if (settings.closedDates.includes(value)) return false;
+  if (settings.extraOpenDates.includes(value)) return true;
+
+  const date = new Date(`${value}T12:00:00`);
+  if (Number.isNaN(date.getTime())) return false;
+  return settings.allowedWeekdays.includes(date.getDay());
+}
+
+function findFirstAllowedDate(settings: BookingSettings) {
+  const today = new Date();
+  for (let i = 0; i <= settings.daysAhead; i += 1) {
+    const value = toDateInputValue(addDays(today, i));
+    if (isDateAllowed(value, settings)) return value;
+  }
+  return toDateInputValue(today);
+}
+
+function generateBookingTimes(settings: BookingSettings) {
+  const start = parseTimeToMinutes(settings.startTime);
+  const end = parseTimeToMinutes(settings.endTime);
+  const times: string[] = [];
+
+  for (let current = start; current + settings.slotMinutes <= end; current += settings.slotMinutes) {
+    times.push(minutesToTime(current));
+  }
+
+  return times;
+}
+
+function getServiceDurationMinutes(service: any, fallback: number) {
+  const match = String(service?.duration ?? "").match(/\d+/);
+  return match ? Number(match[0]) : fallback;
+}
+
+function getServiceId(service: any, index: number) {
+  return String(service?.id || service?.name || `sluzba-${index}`);
+}
+
+function isSlotBusy(date: string, time: string, durationMinutes: number, busySlots: BusySlot[]) {
+  if (!date || !time) return false;
+
+  const start = new Date(`${date}T${time}:00`);
+  const end = new Date(start.getTime() + durationMinutes * 60 * 1000);
+
+  return busySlots.some((slot) => {
+    if (!slot.start || !slot.end) return false;
+    const busyStart = new Date(slot.start);
+    const busyEnd = new Date(slot.end);
+    return start < busyEnd && end > busyStart;
+  });
+}
+
 export default function DentalHygienaPage() {
   const data = homeContent as any;
   const benefits: any[] = data.benefits ?? [];
@@ -62,46 +177,177 @@ export default function DentalHygienaPage() {
 
   const bookingServices: any[] = data.bookingServices ?? [];
 
-  const bookingDates = [
-    { day: "Po", date: "27", month: "máj" },
-    { day: "Ut", date: "28", month: "máj" },
-    { day: "St", date: "29", month: "máj" },
-    { day: "Št", date: "30", month: "máj" },
-    { day: "Pi", date: "31", month: "máj" },
-  ];
+  const bookingSettings: BookingSettings = useMemo(
+    () => ({
+      ...DEFAULT_BOOKING_SETTINGS,
+      ...(data.bookingSettings ?? {}),
+      allowedWeekdays:
+        data.bookingSettings?.allowedWeekdays?.length
+          ? data.bookingSettings.allowedWeekdays
+          : DEFAULT_BOOKING_SETTINGS.allowedWeekdays,
+      extraOpenDates: data.bookingSettings?.extraOpenDates ?? [],
+      closedDates: data.bookingSettings?.closedDates ?? [],
+    }),
+    [data.bookingSettings],
+  );
 
-  const bookingTimes = [
-    "08:30",
-    "09:15",
-    "10:00",
-    "11:30",
-    "13:00",
-    "14:45",
-    "16:00",
-  ];
+  const bookingTimes = useMemo(
+    () => generateBookingTimes(bookingSettings),
+    [bookingSettings],
+  );
 
-  const [selectedService, setSelectedService] = useState("vstupna");
-  const [selectedDate, setSelectedDate] = useState("27");
-  const [selectedTime, setSelectedTime] = useState("09:15");
+  const todayValue = toDateInputValue(new Date());
+  const maxDateValue = toDateInputValue(addDays(new Date(), bookingSettings.daysAhead));
+
+  const [selectedService, setSelectedService] = useState(() => getServiceId(bookingServices[0], 0));
+  const [selectedDate, setSelectedDate] = useState(() => findFirstAllowedDate(bookingSettings));
+  const [selectedTime, setSelectedTime] = useState(bookingTimes[0] ?? "");
   const [gdprAccepted, setGdprAccepted] = useState(false);
   const [sent, setSent] = useState(false);
+  const [busySlots, setBusySlots] = useState<BusySlot[]>([]);
+  const [availabilityLoading, setAvailabilityLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [reservationError, setReservationError] = useState("");
+  const [reservationSuccess, setReservationSuccess] = useState("");
 
   const activeService = useMemo(
     () =>
-      bookingServices.find((service: any) => service.id === selectedService) ??
+      bookingServices.find((service: any, index: number) => getServiceId(service, index) === selectedService) ??
       bookingServices[0],
-    [selectedService],
+    [bookingServices, selectedService],
   );
 
-  const handleBookingSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const activeServiceDurationMinutes = getServiceDurationMinutes(
+    activeService,
+    bookingSettings.slotMinutes,
+  );
 
-    if (!gdprAccepted) {
-      alert("Prosím, potvrďte súhlas so spracovaním osobných údajov.");
+  const selectedDateAllowed = isDateAllowed(selectedDate, bookingSettings);
+
+  const availableBookingTimes = useMemo(
+    () =>
+      selectedDateAllowed
+        ? bookingTimes.filter(
+            (time) => !isSlotBusy(selectedDate, time, activeServiceDurationMinutes, busySlots),
+          )
+        : [],
+    [activeServiceDurationMinutes, bookingTimes, busySlots, selectedDate, selectedDateAllowed],
+  );
+
+  useEffect(() => {
+    if (!isDateAllowed(selectedDate, bookingSettings)) {
+      setSelectedDate(findFirstAllowedDate(bookingSettings));
+    }
+  }, [bookingSettings, selectedDate]);
+
+  useEffect(() => {
+    const loadAvailability = async () => {
+      setAvailabilityLoading(true);
+      try {
+        const response = await fetch(`/api/availability?daysAhead=${bookingSettings.daysAhead}`);
+        const result = await response.json();
+        setBusySlots(result.busy ?? []);
+      } catch (error) {
+        console.error("Availability load error:", error);
+      } finally {
+        setAvailabilityLoading(false);
+      }
+    };
+
+    loadAvailability();
+  }, [bookingSettings.daysAhead, sent]);
+
+  useEffect(() => {
+    if (!availableBookingTimes.length) {
+      setSelectedTime("");
       return;
     }
 
-    setSent(true);
+    if (!availableBookingTimes.includes(selectedTime)) {
+      setSelectedTime(availableBookingTimes[0]);
+    }
+  }, [availableBookingTimes, selectedTime]);
+
+  const handleBookingSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    setReservationError("");
+    setReservationSuccess("");
+
+    if (!gdprAccepted) {
+      setReservationError("Prosím, potvrďte súhlas so spracovaním osobných údajov.");
+      return;
+    }
+
+    if (!selectedDateAllowed) {
+      setReservationError("Vybraný dátum nie je dostupný na rezerváciu.");
+      return;
+    }
+
+    if (!selectedTime) {
+      setReservationError("Vyberte dostupný čas rezervácie.");
+      return;
+    }
+
+    if (isSlotBusy(selectedDate, selectedTime, activeServiceDurationMinutes, busySlots)) {
+      setReservationError("Tento termín je už obsadený. Vyberte iný čas.");
+      return;
+    }
+
+    const formData = new FormData(event.currentTarget);
+    const name = String(formData.get("name") ?? "").trim();
+    const phone = String(formData.get("phone") ?? "").trim();
+    const email = String(formData.get("email") ?? "").trim();
+    const note = String(formData.get("note") ?? "").trim();
+
+    if (!name || !phone || !email) {
+      setReservationError("Vyplňte meno, telefón a e-mail.");
+      return;
+    }
+
+    setSubmitting(true);
+
+    try {
+      const response = await fetch("/api/reservation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          service: activeService?.name ?? "Dentálna hygiena",
+          name,
+          email,
+          phone,
+          date: selectedDate,
+          time: selectedTime,
+          durationMinutes: activeServiceDurationMinutes,
+          note,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Rezerváciu sa nepodarilo vytvoriť.");
+      }
+
+      setSent(true);
+      setReservationSuccess("Ďakujeme, rezervácia bola úspešne vytvorená a termín je zapísaný v kalendári.");
+      setBusySlots((current) => [
+        ...current,
+        {
+          start: new Date(`${selectedDate}T${selectedTime}:00`).toISOString(),
+          end: new Date(
+            new Date(`${selectedDate}T${selectedTime}:00`).getTime() +
+              activeServiceDurationMinutes * 60 * 1000,
+          ).toISOString(),
+        },
+      ]);
+      form.reset();
+      setGdprAccepted(false);
+    } catch (error) {
+      setReservationError(error instanceof Error ? error.message : "Rezerváciu sa nepodarilo vytvoriť.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -513,14 +759,15 @@ export default function DentalHygienaPage() {
                   </div>
 
                   <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    {bookingServices.map((service: any) => {
-                      const isSelected = selectedService === service.id;
+                    {bookingServices.map((service: any, index: number) => {
+                      const serviceId = getServiceId(service, index);
+                      const isSelected = selectedService === serviceId;
 
                       return (
                         <button
-                          key={service.id}
+                          key={serviceId}
                           type="button"
-                          onClick={() => setSelectedService(service.id)}
+                          onClick={() => setSelectedService(serviceId)}
                           className={`rounded-[1.35rem] border p-4 text-left transition ${
                             isSelected
                               ? "border-[#B37E74] bg-[#F1E2DA] shadow-sm"
@@ -562,47 +809,66 @@ export default function DentalHygienaPage() {
                         Vyberte termín
                       </h3>
                       <p className="text-sm text-[#8E7C70]">
-                        Ukážkové dostupné časy pripravené na napojenie databázy.
+                        Vyberte si dostupný termín podľa aktuálnej obsadenosti kalendára.
                       </p>
                     </div>
                   </div>
 
-                  <div className="mb-5 flex gap-3 overflow-x-auto pb-2">
-                    {bookingDates.map((item) => {
-                      const isSelected = selectedDate === item.date;
-
-                      return (
-                        <button
-                          key={item.date}
-                          type="button"
-                          onClick={() => setSelectedDate(item.date)}
-                          className={`min-w-24 rounded-2xl border p-4 text-center transition ${
-                            isSelected
-                              ? "border-[#B37E74] bg-[#B37E74] text-white"
-                              : "border-[#E7DBCF] bg-white/70 text-[#6B5B52] hover:bg-[#F1E2DA]"
-                          }`}
-                        >
-                          <p className="text-sm opacity-80">{item.day}</p>
-                          <p className="font-serif text-3xl">{item.date}</p>
-                          <p className="text-sm opacity-80">{item.month}</p>
-                        </button>
-                      );
-                    })}
+                  <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
+                    <label className="block">
+                      <span className="mb-2 block text-sm font-semibold text-[#6E5F56]">
+                        Vyberte dátum
+                      </span>
+                      <input
+                        type="date"
+                        min={todayValue}
+                        max={maxDateValue}
+                        value={selectedDate}
+                        onChange={(event) => {
+                          setSelectedDate(event.target.value);
+                          setReservationError("");
+                          setReservationSuccess("");
+                          setSent(false);
+                        }}
+                        className="w-full rounded-2xl border border-[#E0D2C5] bg-white px-4 py-3 text-[#4E4139] outline-none transition focus:border-[#B37E74] focus:ring-4 focus:ring-[#B37E74]/10"
+                      />
+                    </label>
+                    <div className="rounded-2xl border border-[#E7DBCF] bg-white/70 px-4 py-3 text-sm text-[#6E5F56]">
+                      <strong className="block text-[#4E4139]">{formatDateLong(selectedDate)}</strong>
+                      <span>{selectedDate ? DAY_LABELS[new Date(`${selectedDate}T12:00:00`).getDay()] : ""}</span>
+                    </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-7">
+                  {!selectedDateAllowed ? (
+                    <div className="mt-4 rounded-2xl border border-[#E8C9B7] bg-[#FFF4EE] p-4 text-sm text-[#8A4D38]">
+                      Tento dátum momentálne nie je otvorený na rezervácie. Vyberte povolený deň alebo ho pridajte v administrácii do výnimočných otvorených dátumov.
+                    </div>
+                  ) : null}
+
+                  {availabilityLoading ? (
+                    <div className="mt-4 rounded-2xl border border-[#E7DBCF] bg-white/70 p-4 text-sm text-[#6E5F56]">
+                      Načítavam dostupné termíny z Google Kalendára...
+                    </div>
+                  ) : null}
+
+                  <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-5">
                     {bookingTimes.map((time) => {
                       const isSelected = selectedTime === time;
+                      const isBusy = isSlotBusy(selectedDate, time, activeServiceDurationMinutes, busySlots);
+                      const isDisabled = !selectedDateAllowed || isBusy;
 
                       return (
                         <button
                           key={time}
                           type="button"
+                          disabled={isDisabled}
                           onClick={() => setSelectedTime(time)}
                           className={`rounded-2xl border py-3 font-semibold transition ${
-                            isSelected
+                            isSelected && !isDisabled
                               ? "border-[#B37E74] bg-[#B37E74] text-white"
-                              : "border-[#E7DBCF] bg-white/70 text-[#6B5B52] hover:bg-[#F1E2DA]"
+                              : isDisabled
+                                ? "cursor-not-allowed border-[#E7DBCF] bg-[#EFE8E0] text-[#A9968A] line-through"
+                                : "border-[#E7DBCF] bg-white/70 text-[#6B5B52] hover:bg-[#F1E2DA]"
                           }`}
                         >
                           {time}
@@ -610,6 +876,12 @@ export default function DentalHygienaPage() {
                       );
                     })}
                   </div>
+
+                  {selectedDateAllowed && !availableBookingTimes.length && !availabilityLoading ? (
+                    <div className="mt-4 rounded-2xl border border-[#E8C9B7] bg-[#FFF4EE] p-4 text-sm text-[#8A4D38]">
+                      Na tento deň už nie sú dostupné voľné časy.
+                    </div>
+                  ) : null}
                 </div>
 
                 <div>
@@ -634,6 +906,7 @@ export default function DentalHygienaPage() {
                       </span>
                       <input
                         required
+                        name="name"
                         className="w-full rounded-2xl border border-[#E0D2C5] bg-white px-4 py-3 text-[#4E4139] outline-none transition focus:border-[#B37E74] focus:ring-4 focus:ring-[#B37E74]/10"
                         placeholder="Jana Nováková"
                       />
@@ -644,6 +917,7 @@ export default function DentalHygienaPage() {
                       </span>
                       <input
                         required
+                        name="phone"
                         className="w-full rounded-2xl border border-[#E0D2C5] bg-white px-4 py-3 text-[#4E4139] outline-none transition focus:border-[#B37E74] focus:ring-4 focus:ring-[#B37E74]/10"
                         placeholder="+421 900 123 456"
                       />
@@ -654,6 +928,7 @@ export default function DentalHygienaPage() {
                       </span>
                       <input
                         required
+                        name="email"
                         type="email"
                         className="w-full rounded-2xl border border-[#E0D2C5] bg-white px-4 py-3 text-[#4E4139] outline-none transition focus:border-[#B37E74] focus:ring-4 focus:ring-[#B37E74]/10"
                         placeholder="jana@email.sk"
@@ -664,6 +939,7 @@ export default function DentalHygienaPage() {
                         Poznámka
                       </span>
                       <textarea
+                        name="note"
                         className="min-h-24 w-full rounded-2xl border border-[#E0D2C5] bg-white px-4 py-3 text-[#4E4139] outline-none transition focus:border-[#B37E74] focus:ring-4 focus:ring-[#B37E74]/10"
                         placeholder="Napr. citlivé ďasná, strojček, tehotenstvo..."
                       />
@@ -691,7 +967,7 @@ export default function DentalHygienaPage() {
                     <div className="flex justify-between">
                       <span>Termín</span>
                       <strong className="text-[#4E4139]">
-                        {selectedDate}. máj o {selectedTime}
+                        {formatDateLong(selectedDate)} o {selectedTime || "—"}
                       </strong>
                     </div>
                     <div className="flex justify-between">
@@ -718,16 +994,21 @@ export default function DentalHygienaPage() {
 
                 <button
                   type="submit"
-                  className="w-full rounded-full bg-[#B37E74] px-7 py-4 text-center font-semibold text-white shadow-lg shadow-[#B37E74]/20 transition hover:-translate-y-0.5 hover:bg-[#9F6F66]"
+                  disabled={submitting || !selectedDateAllowed || !selectedTime}
+                  className="w-full rounded-full bg-[#B37E74] px-7 py-4 text-center font-semibold text-white shadow-lg shadow-[#B37E74]/20 transition hover:-translate-y-0.5 hover:bg-[#9F6F66] disabled:cursor-not-allowed disabled:bg-[#C8B7AE] disabled:shadow-none"
                 >
-                  Potvrdiť rezerváciu
+                  {submitting ? "Odosielam rezerváciu..." : "Potvrdiť rezerváciu"}
                 </button>
 
-                {sent ? (
+                {reservationError ? (
+                  <div className="rounded-2xl border border-[#E8C9B7] bg-[#FFF4EE] p-4 text-sm font-medium text-[#8A4D38]">
+                    {reservationError}
+                  </div>
+                ) : null}
+
+                {sent || reservationSuccess ? (
                   <div className="rounded-2xl border border-[#C9D9BE] bg-[#F0F6EA] p-4 text-sm font-medium text-[#526C45]">
-                    Ďakujeme, vaša rezervácia bola pripravená na odoslanie.
-                    Ďalší krok je napojiť formulár na databázu alebo e-mail, aby
-                    sa rezervácie reálne ukladali.
+                    {reservationSuccess || "Ďakujeme, vaša rezervácia bola úspešne vytvorená."}
                   </div>
                 ) : null}
               </div>
