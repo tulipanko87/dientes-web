@@ -115,6 +115,7 @@ export default defineConfig({
               { type: "string", name: "description", label: "Popis", ui: { component: "textarea" } }
             ]
           },
+
           {
             type: "object",
             name: "bookingSettings",
@@ -122,30 +123,52 @@ export default defineConfig({
             fields: [
               { type: "number", name: "daysAhead", label: "Koľko dní dopredu povoliť rezervácie" },
               { type: "number", name: "slotMinutes", label: "Dĺžka jedného termínu v minútach" },
-              { type: "string", name: "startTime", label: "Začiatok objednávania, napr. 08:00" },
-              { type: "string", name: "endTime", label: "Koniec objednávania, napr. 16:00" },
               {
-                type: "number",
-                name: "allowedWeekdays",
-                label: "Povolené dni v týždni",
+                type: "object",
+                name: "weeklySchedule",
+                label: "Týždenný rozvrh objednávania",
                 list: true,
-                description: "0 = nedeľa, 1 = pondelok, 2 = utorok, 3 = streda, 4 = štvrtok, 5 = piatok, 6 = sobota"
+                ui: {
+                  itemProps: (item: { day?: number; enabled?: boolean; startTime?: string; endTime?: string }) => {
+                    const days: Record<number, string> = {
+                      0: "Nedeľa",
+                      1: "Pondelok",
+                      2: "Utorok",
+                      3: "Streda",
+                      4: "Štvrtok",
+                      5: "Piatok",
+                      6: "Sobota",
+                    };
+                    const label = days[Number(item?.day)] || "Deň";
+                    const status = item?.enabled ? `${item?.startTime || "?"}–${item?.endTime || "?"}` : "zatvorené";
+                    return { label: `${label} (${status})` };
+                  },
+                },
+                fields: [
+                  {
+                    type: "number",
+                    name: "day",
+                    label: "Deň v týždni (0=Nedeľa, 1=Pondelok, 2=Utorok, 3=Streda, 4=Štvrtok, 5=Piatok, 6=Sobota)",
+                  },
+                  { type: "boolean", name: "enabled", label: "Tento deň prijímať rezervácie" },
+                  { type: "string", name: "startTime", label: "Začiatok objednávania (napr. 08:00)" },
+                  { type: "string", name: "endTime", label: "Koniec objednávania (napr. 16:00)" },
+                ],
               },
               {
-                type: "string",
+                type: "object",
                 name: "extraOpenDates",
                 label: "Výnimočne otvorené dátumy",
                 list: true,
-                description: "Formát dátumu: RRRR-MM-DD, napr. 2026-07-11"
+                ui: { itemProps: (item: { date?: string; startTime?: string; endTime?: string }) => ({ label: `${item?.date || "Dátum"} ${item?.startTime || ""}–${item?.endTime || ""}` }) },
+                fields: [
+                  { type: "string", name: "date", label: "Dátum vo formáte RRRR-MM-DD" },
+                  { type: "string", name: "startTime", label: "Od" },
+                  { type: "string", name: "endTime", label: "Do" },
+                ],
               },
-              {
-                type: "string",
-                name: "closedDates",
-                label: "Zatvorené dátumy / dovolenka",
-                list: true,
-                description: "Formát dátumu: RRRR-MM-DD, napr. 2026-08-04"
-              }
-            ]
+              { type: "string", name: "closedDates", label: "Zatvorené dátumy / dovolenka (RRRR-MM-DD)", list: true },
+            ],
           },
           {
             type: "object", name: "contactSection", label: "Kontakt a mapa", fields: [

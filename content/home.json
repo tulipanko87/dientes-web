@@ -183,11 +183,49 @@
   "bookingSettings": {
     "daysAhead": 90,
     "slotMinutes": 45,
-    "startTime": "08:00",
-    "endTime": "16:00",
-    "allowedWeekdays": [
-      2,
-      4
+    "weeklySchedule": [
+      {
+        "day": 1,
+        "enabled": false,
+        "startTime": "",
+        "endTime": ""
+      },
+      {
+        "day": 2,
+        "enabled": true,
+        "startTime": "08:00",
+        "endTime": "16:00"
+      },
+      {
+        "day": 3,
+        "enabled": true,
+        "startTime": "16:00",
+        "endTime": "18:00"
+      },
+      {
+        "day": 4,
+        "enabled": true,
+        "startTime": "15:00",
+        "endTime": "18:00"
+      },
+      {
+        "day": 5,
+        "enabled": true,
+        "startTime": "08:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": 6,
+        "enabled": false,
+        "startTime": "",
+        "endTime": ""
+      },
+      {
+        "day": 0,
+        "enabled": false,
+        "startTime": "",
+        "endTime": ""
+      }
     ],
     "extraOpenDates": [],
     "closedDates": []

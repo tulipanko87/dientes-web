@@ -6,15 +6,41 @@ import homeContent from "../content/home.json";
 
 type BusySlot = { start?: string; end?: string };
 
+type WeeklyScheduleDay = {
+  day: number;
+  enabled: boolean;
+  startTime?: string;
+  endTime?: string;
+};
+
+type ExtraOpenDate =
+  | string
+  | {
+      date?: string;
+      startTime?: string;
+      endTime?: string;
+    };
+
 type BookingSettings = {
   daysAhead: number;
   slotMinutes: number;
-  startTime: string;
-  endTime: string;
-  allowedWeekdays: number[];
-  extraOpenDates: string[];
+  startTime?: string;
+  endTime?: string;
+  allowedWeekdays?: number[];
+  weeklySchedule: WeeklyScheduleDay[];
+  extraOpenDates: ExtraOpenDate[];
   closedDates: string[];
 };
+
+const DEFAULT_WEEKLY_SCHEDULE: WeeklyScheduleDay[] = [
+  { day: 1, enabled: false, startTime: "", endTime: "" },
+  { day: 2, enabled: true, startTime: "08:00", endTime: "16:00" },
+  { day: 3, enabled: true, startTime: "16:00", endTime: "18:00" },
+  { day: 4, enabled: true, startTime: "15:00", endTime: "18:00" },
+  { day: 5, enabled: true, startTime: "08:00", endTime: "14:00" },
+  { day: 6, enabled: false, startTime: "", endTime: "" },
+  { day: 0, enabled: false, startTime: "", endTime: "" },
+];
 
 const DEFAULT_BOOKING_SETTINGS: BookingSettings = {
   daysAhead: 90,
@@ -22,11 +48,10 @@ const DEFAULT_BOOKING_SETTINGS: BookingSettings = {
   startTime: "08:00",
   endTime: "16:00",
   allowedWeekdays: [2, 4],
+  weeklySchedule: DEFAULT_WEEKLY_SCHEDULE,
   extraOpenDates: [],
   closedDates: [],
 };
-
-const DAY_LABELS = ["Ne", "Po", "Ut", "St", "Št", "Pi", "So"];
 
 function toDateInputValue(date: Date) {
   const year = date.getFullYear();
@@ -64,14 +89,58 @@ function formatDateLong(value: string) {
   });
 }
 
-function isDateAllowed(value: string, settings: BookingSettings) {
-  if (!value) return false;
-  if (settings.closedDates.includes(value)) return false;
-  if (settings.extraOpenDates.includes(value)) return true;
+function getExtraOpenDateSettings(value: string, settings: BookingSettings) {
+  return settings.extraOpenDates.find((item) => {
+    if (typeof item === "string") return item === value;
+    return item?.date === value;
+  });
+}
+
+function getScheduleForDate(value: string, settings: BookingSettings) {
+  if (!value) return null;
+  if (settings.closedDates.includes(value)) return null;
 
   const date = new Date(`${value}T12:00:00`);
-  if (Number.isNaN(date.getTime())) return false;
-  return settings.allowedWeekdays.includes(date.getDay());
+  if (Number.isNaN(date.getTime())) return null;
+
+  const extraOpenDate = getExtraOpenDateSettings(value, settings);
+  if (extraOpenDate) {
+    if (typeof extraOpenDate === "string") {
+      return {
+        startTime: settings.startTime || "08:00",
+        endTime: settings.endTime || "16:00",
+      };
+    }
+
+    return {
+      startTime: extraOpenDate.startTime || settings.startTime || "08:00",
+      endTime: extraOpenDate.endTime || settings.endTime || "16:00",
+    };
+  }
+
+  const weekday = date.getDay();
+  const schedule = settings.weeklySchedule.find((item) => Number(item.day) === weekday);
+
+  if (schedule) {
+    if (!schedule.enabled || !schedule.startTime || !schedule.endTime) return null;
+    return {
+      startTime: schedule.startTime,
+      endTime: schedule.endTime,
+    };
+  }
+
+  if (settings.allowedWeekdays?.includes(weekday)) {
+    return {
+      startTime: settings.startTime || "08:00",
+      endTime: settings.endTime || "16:00",
+    };
+  }
+
+  return null;
+}
+
+function isDateAllowed(value: string, settings: BookingSettings) {
+  return Boolean(getScheduleForDate(value, settings));
 }
 
 function findFirstAllowedDate(settings: BookingSettings) {
@@ -83,9 +152,12 @@ function findFirstAllowedDate(settings: BookingSettings) {
   return toDateInputValue(today);
 }
 
-function generateBookingTimes(settings: BookingSettings) {
-  const start = parseTimeToMinutes(settings.startTime);
-  const end = parseTimeToMinutes(settings.endTime);
+function generateBookingTimesForDate(dateValue: string, settings: BookingSettings) {
+  const daySchedule = getScheduleForDate(dateValue, settings);
+  if (!daySchedule) return [];
+
+  const start = parseTimeToMinutes(daySchedule.startTime);
+  const end = parseTimeToMinutes(daySchedule.endTime);
   const times: string[] = [];
 
   for (let current = start; current + settings.slotMinutes <= end; current += settings.slotMinutes) {
@@ -117,7 +189,15 @@ function isSlotBusy(date: string, time: string, durationMinutes: number, busySlo
     return start < busyEnd && end > busyStart;
   });
 }
-
+const DAY_LABELS: Record<number, string> = {
+  0: "Nedeľa",
+  1: "Pondelok",
+  2: "Utorok",
+  3: "Streda",
+  4: "Štvrtok",
+  5: "Piatok",
+  6: "Sobota",
+};
 export default function DentalHygienaPage() {
   const data = homeContent as any;
   const benefits: any[] = data.benefits ?? [];
@@ -177,31 +257,29 @@ export default function DentalHygienaPage() {
 
   const bookingServices: any[] = data.bookingServices ?? [];
 
-  const bookingSettings: BookingSettings = useMemo(
-    () => ({
-      ...DEFAULT_BOOKING_SETTINGS,
-      ...(data.bookingSettings ?? {}),
-      allowedWeekdays:
-        data.bookingSettings?.allowedWeekdays?.length
-          ? data.bookingSettings.allowedWeekdays
-          : DEFAULT_BOOKING_SETTINGS.allowedWeekdays,
-      extraOpenDates: data.bookingSettings?.extraOpenDates ?? [],
-      closedDates: data.bookingSettings?.closedDates ?? [],
-    }),
-    [data.bookingSettings],
-  );
+  const bookingSettings: BookingSettings = useMemo(() => {
+    const source = data.bookingSettings ?? {};
+    const hasWeeklySchedule = Array.isArray(source.weeklySchedule) && source.weeklySchedule.length > 0;
 
-  const bookingTimes = useMemo(
-    () => generateBookingTimes(bookingSettings),
-    [bookingSettings],
-  );
+    return {
+      ...DEFAULT_BOOKING_SETTINGS,
+      ...source,
+      weeklySchedule: hasWeeklySchedule ? source.weeklySchedule : DEFAULT_BOOKING_SETTINGS.weeklySchedule,
+      allowedWeekdays:
+        source.allowedWeekdays?.length
+          ? source.allowedWeekdays
+          : DEFAULT_BOOKING_SETTINGS.allowedWeekdays,
+      extraOpenDates: source.extraOpenDates ?? [],
+      closedDates: source.closedDates ?? [],
+    };
+  }, [data.bookingSettings]);
 
   const todayValue = toDateInputValue(new Date());
   const maxDateValue = toDateInputValue(addDays(new Date(), bookingSettings.daysAhead));
 
   const [selectedService, setSelectedService] = useState(() => getServiceId(bookingServices[0], 0));
   const [selectedDate, setSelectedDate] = useState(() => findFirstAllowedDate(bookingSettings));
-  const [selectedTime, setSelectedTime] = useState(bookingTimes[0] ?? "");
+  const [selectedTime, setSelectedTime] = useState("");
   const [gdprAccepted, setGdprAccepted] = useState(false);
   const [sent, setSent] = useState(false);
   const [busySlots, setBusySlots] = useState<BusySlot[]>([]);
@@ -220,6 +298,11 @@ export default function DentalHygienaPage() {
   const activeServiceDurationMinutes = getServiceDurationMinutes(
     activeService,
     bookingSettings.slotMinutes,
+  );
+
+  const bookingTimes = useMemo(
+    () => generateBookingTimesForDate(selectedDate, bookingSettings),
+    [bookingSettings, selectedDate],
   );
 
   const selectedDateAllowed = isDateAllowed(selectedDate, bookingSettings);
@@ -270,7 +353,9 @@ export default function DentalHygienaPage() {
 
   const handleBookingSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     const form = event.currentTarget;
+
     setReservationError("");
     setReservationSuccess("");
 
@@ -472,7 +557,7 @@ export default function DentalHygienaPage() {
         </aside>
       </header>
 
-      <main id="top" className="pt-20 sm:pt-24">
+      <main id="top" className="pt-16 sm:pt-20">
         <section className="relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(179,126,116,0.16),_transparent_32%),radial-gradient(circle_at_bottom_right,_rgba(183,154,115,0.18),_transparent_28%)]" />
           <div className="relative mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:py-24">
@@ -809,7 +894,7 @@ export default function DentalHygienaPage() {
                         Vyberte termín
                       </h3>
                       <p className="text-sm text-[#8E7C70]">
-                        Vyberte si dostupný termín podľa aktuálnej obsadenosti kalendára.
+                        Ukážkové dostupné časy pripravené na napojenie databázy.
                       </p>
                     </div>
                   </div>
@@ -841,7 +926,7 @@ export default function DentalHygienaPage() {
 
                   {!selectedDateAllowed ? (
                     <div className="mt-4 rounded-2xl border border-[#E8C9B7] bg-[#FFF4EE] p-4 text-sm text-[#8A4D38]">
-                      Tento dátum momentálne nie je otvorený na rezervácie. Vyberte povolený deň alebo ho pridajte v administrácii do výnimočných otvorených dátumov.
+                      Tento dátum momentálne nie je otvorený na rezervácie. Upravte týždenný rozvrh alebo ho pridajte v administrácii do výnimočne otvorených dátumov.
                     </div>
                   ) : null}
 

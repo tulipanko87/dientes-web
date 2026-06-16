@@ -17,24 +17,27 @@ export async function GET(request: Request) {
 
     const calendar = google.calendar({ version: "v3", auth });
 
-    const now = new Date();
-    const future = new Date();
-    future.setDate(now.getDate() + daysAhead);
+    const start = new Date();
+    start.setHours(0, 0, 0, 0);
+
+    const future = new Date(start);
+    future.setDate(start.getDate() + daysAhead);
+
+    const calendarId = process.env.GOOGLE_CALENDAR_ID as string;
 
     const response = await calendar.freebusy.query({
       requestBody: {
-        timeMin: now.toISOString(),
+        timeMin: start.toISOString(),
         timeMax: future.toISOString(),
         timeZone: "Europe/Bratislava",
         items: [
           {
-            id: process.env.GOOGLE_CALENDAR_ID,
+            id: calendarId,
           },
         ],
       },
     });
 
-    const calendarId = process.env.GOOGLE_CALENDAR_ID as string;
     const busy = response.data.calendars?.[calendarId]?.busy ?? [];
 
     return NextResponse.json({ busy });
