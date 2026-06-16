@@ -894,7 +894,7 @@ export default function DentalHygienaPage() {
                         Vyberte termín
                       </h3>
                       <p className="text-sm text-[#8E7C70]">
-                        Ukážkové dostupné časy pripravené na napojenie databázy.
+                        Vyberte si dostupný termín podľa aktuálnej obsadenosti kalendára.
                       </p>
                     </div>
                   </div>
