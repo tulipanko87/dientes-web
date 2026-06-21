@@ -1,4 +1,54 @@
 {
+  "bookingSettings": {
+    "daysAhead": 90,
+    "slotMinutes": 45,
+    "weeklySchedule": [
+      {
+        "day": 1,
+        "enabled": false,
+        "startTime": "",
+        "endTime": ""
+      },
+      {
+        "day": 2,
+        "enabled": true,
+        "startTime": "08:00",
+        "endTime": "16:00"
+      },
+      {
+        "day": 3,
+        "enabled": true,
+        "startTime": "16:00",
+        "endTime": "18:00"
+      },
+      {
+        "day": 4,
+        "enabled": true,
+        "startTime": "15:00",
+        "endTime": "18:00"
+      },
+      {
+        "day": 5,
+        "enabled": true,
+        "startTime": "08:00",
+        "endTime": "14:00"
+      },
+      {
+        "day": 6,
+        "enabled": false,
+        "startTime": "",
+        "endTime": ""
+      },
+      {
+        "day": 0,
+        "enabled": false,
+        "startTime": "",
+        "endTime": ""
+      }
+    ],
+    "extraOpenDates": [],
+    "closedDates": []
+  },
   "businessName": "Dientes dentálna hygiena",
   "businessAddress": "Pribinova 788/8, 040 01 Košice",
   "logoImage": "/uploads/1779912099264-78b20003-8a28-4360-9240-3125307e4643_2.jpg",
@@ -25,7 +75,8 @@
       },
       {
         "image": ""
-      }
+      },
+      {}
     ],
     "stats": [
       {
@@ -179,55 +230,5 @@
     "description": "Prevádzku Dientes nájdete jednoducho podľa mapy. \nObjednajte sa na tel. č.: 0948 718 046",
     "mapTitle": "Mapa prevádzky",
     "mapDescription": "Kliknutím na mapu si viete pozrieť polohu alebo naplánovať trasu."
-  },
-  "bookingSettings": {
-    "daysAhead": 90,
-    "slotMinutes": 45,
-    "weeklySchedule": [
-      {
-        "day": 1,
-        "enabled": false,
-        "startTime": "",
-        "endTime": ""
-      },
-      {
-        "day": 2,
-        "enabled": true,
-        "startTime": "08:00",
-        "endTime": "16:00"
-      },
-      {
-        "day": 3,
-        "enabled": true,
-        "startTime": "16:00",
-        "endTime": "18:00"
-      },
-      {
-        "day": 4,
-        "enabled": true,
-        "startTime": "15:00",
-        "endTime": "18:00"
-      },
-      {
-        "day": 5,
-        "enabled": true,
-        "startTime": "08:00",
-        "endTime": "14:00"
-      },
-      {
-        "day": 6,
-        "enabled": false,
-        "startTime": "",
-        "endTime": ""
-      },
-      {
-        "day": 0,
-        "enabled": false,
-        "startTime": "",
-        "endTime": ""
-      }
-    ],
-    "extraOpenDates": [],
-    "closedDates": []
   }
 }
