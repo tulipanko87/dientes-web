@@ -126,12 +126,16 @@
   ],
   "gallery": {
     "label": "Galéria",
-    "title": "Fotky prevádzky a práce",
+    "title": "",
     "description": "",
     "items": [
       {
         "image": "/uploads/3792c3b5-e34d-48e8-9fa8-3936e81c4649.png"
-      }
+      },
+      {
+        "image": "/uploads/a24dae59-4ee4-4271-baa7-2c2ac3988e48.jpg"
+      },
+      {}
     ]
   },
   "steps": [
