@@ -148,6 +148,60 @@ var config_default = defineConfig({
           },
           {
             type: "object",
+            name: "bookingSettings",
+            label: "Nastavenia rezerv\xE1ci\xED",
+            fields: [
+              { type: "number", name: "daysAhead", label: "Ko\u013Eko dn\xED dopredu povoli\u0165 rezerv\xE1cie" },
+              { type: "number", name: "slotMinutes", label: "D\u013A\u017Eka jedn\xE9ho term\xEDnu v min\xFAtach" },
+              {
+                type: "object",
+                name: "weeklySchedule",
+                label: "T\xFD\u017Edenn\xFD rozvrh objedn\xE1vania",
+                list: true,
+                ui: {
+                  itemProps: (item) => {
+                    const days = {
+                      0: "Nede\u013Ea",
+                      1: "Pondelok",
+                      2: "Utorok",
+                      3: "Streda",
+                      4: "\u0160tvrtok",
+                      5: "Piatok",
+                      6: "Sobota"
+                    };
+                    const label = days[Number(item?.day)] || "De\u0148";
+                    const status = item?.enabled ? `${item?.startTime || "?"}\u2013${item?.endTime || "?"}` : "zatvoren\xE9";
+                    return { label: `${label} (${status})` };
+                  }
+                },
+                fields: [
+                  {
+                    type: "number",
+                    name: "day",
+                    label: "De\u0148 v t\xFD\u017Edni (0=Nede\u013Ea, 1=Pondelok, 2=Utorok, 3=Streda, 4=\u0160tvrtok, 5=Piatok, 6=Sobota)"
+                  },
+                  { type: "boolean", name: "enabled", label: "Tento de\u0148 prij\xEDma\u0165 rezerv\xE1cie" },
+                  { type: "string", name: "startTime", label: "Za\u010Diatok objedn\xE1vania (napr. 08:00)" },
+                  { type: "string", name: "endTime", label: "Koniec objedn\xE1vania (napr. 16:00)" }
+                ]
+              },
+              {
+                type: "object",
+                name: "extraOpenDates",
+                label: "V\xFDnimo\u010Dne otvoren\xE9 d\xE1tumy",
+                list: true,
+                ui: { itemProps: (item) => ({ label: `${item?.date || "D\xE1tum"} ${item?.startTime || ""}\u2013${item?.endTime || ""}` }) },
+                fields: [
+                  { type: "string", name: "date", label: "D\xE1tum vo form\xE1te RRRR-MM-DD" },
+                  { type: "string", name: "startTime", label: "Od" },
+                  { type: "string", name: "endTime", label: "Do" }
+                ]
+              },
+              { type: "string", name: "closedDates", label: "Zatvoren\xE9 d\xE1tumy / dovolenka (RRRR-MM-DD)", list: true }
+            ]
+          },
+          {
+            type: "object",
             name: "contactSection",
             label: "Kontakt a mapa",
             fields: [
