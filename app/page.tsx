@@ -436,8 +436,8 @@ export default function DentalHygienaPage() {
   };
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#F7F1EA] text-[#5F5148]">
-      <header className="fixed left-0 right-0 top-0 z-50 border-b border-[#E4D7CA]/80 bg-[#FBF8F3]/95 shadow-sm backdrop-blur-xl">
+    <div className="min-h-screen overflow-x-hidden bg-[#F8FEFE] text-[#174A4A]">
+      <header className="fixed left-0 right-0 top-0 z-50 border-b border-[#DDF3F3]/80 bg-[#FFFFFF]/95 shadow-sm backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:py-4">
           <a
             href="#top"
@@ -450,10 +450,10 @@ export default function DentalHygienaPage() {
               className="h-10 w-10 rounded-full object-contain sm:h-12 sm:w-12"
             />
             <div className="min-w-0">
-              <div className="truncate font-serif text-xl tracking-[0.14em] text-[#B37E74] sm:text-2xl sm:tracking-[0.18em]">
+              <div className="truncate font-serif text-xl tracking-[0.14em] text-[#1CC7C9] sm:text-2xl sm:tracking-[0.18em]">
                 {data.header?.brandTitle ?? "DIENTES"}
               </div>
-              <div className="-mt-1 truncate text-xs italic text-[#B79A73] sm:text-sm">
+              <div className="-mt-1 truncate text-xs italic text-[#17B4B6] sm:text-sm">
                 {data.header?.brandSubtitle ?? "dentálna hygiena"}
               </div>
             </div>
@@ -464,7 +464,7 @@ export default function DentalHygienaPage() {
               <a
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium text-[#7D6A60] transition hover:text-[#B37E74]"
+                className="text-sm font-medium text-[#6D8F8F] transition hover:text-[#1CC7C9]"
               >
                 {item.label}
               </a>
@@ -474,7 +474,7 @@ export default function DentalHygienaPage() {
           <div className="hidden items-center gap-3 sm:flex">
             <a
               href="#rezervacia"
-              className="rounded-full bg-[#B37E74] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#9F6F66]"
+              className="rounded-full bg-[#1CC7C9] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#17B4B6]"
             >
               Rezervovať termín
             </a>
@@ -485,7 +485,7 @@ export default function DentalHygienaPage() {
             aria-label={mobileMenuOpen ? "Zavrieť menu" : "Otvoriť menu"}
             aria-expanded={mobileMenuOpen}
             onClick={() => setMobileMenuOpen((open) => !open)}
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#E4D7CA] bg-white/70 text-[#8A7265] shadow-sm transition hover:bg-[#F4ECE4] lg:hidden"
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#DDF3F3] bg-white/70 text-[#6D8F8F] shadow-sm transition hover:bg-[#E8FAFA] lg:hidden"
           >
             <span className="sr-only">Menu</span>
             <span className="relative flex h-5 w-5 flex-col justify-center gap-1.5">
@@ -511,16 +511,16 @@ export default function DentalHygienaPage() {
           onClick={() => setMobileMenuOpen(false)}
         />
         <aside
-          className={`fixed right-0 top-0 z-[60] flex h-dvh w-[86%] max-w-sm flex-col border-l border-[#E4D7CA] bg-[#FBF8F3] px-6 py-6 shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
+          className={`fixed right-0 top-0 z-[60] flex h-dvh w-[86%] max-w-sm flex-col border-l border-[#DDF3F3] bg-[#FFFFFF] px-6 py-6 shadow-2xl transition-transform duration-300 ease-out lg:hidden ${
             mobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
           <div className="flex items-center justify-between gap-4">
             <div>
-              <div className="font-serif text-2xl tracking-[0.16em] text-[#B37E74]">
+              <div className="font-serif text-2xl tracking-[0.16em] text-[#1CC7C9]">
                 {data.header?.brandTitle ?? "DIENTES"}
               </div>
-              <div className="-mt-1 text-sm italic text-[#B79A73]">
+              <div className="-mt-1 text-sm italic text-[#17B4B6]">
                 {data.header?.brandSubtitle ?? "dentálna hygiena"}
               </div>
             </div>
@@ -528,7 +528,7 @@ export default function DentalHygienaPage() {
               type="button"
               aria-label="Zavrieť menu"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#E4D7CA] bg-white text-2xl leading-none text-[#8A7265]"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#DDF3F3] bg-white text-2xl leading-none text-[#6D8F8F]"
             >
               ×
             </button>
@@ -540,7 +540,7 @@ export default function DentalHygienaPage() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="rounded-2xl border border-[#E7DBCF] bg-white/70 px-5 py-4 text-lg font-semibold text-[#6F5A4D] transition hover:border-[#B37E74]/50 hover:bg-[#F4ECE4]"
+                className="rounded-2xl border border-[#DDF3F3] bg-white/70 px-5 py-4 text-lg font-semibold text-[#3D6666] transition hover:border-[#1CC7C9]/50 hover:bg-[#E8FAFA]"
               >
                 {item.label}
               </a>
@@ -550,7 +550,7 @@ export default function DentalHygienaPage() {
           <a
             href="#rezervacia"
             onClick={() => setMobileMenuOpen(false)}
-            className="mt-8 rounded-full bg-[#B37E74] px-6 py-4 text-center font-semibold text-white shadow-lg shadow-[#B37E74]/20 transition hover:bg-[#9F6F66]"
+            className="mt-8 rounded-full bg-[#1CC7C9] px-6 py-4 text-center font-semibold text-white shadow-lg shadow-[#1CC7C9]/20 transition hover:bg-[#17B4B6]"
           >
             Rezervovať termín
           </a>
@@ -559,23 +559,23 @@ export default function DentalHygienaPage() {
 
       <main id="top" className="pt-16 sm:pt-20">
         <section className="relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(179,126,116,0.16),_transparent_32%),radial-gradient(circle_at_bottom_right,_rgba(183,154,115,0.18),_transparent_28%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(28,199,201,0.12),_transparent_32%),radial-gradient(circle_at_bottom_right,_rgba(126,221,215,0.18),_transparent_28%)]" />
           <div className="relative mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:py-24">
             <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
               <div>
-                <span className="inline-flex items-center rounded-full border border-[#E6D7C8] bg-[#FBF8F3] px-4 py-2 text-sm text-[#B37E74] shadow-sm">
+                <span className="inline-flex items-center rounded-full border border-[#DDF3F3] bg-[#FFFFFF] px-4 py-2 text-sm text-[#1CC7C9] shadow-sm">
                   {data.hero?.badge ??
                     "Elegantná a šetrná starostlivosť o úsmev"}
                 </span>
 
-                <h1 className="mt-6 max-w-3xl font-serif text-4xl leading-[1.08] text-[#A86F67] sm:text-5xl md:text-6xl">
+                <h1 className="mt-6 max-w-3xl font-serif text-4xl leading-[1.08] text-[#17B4B6] sm:text-5xl md:text-6xl">
                   {data.hero?.title ?? "Dientes"}
                 </h1>
-                <p className="mt-2 text-xl italic text-[#B79A73] sm:text-2xl md:text-3xl">
+                <p className="mt-2 text-xl italic text-[#17B4B6] sm:text-2xl md:text-3xl">
                   {data.hero?.subtitle ?? "dentálna hygiena"}
                 </p>
 
-                <p className="mt-6 max-w-2xl text-base leading-relaxed text-[#75665D] sm:text-lg md:text-xl">
+                <p className="mt-6 max-w-2xl text-base leading-relaxed text-[#4F7E7E] sm:text-lg md:text-xl">
                   {data.hero?.description ??
                     "Jemná, moderná a profesionálna dentálna hygiena v elegantnom štýle."}
                 </p>
@@ -583,13 +583,13 @@ export default function DentalHygienaPage() {
                 <div className="mt-9 flex flex-col gap-4 sm:flex-row">
                   <a
                     href="#rezervacia"
-                    className="rounded-full bg-[#B37E74] px-7 py-4 text-center font-semibold text-white shadow-lg shadow-[#B37E74]/20 transition hover:-translate-y-0.5 hover:bg-[#9F6F66]"
+                    className="rounded-full bg-[#1CC7C9] px-7 py-4 text-center font-semibold text-white shadow-lg shadow-[#1CC7C9]/20 transition hover:-translate-y-0.5 hover:bg-[#17B4B6]"
                   >
                     Rezervovať termín
                   </a>
                   <a
                     href="#sluzby"
-                    className="rounded-full border border-[#DCCBBB] bg-[#FBF8F3] px-7 py-4 text-center font-semibold text-[#8A7265] transition hover:bg-[#F4ECE4]"
+                    className="rounded-full border border-[#DDF3F3] bg-[#FFFFFF] px-7 py-4 text-center font-semibold text-[#6D8F8F] transition hover:bg-[#E8FAFA]"
                   >
                     Pozrieť služby
                   </a>
@@ -597,10 +597,10 @@ export default function DentalHygienaPage() {
               </div>
 
               <div className="relative">
-                <div className="absolute -left-4 top-10 hidden h-24 w-24 rounded-full bg-[#E9DED1] blur-2xl lg:block" />
-                <div className="absolute -right-6 bottom-10 hidden h-28 w-28 rounded-full bg-[#D9B6A7]/50 blur-3xl lg:block" />
+                <div className="absolute -left-4 top-10 hidden h-24 w-24 rounded-full bg-[#E8FAFA] blur-2xl lg:block" />
+                <div className="absolute -right-6 bottom-10 hidden h-28 w-28 rounded-full bg-[#BFEFEF]/50 blur-3xl lg:block" />
 
-                <div className="relative rounded-[1.5rem] border border-[#E2D4C7] bg-[#FBF8F3] p-4 sm:rounded-[2rem] sm:p-8 shadow-[0_20px_60px_rgba(130,100,85,0.12)]">
+                <div className="relative rounded-[1.5rem] border border-[#DDF3F3] bg-[#FFFFFF] p-4 sm:rounded-[2rem] sm:p-8 shadow-[0_20px_60px_rgba(28,199,201,0.10)]">
                   <div className="relative overflow-hidden rounded-3xl bg-white/60">
                     <img
                       key={currentHeroImage?.image}
@@ -623,7 +623,7 @@ export default function DentalHygienaPage() {
                             type="button"
                             aria-label={`Zobraziť obrázok ${index + 1}`}
                             onClick={() => setActiveHeroImage(index)}
-                            className={`h-2.5 rounded-full transition-all ${index === activeHeroImage ? "w-8 bg-[#B37E74]" : "w-2.5 bg-[#DCCBBB]"}`}
+                            className={`h-2.5 rounded-full transition-all ${index === activeHeroImage ? "w-8 bg-[#1CC7C9]" : "w-2.5 bg-[#DDF3F3]"}`}
                           />
                         ))}
                       </div>
@@ -634,12 +634,12 @@ export default function DentalHygienaPage() {
                     {heroStats.map((stat: any) => (
                       <div
                         key={stat.title}
-                        className="rounded-2xl border border-[#E7DBCF] bg-[#F7F1EA] p-4"
+                        className="rounded-2xl border border-[#DDF3F3] bg-[#F8FEFE] p-4"
                       >
-                        <div className="font-serif text-xl text-[#A86F67]">
+                        <div className="font-serif text-xl text-[#17B4B6]">
                           {stat.title}
                         </div>
-                        <div className="mt-1 text-sm text-[#8A7669]">
+                        <div className="mt-1 text-sm text-[#6D8F8F]">
                           {stat.subtitle}
                         </div>
                       </div>
@@ -656,13 +656,13 @@ export default function DentalHygienaPage() {
           className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:py-20"
         >
           <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1CC7C9]">
               {data.servicesSection?.label ?? "Služby a benefity"}
             </p>
-            <h2 className="mt-4 font-serif text-3xl text-[#4E4139] sm:text-4xl md:text-5xl">
+            <h2 className="mt-4 font-serif text-3xl text-[#174A4A] sm:text-4xl md:text-5xl">
               {data.servicesSection?.title ?? "Profesionálna hygiena"}
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-[#786960] sm:mt-5 sm:text-lg">
+            <p className="mt-4 text-base leading-relaxed text-[#4F7E7E] sm:mt-5 sm:text-lg">
               {data.servicesSection?.description ??
                 "Jemná a profesionálna dentálna hygiena."}
             </p>
@@ -672,7 +672,7 @@ export default function DentalHygienaPage() {
             {benefits.map((item: any) => (
               <div
                 key={item.title}
-                className="rounded-[1.75rem] border border-[#E5D8CB] bg-[#FBF8F3] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                className="rounded-[1.75rem] border border-[#DDF3F3] bg-[#FFFFFF] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
               >
                 {item.image ? (
                   <img
@@ -681,14 +681,14 @@ export default function DentalHygienaPage() {
                     className="mb-5 h-40 w-full rounded-2xl object-cover"
                   />
                 ) : (
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#EEDFD6] text-lg font-bold text-[#B37E74]">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#DDF3F3] text-lg font-bold text-[#1CC7C9]">
                     ✦
                   </div>
                 )}
-                <h3 className="mt-5 font-serif text-2xl leading-snug text-[#5B4D45]">
+                <h3 className="mt-5 font-serif text-2xl leading-snug text-[#174A4A]">
                   {item.title}
                 </h3>
-                <p className="mt-3 leading-relaxed text-[#7B6D64]">
+                <p className="mt-3 leading-relaxed text-[#6D8F8F]">
                   {item.text}
                 </p>
               </div>
@@ -702,14 +702,14 @@ export default function DentalHygienaPage() {
             className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 sm:pb-16 lg:pb-20"
           >
             <div className="max-w-3xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1CC7C9]">
                 {data.gallery?.label ?? "Galéria"}
               </p>
-              <h2 className="mt-4 font-serif text-3xl text-[#4E4139] sm:text-4xl md:text-5xl">
+              <h2 className="mt-4 font-serif text-3xl text-[#174A4A] sm:text-4xl md:text-5xl">
                 {data.gallery?.title ?? "Fotky prevádzky"}
               </h2>
               {data.gallery?.description ? (
-                <p className="mt-4 text-base leading-relaxed text-[#786960] sm:mt-5 sm:text-lg">
+                <p className="mt-4 text-base leading-relaxed text-[#4F7E7E] sm:mt-5 sm:text-lg">
                   {data.gallery.description}
                 </p>
               ) : null}
@@ -718,7 +718,7 @@ export default function DentalHygienaPage() {
               {data.gallery.items.map((photo: any) => (
                 <figure
                   key={photo.image}
-                  className="overflow-hidden rounded-[1.75rem] border border-[#E5D8CB] bg-[#FBF8F3] shadow-sm"
+                  className="overflow-hidden rounded-[1.75rem] border border-[#DDF3F3] bg-[#FFFFFF] shadow-sm"
                 >
                   <img
                     src={photo.image}
@@ -726,7 +726,7 @@ export default function DentalHygienaPage() {
                     className="h-72 w-full object-cover"
                   />
                   {photo.caption ? (
-                    <figcaption className="px-5 py-4 text-sm text-[#7B6D64]">
+                    <figcaption className="px-5 py-4 text-sm text-[#6D8F8F]">
                       {photo.caption}
                     </figcaption>
                   ) : null}
@@ -738,17 +738,17 @@ export default function DentalHygienaPage() {
 
         <section
           id="priebeh"
-          className="border-y border-[#E5D8CB] bg-[#FBF8F3]"
+          className="border-y border-[#DDF3F3] bg-[#FFFFFF]"
         >
           <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-2 lg:items-start lg:gap-10 lg:py-20">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1CC7C9]">
                 Priebeh ošetrenia
               </p>
-              <h2 className="mt-4 font-serif text-3xl text-[#4E4139] sm:text-4xl md:text-5xl">
+              <h2 className="mt-4 font-serif text-3xl text-[#174A4A] sm:text-4xl md:text-5xl">
                 Jednoduchý proces, príjemná skúsenosť
               </h2>
-              <p className="mt-4 text-base leading-relaxed text-[#786960] sm:mt-5 sm:text-lg">
+              <p className="mt-4 text-base leading-relaxed text-[#4F7E7E] sm:mt-5 sm:text-lg">
                 Každý krok je navrhnutý tak, aby ošetrenie pôsobilo
                 profesionálne, pokojne a bez zbytočného stresu.
               </p>
@@ -758,12 +758,12 @@ export default function DentalHygienaPage() {
               {steps.map((step: string, index: number) => (
                 <div
                   key={step}
-                  className="flex gap-4 rounded-[1.5rem] border border-[#E7DBCF] bg-[#F7F1EA] p-5"
+                  className="flex gap-4 rounded-[1.5rem] border border-[#DDF3F3] bg-[#F8FEFE] p-5"
                 >
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#B37E74] font-semibold text-white">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#1CC7C9] font-semibold text-white">
                     {index + 1}
                   </div>
-                  <div className="pt-2 text-lg text-[#65574F]">{step}</div>
+                  <div className="pt-2 text-lg text-[#4F7E7E]">{step}</div>
                 </div>
               ))}
             </div>
@@ -776,20 +776,20 @@ export default function DentalHygienaPage() {
         >
           <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-10">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1CC7C9]">
                 Online rezervácia
               </p>
-              <h2 className="mt-4 font-serif text-3xl text-[#4E4139] sm:text-4xl md:text-5xl">
+              <h2 className="mt-4 font-serif text-3xl text-[#174A4A] sm:text-4xl md:text-5xl">
                 Rezervujte si termín pohodlne online
               </h2>
-              <p className="mt-4 text-base leading-relaxed text-[#786960] sm:mt-5 sm:text-lg">
+              <p className="mt-4 text-base leading-relaxed text-[#4F7E7E] sm:mt-5 sm:text-lg">
                 Namiesto externého Reservanto okna je rezervácia priamo súčasťou
                 webu. Klient si vyberie službu, dátum, čas a odošle svoje údaje
                 v čistom Dientes dizajne.
               </p>
 
-              <div className="mt-8 rounded-[1.75rem] border border-[#E5D8CB] bg-[#FBF8F3] p-6 shadow-sm">
-                <h3 className="font-serif text-2xl text-[#A86F67]">
+              <div className="mt-8 rounded-[1.75rem] border border-[#DDF3F3] bg-[#FFFFFF] p-6 shadow-sm">
+                <h3 className="font-serif text-2xl text-[#17B4B6]">
                   Čo formulár rieši
                 </h3>
                 <div className="mt-5 space-y-4">
@@ -802,12 +802,12 @@ export default function DentalHygienaPage() {
                   ].map((item) => (
                     <div
                       key={item}
-                      className="flex gap-3 rounded-2xl border border-[#E7DBCF] bg-white/60 p-4"
+                      className="flex gap-3 rounded-2xl border border-[#DDF3F3] bg-white/60 p-4"
                     >
-                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#B37E74] text-sm text-white">
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1CC7C9] text-sm text-white">
                         ✓
                       </span>
-                      <span className="text-[#6E5F56]">{item}</span>
+                      <span className="text-[#3D6666]">{item}</span>
                     </div>
                   ))}
                 </div>
@@ -816,13 +816,13 @@ export default function DentalHygienaPage() {
 
             <form
               onSubmit={handleBookingSubmit}
-              className="overflow-hidden rounded-[2rem] border border-[#E2D4C7] bg-[#FBF8F3] shadow-[0_20px_60px_rgba(130,100,85,0.12)]"
+              className="overflow-hidden rounded-[2rem] border border-[#DDF3F3] bg-[#FFFFFF] shadow-[0_20px_60px_rgba(28,199,201,0.10)]"
             >
-              <div className="border-b border-[#E5D8CB] px-6 py-5">
-                <div className="font-serif text-2xl text-[#A86F67]">
+              <div className="border-b border-[#DDF3F3] px-6 py-5">
+                <div className="font-serif text-2xl text-[#17B4B6]">
                   Objednávka na dentálnu hygienu
                 </div>
-                <div className="text-sm text-[#8B796D]">
+                <div className="text-sm text-[#6D8F8F]">
                   Dientes dentálna hygiena
                 </div>
               </div>
@@ -830,14 +830,14 @@ export default function DentalHygienaPage() {
               <div className="space-y-7 p-4 sm:space-y-8 sm:p-6">
                 <div>
                   <div className="mb-4 flex items-center gap-3">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#B37E74] font-semibold text-white">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1CC7C9] font-semibold text-white">
                       1
                     </span>
                     <div>
-                      <h3 className="font-serif text-2xl text-[#4E4139]">
+                      <h3 className="font-serif text-2xl text-[#174A4A]">
                         Vyberte službu
                       </h3>
-                      <p className="text-sm text-[#8E7C70]">
+                      <p className="text-sm text-[#6D8F8F]">
                         Zvoľte typ návštevy podľa potreby.
                       </p>
                     </div>
@@ -855,26 +855,26 @@ export default function DentalHygienaPage() {
                           onClick={() => setSelectedService(serviceId)}
                           className={`rounded-[1.35rem] border p-4 text-left transition ${
                             isSelected
-                              ? "border-[#B37E74] bg-[#F1E2DA] shadow-sm"
-                              : "border-[#E7DBCF] bg-white/70 hover:border-[#B37E74]/60 hover:bg-[#F7F1EA]"
+                              ? "border-[#1CC7C9] bg-[#E8FAFA] shadow-sm"
+                              : "border-[#DDF3F3] bg-white/70 hover:border-[#1CC7C9]/60 hover:bg-[#F8FEFE]"
                           }`}
                         >
                           <div className="flex items-start justify-between gap-3">
-                            <h4 className="font-semibold text-[#564943]">
+                            <h4 className="font-semibold text-[#174A4A]">
                               {service.name}
                             </h4>
                             {isSelected ? (
-                              <span className="text-[#B37E74]">●</span>
+                              <span className="text-[#1CC7C9]">●</span>
                             ) : null}
                           </div>
-                          <p className="mt-3 text-sm leading-relaxed text-[#7B6D64]">
+                          <p className="mt-3 text-sm leading-relaxed text-[#6D8F8F]">
                             {service.description}
                           </p>
                           <div className="mt-4 flex items-center justify-between text-sm">
-                            <span className="text-[#8E7C70]">
+                            <span className="text-[#6D8F8F]">
                               {service.duration}
                             </span>
-                            <strong className="text-[#A86F67]">
+                            <strong className="text-[#17B4B6]">
                               {service.price}
                             </strong>
                           </div>
@@ -886,14 +886,14 @@ export default function DentalHygienaPage() {
 
                 <div>
                   <div className="mb-4 flex items-center gap-3">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#B37E74] font-semibold text-white">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1CC7C9] font-semibold text-white">
                       2
                     </span>
                     <div>
-                      <h3 className="font-serif text-2xl text-[#4E4139]">
+                      <h3 className="font-serif text-2xl text-[#174A4A]">
                         Vyberte termín
                       </h3>
-                      <p className="text-sm text-[#8E7C70]">
+                      <p className="text-sm text-[#6D8F8F]">
                         Vyberte si dostupný termín podľa aktuálnej obsadenosti kalendára.
                       </p>
                     </div>
@@ -901,7 +901,7 @@ export default function DentalHygienaPage() {
 
                   <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
                     <label className="block">
-                      <span className="mb-2 block text-sm font-semibold text-[#6E5F56]">
+                      <span className="mb-2 block text-sm font-semibold text-[#3D6666]">
                         Vyberte dátum
                       </span>
                       <input
@@ -915,23 +915,23 @@ export default function DentalHygienaPage() {
                           setReservationSuccess("");
                           setSent(false);
                         }}
-                        className="w-full rounded-2xl border border-[#E0D2C5] bg-white px-4 py-3 text-[#4E4139] outline-none transition focus:border-[#B37E74] focus:ring-4 focus:ring-[#B37E74]/10"
+                        className="w-full rounded-2xl border border-[#DDF3F3] bg-white px-4 py-3 text-[#174A4A] outline-none transition focus:border-[#1CC7C9] focus:ring-4 focus:ring-[#1CC7C9]/10"
                       />
                     </label>
-                    <div className="rounded-2xl border border-[#E7DBCF] bg-white/70 px-4 py-3 text-sm text-[#6E5F56]">
-                      <strong className="block text-[#4E4139]">{formatDateLong(selectedDate)}</strong>
+                    <div className="rounded-2xl border border-[#DDF3F3] bg-white/70 px-4 py-3 text-sm text-[#3D6666]">
+                      <strong className="block text-[#174A4A]">{formatDateLong(selectedDate)}</strong>
                       <span>{selectedDate ? DAY_LABELS[new Date(`${selectedDate}T12:00:00`).getDay()] : ""}</span>
                     </div>
                   </div>
 
                   {!selectedDateAllowed ? (
-                    <div className="mt-4 rounded-2xl border border-[#E8C9B7] bg-[#FFF4EE] p-4 text-sm text-[#8A4D38]">
+                    <div className="mt-4 rounded-2xl border border-[#DDF3F3] bg-[#F8FEFE] p-4 text-sm text-[#174A4A]">
                       Tento dátum momentálne nie je otvorený na rezervácie. Upravte týždenný rozvrh alebo ho pridajte v administrácii do výnimočne otvorených dátumov.
                     </div>
                   ) : null}
 
                   {availabilityLoading ? (
-                    <div className="mt-4 rounded-2xl border border-[#E7DBCF] bg-white/70 p-4 text-sm text-[#6E5F56]">
+                    <div className="mt-4 rounded-2xl border border-[#DDF3F3] bg-white/70 p-4 text-sm text-[#3D6666]">
                       Načítavam dostupné termíny z Google Kalendára...
                     </div>
                   ) : null}
@@ -950,10 +950,10 @@ export default function DentalHygienaPage() {
                           onClick={() => setSelectedTime(time)}
                           className={`rounded-2xl border py-3 font-semibold transition ${
                             isSelected && !isDisabled
-                              ? "border-[#B37E74] bg-[#B37E74] text-white"
+                              ? "border-[#1CC7C9] bg-[#1CC7C9] text-white"
                               : isDisabled
-                                ? "cursor-not-allowed border-[#E7DBCF] bg-[#EFE8E0] text-[#A9968A] line-through"
-                                : "border-[#E7DBCF] bg-white/70 text-[#6B5B52] hover:bg-[#F1E2DA]"
+                                ? "cursor-not-allowed border-[#DDF3F3] bg-[#F0FBFB] text-[#6D8F8F] line-through"
+                                : "border-[#DDF3F3] bg-white/70 text-[#3D6666] hover:bg-[#E8FAFA]"
                           }`}
                         >
                           {time}
@@ -963,7 +963,7 @@ export default function DentalHygienaPage() {
                   </div>
 
                   {selectedDateAllowed && !availableBookingTimes.length && !availabilityLoading ? (
-                    <div className="mt-4 rounded-2xl border border-[#E8C9B7] bg-[#FFF4EE] p-4 text-sm text-[#8A4D38]">
+                    <div className="mt-4 rounded-2xl border border-[#DDF3F3] bg-[#F8FEFE] p-4 text-sm text-[#174A4A]">
                       Na tento deň už nie sú dostupné voľné časy.
                     </div>
                   ) : null}
@@ -971,14 +971,14 @@ export default function DentalHygienaPage() {
 
                 <div>
                   <div className="mb-4 flex items-center gap-3">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#B37E74] font-semibold text-white">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1CC7C9] font-semibold text-white">
                       3
                     </span>
                     <div>
-                      <h3 className="font-serif text-2xl text-[#4E4139]">
+                      <h3 className="font-serif text-2xl text-[#174A4A]">
                         Vaše údaje
                       </h3>
-                      <p className="text-sm text-[#8E7C70]">
+                      <p className="text-sm text-[#6D8F8F]">
                         Po odoslaní sa zobrazí potvrdenie rezervácie.
                       </p>
                     </div>
@@ -986,90 +986,90 @@ export default function DentalHygienaPage() {
 
                   <div className="grid gap-4 md:grid-cols-2">
                     <label className="block">
-                      <span className="mb-2 block text-sm font-semibold text-[#6E5F56]">
+                      <span className="mb-2 block text-sm font-semibold text-[#3D6666]">
                         Meno a priezvisko
                       </span>
                       <input
                         required
                         name="name"
-                        className="w-full rounded-2xl border border-[#E0D2C5] bg-white px-4 py-3 text-[#4E4139] outline-none transition focus:border-[#B37E74] focus:ring-4 focus:ring-[#B37E74]/10"
+                        className="w-full rounded-2xl border border-[#DDF3F3] bg-white px-4 py-3 text-[#174A4A] outline-none transition focus:border-[#1CC7C9] focus:ring-4 focus:ring-[#1CC7C9]/10"
                         placeholder="Jana Nováková"
                       />
                     </label>
                     <label className="block">
-                      <span className="mb-2 block text-sm font-semibold text-[#6E5F56]">
+                      <span className="mb-2 block text-sm font-semibold text-[#3D6666]">
                         Telefón
                       </span>
                       <input
                         required
                         name="phone"
-                        className="w-full rounded-2xl border border-[#E0D2C5] bg-white px-4 py-3 text-[#4E4139] outline-none transition focus:border-[#B37E74] focus:ring-4 focus:ring-[#B37E74]/10"
+                        className="w-full rounded-2xl border border-[#DDF3F3] bg-white px-4 py-3 text-[#174A4A] outline-none transition focus:border-[#1CC7C9] focus:ring-4 focus:ring-[#1CC7C9]/10"
                         placeholder="+421 900 123 456"
                       />
                     </label>
                     <label className="block md:col-span-2">
-                      <span className="mb-2 block text-sm font-semibold text-[#6E5F56]">
+                      <span className="mb-2 block text-sm font-semibold text-[#3D6666]">
                         E-mail
                       </span>
                       <input
                         required
                         name="email"
                         type="email"
-                        className="w-full rounded-2xl border border-[#E0D2C5] bg-white px-4 py-3 text-[#4E4139] outline-none transition focus:border-[#B37E74] focus:ring-4 focus:ring-[#B37E74]/10"
+                        className="w-full rounded-2xl border border-[#DDF3F3] bg-white px-4 py-3 text-[#174A4A] outline-none transition focus:border-[#1CC7C9] focus:ring-4 focus:ring-[#1CC7C9]/10"
                         placeholder="jana@email.sk"
                       />
                     </label>
                     <label className="block md:col-span-2">
-                      <span className="mb-2 block text-sm font-semibold text-[#6E5F56]">
+                      <span className="mb-2 block text-sm font-semibold text-[#3D6666]">
                         Poznámka
                       </span>
                       <textarea
                         name="note"
-                        className="min-h-24 w-full rounded-2xl border border-[#E0D2C5] bg-white px-4 py-3 text-[#4E4139] outline-none transition focus:border-[#B37E74] focus:ring-4 focus:ring-[#B37E74]/10"
+                        className="min-h-24 w-full rounded-2xl border border-[#DDF3F3] bg-white px-4 py-3 text-[#174A4A] outline-none transition focus:border-[#1CC7C9] focus:ring-4 focus:ring-[#1CC7C9]/10"
                         placeholder="Napr. citlivé ďasná, strojček, tehotenstvo..."
                       />
                     </label>
                   </div>
                 </div>
 
-                <div className="rounded-[1.5rem] border border-[#E5D8CB] bg-[#F7F1EA] p-5">
-                  <h4 className="font-serif text-2xl text-[#A86F67]">
+                <div className="rounded-[1.5rem] border border-[#DDF3F3] bg-[#F8FEFE] p-5">
+                  <h4 className="font-serif text-2xl text-[#17B4B6]">
                     Súhrn rezervácie
                   </h4>
-                  <div className="mt-4 space-y-3 text-sm text-[#6E5F56]">
+                  <div className="mt-4 space-y-3 text-sm text-[#3D6666]">
                     <div className="flex justify-between gap-4">
                       <span>Služba</span>
-                      <strong className="text-right text-[#4E4139]">
+                      <strong className="text-right text-[#174A4A]">
                         {activeService.name}
                       </strong>
                     </div>
                     <div className="flex justify-between">
                       <span>Trvanie</span>
-                      <strong className="text-[#4E4139]">
+                      <strong className="text-[#174A4A]">
                         {activeService.duration}
                       </strong>
                     </div>
                     <div className="flex justify-between">
                       <span>Termín</span>
-                      <strong className="text-[#4E4139]">
+                      <strong className="text-[#174A4A]">
                         {formatDateLong(selectedDate)} o {selectedTime || "—"}
                       </strong>
                     </div>
                     <div className="flex justify-between">
                       <span>Cena</span>
-                      <strong className="text-[#4E4139]">
+                      <strong className="text-[#174A4A]">
                         {activeService.price}
                       </strong>
                     </div>
                   </div>
                 </div>
 
-                <label className="flex gap-3 rounded-2xl border border-[#E5D8CB] bg-white/70 p-4 text-sm leading-relaxed text-[#6E5F56]">
+                <label className="flex gap-3 rounded-2xl border border-[#DDF3F3] bg-white/70 p-4 text-sm leading-relaxed text-[#3D6666]">
                   <input
                     type="checkbox"
                     checked={gdprAccepted}
                     onChange={(event) => setGdprAccepted(event.target.checked)}
-                    className="mt-1 h-4 w-4 rounded border-[#D8C8BB]"
+                    className="mt-1 h-4 w-4 rounded border-[#DDF3F3]"
                   />
                   <span>
                     Súhlasím so spracovaním osobných údajov za účelom vybavenia
@@ -1080,13 +1080,13 @@ export default function DentalHygienaPage() {
                 <button
                   type="submit"
                   disabled={submitting || !selectedDateAllowed || !selectedTime}
-                  className="w-full rounded-full bg-[#B37E74] px-7 py-4 text-center font-semibold text-white shadow-lg shadow-[#B37E74]/20 transition hover:-translate-y-0.5 hover:bg-[#9F6F66] disabled:cursor-not-allowed disabled:bg-[#C8B7AE] disabled:shadow-none"
+                  className="w-full rounded-full bg-[#1CC7C9] px-7 py-4 text-center font-semibold text-white shadow-lg shadow-[#1CC7C9]/20 transition hover:-translate-y-0.5 hover:bg-[#17B4B6] disabled:cursor-not-allowed disabled:bg-[#A7DCDC] disabled:shadow-none"
                 >
                   {submitting ? "Odosielam rezerváciu..." : "Potvrdiť rezerváciu"}
                 </button>
 
                 {reservationError ? (
-                  <div className="rounded-2xl border border-[#E8C9B7] bg-[#FFF4EE] p-4 text-sm font-medium text-[#8A4D38]">
+                  <div className="rounded-2xl border border-[#DDF3F3] bg-[#F8FEFE] p-4 text-sm font-medium text-[#174A4A]">
                     {reservationError}
                   </div>
                 ) : null}
@@ -1101,25 +1101,25 @@ export default function DentalHygienaPage() {
           </div>
         </section>
 
-        <section id="cennik" className="border-y border-[#E5D8CB] bg-[#FBF8F3]">
+        <section id="cennik" className="border-y border-[#DDF3F3] bg-[#FFFFFF]">
           <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-2 lg:items-start lg:gap-10 lg:py-20">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1CC7C9]">
                 {data.priceSection?.label ?? "Cenník"}
               </p>
-              <h2 className="mt-4 font-serif text-3xl text-[#4E4139] sm:text-4xl md:text-5xl">
+              <h2 className="mt-4 font-serif text-3xl text-[#174A4A] sm:text-4xl md:text-5xl">
                 {data.priceSection?.title ?? "Transparentné ceny"}
               </h2>
-              <p className="mt-4 text-base leading-relaxed text-[#786960] sm:mt-5 sm:text-lg">
+              <p className="mt-4 text-base leading-relaxed text-[#4F7E7E] sm:mt-5 sm:text-lg">
                 {data.priceSection?.description ?? ""}
               </p>
             </div>
 
-            <div className="overflow-hidden rounded-[1.75rem] border border-[#E5D8CB] bg-white shadow-sm">
+            <div className="overflow-hidden rounded-[1.75rem] border border-[#DDF3F3] bg-white shadow-sm">
               {prices.map((item: any, index: number) => {
                 const borderClass =
                   index !== prices.length - 1
-                    ? "border-b border-[#E5D8CB]"
+                    ? "border-b border-[#DDF3F3]"
                     : "";
 
                 return (
@@ -1127,8 +1127,8 @@ export default function DentalHygienaPage() {
                     key={item.name}
                     className={`flex flex-col gap-2 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6 ${borderClass}`}
                   >
-                    <span className="text-lg text-[#65574F]">{item.name}</span>
-                    <span className="font-serif text-2xl text-[#A86F67]">
+                    <span className="text-lg text-[#4F7E7E]">{item.name}</span>
+                    <span className="font-serif text-2xl text-[#17B4B6]">
                       {item.price}
                     </span>
                   </div>
@@ -1144,45 +1144,45 @@ export default function DentalHygienaPage() {
         >
           <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-10">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#B37E74]">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1CC7C9]">
                 {data.contactSection?.label ?? "Kontakt a mapa"}
               </p>
-              <h2 className="mt-4 font-serif text-3xl text-[#4E4139] sm:text-4xl md:text-5xl">
+              <h2 className="mt-4 font-serif text-3xl text-[#174A4A] sm:text-4xl md:text-5xl">
                 {data.contactSection?.title ?? "Kde nás nájdete"}
               </h2>
-              <p className="mt-4 text-base leading-relaxed text-[#786960] sm:mt-5 sm:text-lg">
+              <p className="mt-4 text-base leading-relaxed text-[#4F7E7E] sm:mt-5 sm:text-lg">
                 {data.contactSection?.description ??
                   "Prevádzku nájdete jednoducho podľa mapy."}
               </p>
 
               <div className="mt-8 space-y-4">
-                <div className="rounded-[1.5rem] border border-[#E5D8CB] bg-[#FBF8F3] p-5">
-                  <div className="text-sm font-semibold uppercase tracking-[0.16em] text-[#B37E74]">
+                <div className="rounded-[1.5rem] border border-[#DDF3F3] bg-[#FFFFFF] p-5">
+                  <div className="text-sm font-semibold uppercase tracking-[0.16em] text-[#1CC7C9]">
                     Adresa prevádzky
                   </div>
-                  <div className="mt-2 font-serif text-2xl text-[#4E4139]">
+                  <div className="mt-2 font-serif text-2xl text-[#174A4A]">
                     {data.businessName ?? "Dientes dentálna hygiena"}
                   </div>
-                  <p className="mt-2 text-[#7B6D64]">{businessAddress}</p>
+                  <p className="mt-2 text-[#6D8F8F]">{businessAddress}</p>
                 </div>
 
                 <a
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(businessAddress)}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex rounded-full bg-[#B37E74] px-6 py-3 font-semibold text-white shadow-lg shadow-[#B37E74]/20 transition hover:-translate-y-0.5 hover:bg-[#9F6F66]"
+                  className="inline-flex rounded-full bg-[#1CC7C9] px-6 py-3 font-semibold text-white shadow-lg shadow-[#1CC7C9]/20 transition hover:-translate-y-0.5 hover:bg-[#17B4B6]"
                 >
                   Otvoriť trasu v Google Maps
                 </a>
               </div>
             </div>
 
-            <div className="overflow-hidden rounded-[2rem] border border-[#E2D4C7] bg-[#FBF8F3] shadow-[0_20px_60px_rgba(130,100,85,0.12)]">
-              <div className="border-b border-[#E5D8CB] px-6 py-5">
-                <h3 className="font-serif text-3xl text-[#A86F67]">
+            <div className="overflow-hidden rounded-[2rem] border border-[#DDF3F3] bg-[#FFFFFF] shadow-[0_20px_60px_rgba(28,199,201,0.10)]">
+              <div className="border-b border-[#DDF3F3] px-6 py-5">
+                <h3 className="font-serif text-3xl text-[#17B4B6]">
                   {data.contactSection?.mapTitle ?? "Mapa prevádzky"}
                 </h3>
-                <p className="mt-1 text-[#88766A]">
+                <p className="mt-1 text-[#6D8F8F]">
                   {data.contactSection?.mapDescription ??
                     "Kliknutím na mapu si viete pozrieť polohu alebo naplánovať trasu."}
                 </p>
@@ -1201,17 +1201,17 @@ export default function DentalHygienaPage() {
         </section>
       </main>
 
-      <footer className="border-t border-[#E5D8CB] bg-[#6F5A4D] text-[#F5EDE4]">
+      <footer className="border-t border-[#DDF3F3] bg-[#3D6666] text-[#F8FEFE]">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-8 text-center sm:px-6 md:flex-row md:text-left">
           <div>
             <div className="font-serif text-2xl tracking-[0.14em]">
               {data.header?.brandTitle ?? "DIENTES"}
             </div>
-            <div className="text-sm italic text-[#E0CCB7]">
+            <div className="text-sm italic text-[#DDF3F3]">
               {data.header?.brandSubtitle ?? "dentálna hygiena"}
             </div>
           </div>
-          <div className="text-sm text-[#EBDDCE]">
+          <div className="text-sm text-[#E8FAFA]">
             © 2026 Dientes • Elegantná dentálna hygiena
           </div>
         </div>
