@@ -192,7 +192,7 @@
     "helpText": "S vybavením príspevku vám radi pomôžeme priamo v ambulancii."
   },
   "bookingSettings": {
-    "daysAhead": 91,
+    "daysAhead": 90,
     "slotMinutes": 45,
     "weeklySchedule": [
       {
