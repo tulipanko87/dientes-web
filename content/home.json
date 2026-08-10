@@ -1,10 +1,16 @@
 {
   "businessName": "Dientes dentálna hygiena",
   "businessAddress": "Pribinova 788/8, 040 01 Košice",
+  "businessPhone": "0948 718 046",
+  "businessEmail": "",
   "logoImage": "/uploads/1779912099264-78b20003-8a28-4360-9240-3125307e4643_2.jpg",
   "header": {
     "brandTitle": "DIENTES",
     "brandSubtitle": "dentálna hygiena"
+  },
+  "displaySettings": {
+    "showGallery": true,
+    "showPriceSection": true
   },
   "hero": {
     "badge": "Šetrná starostlivosť o úsmev",
@@ -177,6 +183,14 @@
       "description": "Kombinácia ambulantného a domáceho bielenia pre dlhodobý výsledok."
     }
   ],
+  "insuranceSection": {
+    "enabled": true,
+    "title": "Príspevok od zdravotnej poisťovne",
+    "description": "Ambulancia Dientes nie je zmluvným partnerom zdravotných poisťovní, napriek tomu si môžete príspevok na dentálnu hygienu uplatniť zo svojho benefitného programu.",
+    "doveraFrequency": "2× ročne",
+    "unionFrequency": "2× ročne",
+    "helpText": "S vybavením príspevku vám radi pomôžeme priamo v ambulancii."
+  },
   "bookingSettings": {
     "daysAhead": 90,
     "slotMinutes": 45,
@@ -225,7 +239,13 @@
       }
     ],
     "extraOpenDates": [],
-    "closedDateRanges": []
+    "closedDateRanges": [
+      {
+        "startDate": "2026-08-21T00:00:00.000Z",
+        "endDate": "2026-08-21T00:00:00.000Z",
+        "note": "Dovolenka"
+      }
+    ]
   },
   "contactSection": {
     "label": "Kontakt a mapa",
@@ -233,19 +253,5 @@
     "description": "Prevádzku Dientes nájdete jednoducho podľa mapy.",
     "mapTitle": "Mapa prevádzky",
     "mapDescription": "Kliknutím na mapu si viete pozrieť polohu alebo naplánovať trasu."
-  },
-  "businessPhone": "0948 718 046",
-  "businessEmail": "",
-  "displaySettings": {
-    "showGallery": true,
-    "showPriceSection": true
-  },
-  "insuranceSection": {
-    "enabled": true,
-    "title": "Príspevok od zdravotnej poisťovne",
-    "description": "Ambulancia Dientes nie je zmluvným partnerom zdravotných poisťovní, napriek tomu si môžete príspevok na dentálnu hygienu uplatniť zo svojho benefitného programu.",
-    "doveraFrequency": "2× ročne",
-    "unionFrequency": "2× ročne",
-    "helpText": "S vybavením príspevku vám radi pomôžeme priamo v ambulancii."
   }
 }
