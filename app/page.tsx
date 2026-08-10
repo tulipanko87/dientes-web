@@ -21,6 +21,12 @@ type ExtraOpenDate =
       endTime?: string;
     };
 
+type ClosedDateRange = {
+  startDate?: string;
+  endDate?: string;
+  note?: string;
+};
+
 type BookingSettings = {
   daysAhead: number;
   slotMinutes: number;
@@ -29,7 +35,7 @@ type BookingSettings = {
   allowedWeekdays?: number[];
   weeklySchedule: WeeklyScheduleDay[];
   extraOpenDates: ExtraOpenDate[];
-  closedDates: string[];
+  closedDateRanges: ClosedDateRange[];
 };
 
 const DEFAULT_WEEKLY_SCHEDULE: WeeklyScheduleDay[] = [
@@ -50,7 +56,7 @@ const DEFAULT_BOOKING_SETTINGS: BookingSettings = {
   allowedWeekdays: [2, 4],
   weeklySchedule: DEFAULT_WEEKLY_SCHEDULE,
   extraOpenDates: [],
-  closedDates: [],
+  closedDateRanges: [],
 };
 
 function toDateInputValue(date: Date) {
@@ -89,16 +95,29 @@ function formatDateLong(value: string) {
   });
 }
 
+function normalizeCmsDate(value?: string) {
+  if (!value) return "";
+  return value.slice(0, 10);
+}
+
+function isDateInClosedRange(value: string, settings: BookingSettings) {
+  return settings.closedDateRanges.some((range) => {
+    const start = normalizeCmsDate(range?.startDate);
+    const end = normalizeCmsDate(range?.endDate) || start;
+    return Boolean(start && value >= start && value <= end);
+  });
+}
+
 function getExtraOpenDateSettings(value: string, settings: BookingSettings) {
   return settings.extraOpenDates.find((item) => {
-    if (typeof item === "string") return item === value;
-    return item?.date === value;
+    if (typeof item === "string") return normalizeCmsDate(item) === value;
+    return normalizeCmsDate(item?.date) === value;
   });
 }
 
 function getScheduleForDate(value: string, settings: BookingSettings) {
   if (!value) return null;
-  if (settings.closedDates.includes(value)) return null;
+  if (isDateInClosedRange(value, settings)) return null;
 
   const date = new Date(`${value}T12:00:00`);
   if (Number.isNaN(date.getTime())) return null;
@@ -141,6 +160,38 @@ function getScheduleForDate(value: string, settings: BookingSettings) {
 
 function isDateAllowed(value: string, settings: BookingSettings) {
   return Boolean(getScheduleForDate(value, settings));
+}
+
+function getDateAvailabilityReason(value: string, settings: BookingSettings) {
+  if (!value) return "";
+
+  if (isDateInClosedRange(value, settings)) {
+    return "V tento deň je ambulancia zatvorená / máme dovolenku. Vyberte, prosím, iný termín.";
+  }
+
+  const date = new Date(`${value}T12:00:00`);
+  if (Number.isNaN(date.getTime())) return "";
+
+  const extraOpenDate = getExtraOpenDateSettings(value, settings);
+  if (extraOpenDate) return "";
+
+  const weekday = date.getDay();
+  const schedule = settings.weeklySchedule.find(
+    (item) => Number(item.day) === weekday,
+  );
+
+  if (schedule) {
+    if (!schedule.enabled || !schedule.startTime || !schedule.endTime) {
+      return "V tento deň neprijímame rezervácie. Vyberte, prosím, iný termín.";
+    }
+    return "";
+  }
+
+  if (!settings.allowedWeekdays?.includes(weekday)) {
+    return "V tento deň neprijímame rezervácie. Vyberte, prosím, iný termín.";
+  }
+
+  return "";
 }
 
 function findFirstAllowedDate(settings: BookingSettings) {
@@ -208,16 +259,22 @@ export default function DentalHygienaPage() {
 
   const businessAddress =
     data.businessAddress ?? "Pribinova 788/8, 040 01 Košice";
+  const businessPhone = data.businessPhone ?? "";
+  const businessEmail = data.businessEmail ?? "";
+  const showGallery = data.displaySettings?.showGallery !== false;
+  const showPriceSection = data.displaySettings?.showPriceSection !== false;
+  const insuranceSection = data.insuranceSection ?? {};
   const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(businessAddress)}&output=embed`;
   const navItems = [
     { label: "Služby", href: "#sluzby" },
     { label: "Priebeh", href: "#priebeh" },
-    { label: "Galéria", href: "#galeria" },
+    ...(showGallery ? [{ label: "Galéria", href: "#galeria" }] : []),
     { label: "Rezervácia", href: "#rezervacia" },
-    { label: "Cenník", href: "#cennik" },
+    ...(showPriceSection ? [{ label: "Cenník", href: "#cennik" }] : []),
     { label: "Kontakt", href: "#kontakt" },
   ];
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   const heroStats: any[] = data.hero?.stats ?? [];
   const heroImages: any[] = (
@@ -236,6 +293,10 @@ export default function DentalHygienaPage() {
   const heroSliderIntervalMs = Math.max(heroSliderIntervalSeconds, 1) * 1000;
   const [activeHeroImage, setActiveHeroImage] = useState(0);
   const currentHeroImage = heroImages[activeHeroImage] ?? heroImages[0];
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     if (heroImages.length <= 1) return;
@@ -270,7 +331,7 @@ export default function DentalHygienaPage() {
           ? source.allowedWeekdays
           : DEFAULT_BOOKING_SETTINGS.allowedWeekdays,
       extraOpenDates: source.extraOpenDates ?? [],
-      closedDates: source.closedDates ?? [],
+      closedDateRanges: source.closedDateRanges ?? [],
     };
   }, [data.bookingSettings]);
 
@@ -287,6 +348,7 @@ export default function DentalHygienaPage() {
   const [submitting, setSubmitting] = useState(false);
   const [reservationError, setReservationError] = useState("");
   const [reservationSuccess, setReservationSuccess] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   const activeService = useMemo(
     () =>
@@ -306,6 +368,14 @@ export default function DentalHygienaPage() {
   );
 
   const selectedDateAllowed = isDateAllowed(selectedDate, bookingSettings);
+  const selectedDateReason = getDateAvailabilityReason(
+    selectedDate,
+    bookingSettings,
+  );
+  const nearestAllowedDate = useMemo(
+    () => findFirstAllowedDate(bookingSettings),
+    [bookingSettings],
+  );
 
   const availableBookingTimes = useMemo(
     () =>
@@ -316,12 +386,6 @@ export default function DentalHygienaPage() {
         : [],
     [activeServiceDurationMinutes, bookingTimes, busySlots, selectedDate, selectedDateAllowed],
   );
-
-  useEffect(() => {
-    if (!isDateAllowed(selectedDate, bookingSettings)) {
-      setSelectedDate(findFirstAllowedDate(bookingSettings));
-    }
-  }, [bookingSettings, selectedDate]);
 
   useEffect(() => {
     const loadAvailability = async () => {
@@ -359,10 +423,47 @@ export default function DentalHygienaPage() {
     setReservationError("");
     setReservationSuccess("");
 
+    const formData = new FormData(event.currentTarget);
+    const name = String(formData.get("name") ?? "").trim();
+    const phone = String(formData.get("phone") ?? "").trim();
+    const email = String(formData.get("email") ?? "").trim();
+    const note = String(formData.get("note") ?? "").trim();
+
+    const nextFieldErrors: Record<string, string> = {};
+
+    if (!name) nextFieldErrors.name = "Vyplňte meno a priezvisko.";
+    if (!phone) {
+      nextFieldErrors.phone = "Vyplňte telefónne číslo.";
+    } else if (!/^\+?[0-9]{9,15}$/.test(phone)) {
+      nextFieldErrors.phone = "Zadajte platné telefónne číslo bez medzier, iba číslice a prípadne +.";
+    }
+    if (!email) {
+      nextFieldErrors.email = "Vyplňte e-mailovú adresu.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      nextFieldErrors.email = "Zadajte platnú e-mailovú adresu.";
+    }
     if (!gdprAccepted) {
-      setReservationError("Prosím, potvrďte súhlas so spracovaním osobných údajov.");
+      nextFieldErrors.gdpr = "Potvrďte súhlas so spracovaním osobných údajov.";
+    }
+
+    if (Object.keys(nextFieldErrors).length > 0) {
+      setFieldErrors(nextFieldErrors);
+      setReservationError("Skontrolujte zvýraznené polia.");
+
+      window.setTimeout(() => {
+        const firstField = Object.keys(nextFieldErrors)[0];
+        const target = document.querySelector(
+          firstField === "gdpr" ? '[name="gdpr"]' : `[name="${firstField}"]`,
+        ) as HTMLElement | null;
+
+        target?.scrollIntoView({ behavior: "smooth", block: "center" });
+        target?.focus?.();
+      }, 0);
+
       return;
     }
+
+    setFieldErrors({});
 
     if (!selectedDateAllowed) {
       setReservationError("Vybraný dátum nie je dostupný na rezerváciu.");
@@ -376,17 +477,6 @@ export default function DentalHygienaPage() {
 
     if (isSlotBusy(selectedDate, selectedTime, activeServiceDurationMinutes, busySlots)) {
       setReservationError("Tento termín je už obsadený. Vyberte iný čas.");
-      return;
-    }
-
-    const formData = new FormData(event.currentTarget);
-    const name = String(formData.get("name") ?? "").trim();
-    const phone = String(formData.get("phone") ?? "").trim();
-    const email = String(formData.get("email") ?? "").trim();
-    const note = String(formData.get("note") ?? "").trim();
-
-    if (!name || !phone || !email) {
-      setReservationError("Vyplňte meno, telefón a e-mail.");
       return;
     }
 
@@ -415,7 +505,11 @@ export default function DentalHygienaPage() {
       }
 
       setSent(true);
-      setReservationSuccess("Ďakujeme, rezervácia bola úspešne vytvorená a termín je zapísaný v kalendári.");
+      setFieldErrors({});
+      setReservationSuccess(
+        result.message ||
+          "Na váš e-mail sme poslali odkaz na potvrdenie rezervácie. Termín pre vás držíme 10 minút."
+      );
       setBusySlots((current) => [
         ...current,
         {
@@ -653,10 +747,10 @@ export default function DentalHygienaPage() {
 
         <section
           id="sluzby"
-          className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:py-20"
+          className="scroll-mt-24 mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:py-20"
         >
           <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1CC7C9]">
+            <p className="text-base font-semibold uppercase tracking-[0.18em] text-[#1CC7C9]">
               {data.servicesSection?.label ?? "Služby a benefity"}
             </p>
             <h2 className="mt-4 font-serif text-3xl text-[#174A4A] sm:text-4xl md:text-5xl">
@@ -696,13 +790,13 @@ export default function DentalHygienaPage() {
           </div>
         </section>
 
-        {data.gallery?.items?.length ? (
+        {showGallery && data.gallery?.items?.length ? (
           <section
             id="galeria"
-            className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 sm:pb-16 lg:pb-20"
+            className="scroll-mt-24 mx-auto max-w-7xl px-4 pb-12 sm:px-6 sm:pb-16 lg:pb-20"
           >
             <div className="max-w-3xl">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1CC7C9]">
+              <p className="text-base font-semibold uppercase tracking-[0.18em] text-[#1CC7C9]">
                 {data.gallery?.label ?? "Galéria"}
               </p>
               <h2 className="mt-4 font-serif text-3xl text-[#174A4A] sm:text-4xl md:text-5xl">
@@ -738,32 +832,25 @@ export default function DentalHygienaPage() {
 
         <section
           id="priebeh"
-          className="border-y border-[#DDF3F3] bg-[#FFFFFF]"
+          className="scroll-mt-24 border-y border-[#DDF3F3] bg-[#FFFFFF]"
         >
-          <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-2 lg:items-start lg:gap-10 lg:py-20">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1CC7C9]">
-                Priebeh ošetrenia
-              </p>
-              <h2 className="mt-4 font-serif text-3xl text-[#174A4A] sm:text-4xl md:text-5xl">
-                Jednoduchý proces, príjemná skúsenosť
-              </h2>
-              <p className="mt-4 text-base leading-relaxed text-[#4F7E7E] sm:mt-5 sm:text-lg">
-                Každý krok je navrhnutý tak, aby ošetrenie pôsobilo
-                profesionálne, pokojne a bez zbytočného stresu.
-              </p>
-            </div>
+          <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:py-20">
+            <p className="text-base font-semibold uppercase tracking-[0.18em] text-[#1CC7C9]">
+              Priebeh ošetrenia
+            </p>
 
-            <div className="space-y-4">
+            <div className="mt-8 grid gap-4 md:grid-cols-2 lg:gap-5">
               {steps.map((step: string, index: number) => (
                 <div
                   key={step}
-                  className="flex gap-4 rounded-[1.5rem] border border-[#DDF3F3] bg-[#F8FEFE] p-5"
+                  className="flex min-h-28 items-center gap-4 rounded-[1.5rem] border border-[#DDF3F3] bg-[#F8FEFE] p-5"
                 >
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#1CC7C9] font-semibold text-white">
                     {index + 1}
                   </div>
-                  <div className="pt-2 text-lg text-[#4F7E7E]">{step}</div>
+                  <div className="text-base leading-relaxed text-[#4F7E7E] sm:text-lg">
+                    {step}
+                  </div>
                 </div>
               ))}
             </div>
@@ -772,61 +859,63 @@ export default function DentalHygienaPage() {
 
         <section
           id="rezervacia"
-          className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:py-20"
+          className="scroll-mt-24 mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:py-20"
         >
-          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-10">
+          <div className="mx-auto w-full max-w-5xl">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1CC7C9]">
+              <p className="text-base font-semibold uppercase tracking-[0.18em] text-[#1CC7C9]">
                 Online rezervácia
               </p>
-              <h2 className="mt-4 font-serif text-3xl text-[#174A4A] sm:text-4xl md:text-5xl">
+              <h2 className="mt-4 max-w-3xl font-serif text-3xl text-[#174A4A] sm:text-4xl md:text-5xl">
                 Rezervujte si termín pohodlne online
               </h2>
-              <p className="mt-4 text-base leading-relaxed text-[#4F7E7E] sm:mt-5 sm:text-lg">
-                Namiesto externého Reservanto okna je rezervácia priamo súčasťou
-                webu. Klient si vyberie službu, dátum, čas a odošle svoje údaje
-                v čistom Dientes dizajne.
-              </p>
 
-              <div className="mt-8 rounded-[1.75rem] border border-[#DDF3F3] bg-[#FFFFFF] p-6 shadow-sm">
-                <h3 className="font-serif text-2xl text-[#17B4B6]">
-                  Čo formulár rieši
-                </h3>
-                <div className="mt-5 space-y-4">
-                  {[
-                    "výber služby podľa dĺžky a ceny",
-                    "výber dostupného dátumu a času",
-                    "kontaktné údaje klienta",
-                    "poznámka k citlivosti, strojčeku alebo ďasnám",
-                    "GDPR súhlas pred odoslaním",
-                  ].map((item) => (
-                    <div
-                      key={item}
-                      className="flex gap-3 rounded-2xl border border-[#DDF3F3] bg-white/60 p-4"
-                    >
-                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#1CC7C9] text-sm text-white">
-                        ✓
-                      </span>
-                      <span className="text-[#3D6666]">{item}</span>
+              {insuranceSection.enabled !== false ? (
+                <div className="mt-6 rounded-[1.5rem] border border-[#DDF3F3] bg-[#F8FEFE] p-5 sm:p-6">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="max-w-3xl">
+                      <h3 className="font-serif text-2xl text-[#174A4A]">
+                        {insuranceSection.title ?? "Príspevok od zdravotnej poisťovne"}
+                      </h3>
+                      <p className="mt-3 text-sm leading-relaxed text-[#4F7E7E] sm:text-base">
+                        {insuranceSection.description ??
+                          "Ambulancia Dientes nie je zmluvným partnerom zdravotných poisťovní, napriek tomu si môžete príspevok na dentálnu hygienu uplatniť zo svojho benefitného programu."}
+                      </p>
                     </div>
-                  ))}
+
+                    <div className="grid shrink-0 grid-cols-1 gap-2 sm:min-w-56 sm:grid-cols-2">
+                      <div className="rounded-2xl border border-[#DDF3F3] bg-white px-4 py-3 text-center">
+                        <div className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1CC7C9]">
+                          Dôvera
+                        </div>
+                        <div className="mt-1 font-serif text-xl text-[#174A4A]">
+                          {insuranceSection.doveraFrequency ?? "2× ročne"}
+                        </div>
+                      </div>
+                      <div className="rounded-2xl border border-[#DDF3F3] bg-white px-4 py-3 text-center">
+                        <div className="text-xs font-semibold uppercase tracking-[0.14em] text-[#1CC7C9]">
+                          Union
+                        </div>
+                        <div className="mt-1 font-serif text-xl text-[#174A4A]">
+                          {insuranceSection.unionFrequency ?? "2× ročne"}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p className="mt-4 text-sm font-medium text-[#3D6666] sm:text-base">
+                    {insuranceSection.helpText ??
+                      "S vybavením príspevku vám radi pomôžeme priamo v ambulancii."}
+                  </p>
                 </div>
-              </div>
+              ) : null}
             </div>
 
             <form
               onSubmit={handleBookingSubmit}
-              className="overflow-hidden rounded-[2rem] border border-[#DDF3F3] bg-[#FFFFFF] shadow-[0_20px_60px_rgba(28,199,201,0.10)]"
+              noValidate
+              className="mt-8 overflow-hidden rounded-[2rem] border border-[#DDF3F3] bg-[#FFFFFF] shadow-[0_20px_60px_rgba(28,199,201,0.10)] sm:mt-10"
             >
-              <div className="border-b border-[#DDF3F3] px-6 py-5">
-                <div className="font-serif text-2xl text-[#17B4B6]">
-                  Objednávka na dentálnu hygienu
-                </div>
-                <div className="text-sm text-[#6D8F8F]">
-                  Dientes dentálna hygiena
-                </div>
-              </div>
-
               <div className="space-y-7 p-4 sm:space-y-8 sm:p-6">
                 <div>
                   <div className="mb-4 flex items-center gap-3">
@@ -925,8 +1014,23 @@ export default function DentalHygienaPage() {
                   </div>
 
                   {!selectedDateAllowed ? (
-                    <div className="mt-4 rounded-2xl border border-[#DDF3F3] bg-[#F8FEFE] p-4 text-sm text-[#174A4A]">
-                      Tento dátum momentálne nie je otvorený na rezervácie. Upravte týždenný rozvrh alebo ho pridajte v administrácii do výnimočne otvorených dátumov.
+                    <div className="mt-4 rounded-2xl border border-[#E25555] bg-[#FFF5F5] p-4 text-sm text-[#C83E3E]">
+                      <p className="font-semibold">
+                        {selectedDateReason ||
+                          "Tento dátum momentálne nie je otvorený na rezervácie."}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedDate(nearestAllowedDate);
+                          setReservationError("");
+                          setReservationSuccess("");
+                          setSent(false);
+                        }}
+                        className="mt-3 inline-flex rounded-full bg-[#1CC7C9] px-4 py-2 font-semibold text-white transition hover:bg-[#17B4B6]"
+                      >
+                        Prejsť na najbližší voľný termín
+                      </button>
                     </div>
                   ) : null}
 
@@ -990,34 +1094,101 @@ export default function DentalHygienaPage() {
                         Meno a priezvisko
                       </span>
                       <input
-                        required
                         name="name"
-                        className="w-full rounded-2xl border border-[#DDF3F3] bg-white px-4 py-3 text-[#174A4A] outline-none transition focus:border-[#1CC7C9] focus:ring-4 focus:ring-[#1CC7C9]/10"
+                        aria-invalid={Boolean(fieldErrors.name)}
+                        onChange={() =>
+                          setFieldErrors((current) => {
+                            if (!current.name) return current;
+                            const next = { ...current };
+                            delete next.name;
+                            return next;
+                          })
+                        }
+                        className={`w-full rounded-2xl border bg-white px-4 py-3 text-[#174A4A] outline-none transition focus:ring-4 ${
+                          fieldErrors.name
+                            ? "border-[#E25555] bg-[#FFF5F5] focus:border-[#E25555] focus:ring-[#E25555]/10"
+                            : "border-[#DDF3F3] focus:border-[#1CC7C9] focus:ring-[#1CC7C9]/10"
+                        }`}
                         placeholder="Jana Nováková"
                       />
+                      {fieldErrors.name ? (
+                        <span className="mt-2 block text-sm font-medium text-[#C83E3E]">
+                          {fieldErrors.name}
+                        </span>
+                      ) : null}
                     </label>
                     <label className="block">
                       <span className="mb-2 block text-sm font-semibold text-[#3D6666]">
                         Telefón
                       </span>
                       <input
-                        required
                         name="phone"
-                        className="w-full rounded-2xl border border-[#DDF3F3] bg-white px-4 py-3 text-[#174A4A] outline-none transition focus:border-[#1CC7C9] focus:ring-4 focus:ring-[#1CC7C9]/10"
-                        placeholder="+421 900 123 456"
+                        type="tel"
+                        inputMode="tel"
+                        autoComplete="tel"
+                        maxLength={16}
+                        aria-invalid={Boolean(fieldErrors.phone)}
+                        onInput={(event) => {
+                          const input = event.currentTarget;
+                          let value = input.value.replace(/[^0-9+]/g, "");
+
+                          if (value.includes("+")) {
+                            value =
+                              (value.startsWith("+") ? "+" : "") +
+                              value.replace(/\+/g, "");
+                          }
+
+                          input.value = value;
+                        }}
+                        onChange={() =>
+                          setFieldErrors((current) => {
+                            if (!current.phone) return current;
+                            const next = { ...current };
+                            delete next.phone;
+                            return next;
+                          })
+                        }
+                        className={`w-full rounded-2xl border bg-white px-4 py-3 text-[#174A4A] outline-none transition focus:ring-4 ${
+                          fieldErrors.phone
+                            ? "border-[#E25555] bg-[#FFF5F5] focus:border-[#E25555] focus:ring-[#E25555]/10"
+                            : "border-[#DDF3F3] focus:border-[#1CC7C9] focus:ring-[#1CC7C9]/10"
+                        }`}
+                        placeholder="+421900123456"
                       />
+                      {fieldErrors.phone ? (
+                        <span className="mt-2 block text-sm font-medium text-[#C83E3E]">
+                          {fieldErrors.phone}
+                        </span>
+                      ) : null}
                     </label>
                     <label className="block md:col-span-2">
                       <span className="mb-2 block text-sm font-semibold text-[#3D6666]">
                         E-mail
                       </span>
                       <input
-                        required
                         name="email"
                         type="email"
-                        className="w-full rounded-2xl border border-[#DDF3F3] bg-white px-4 py-3 text-[#174A4A] outline-none transition focus:border-[#1CC7C9] focus:ring-4 focus:ring-[#1CC7C9]/10"
+                        aria-invalid={Boolean(fieldErrors.email)}
+                        onChange={() =>
+                          setFieldErrors((current) => {
+                            if (!current.email) return current;
+                            const next = { ...current };
+                            delete next.email;
+                            return next;
+                          })
+                        }
+                        className={`w-full rounded-2xl border bg-white px-4 py-3 text-[#174A4A] outline-none transition focus:ring-4 ${
+                          fieldErrors.email
+                            ? "border-[#E25555] bg-[#FFF5F5] focus:border-[#E25555] focus:ring-[#E25555]/10"
+                            : "border-[#DDF3F3] focus:border-[#1CC7C9] focus:ring-[#1CC7C9]/10"
+                        }`}
                         placeholder="jana@email.sk"
                       />
+                      {fieldErrors.email ? (
+                        <span className="mt-2 block text-sm font-medium text-[#C83E3E]">
+                          {fieldErrors.email}
+                        </span>
+                      ) : null}
                     </label>
                     <label className="block md:col-span-2">
                       <span className="mb-2 block text-sm font-semibold text-[#3D6666]">
@@ -1064,36 +1235,121 @@ export default function DentalHygienaPage() {
                   </div>
                 </div>
 
-                <label className="flex gap-3 rounded-2xl border border-[#DDF3F3] bg-white/70 p-4 text-sm leading-relaxed text-[#3D6666]">
-                  <input
-                    type="checkbox"
-                    checked={gdprAccepted}
-                    onChange={(event) => setGdprAccepted(event.target.checked)}
-                    className="mt-1 h-4 w-4 rounded border-[#DDF3F3]"
-                  />
-                  <span>
-                    Súhlasím so spracovaním osobných údajov za účelom vybavenia
-                    rezervácie a beriem na vedomie storno podmienky.
-                  </span>
-                </label>
+                <div>
+                  <label
+                    className={`flex gap-3 rounded-2xl border p-4 text-sm leading-relaxed transition ${
+                      fieldErrors.gdpr
+                        ? "border-[#E25555] bg-[#FFF5F5] text-[#C83E3E]"
+                        : "border-[#DDF3F3] bg-white/70 text-[#3D6666]"
+                    }`}
+                  >
+                    <input
+                      name="gdpr"
+                      type="checkbox"
+                      checked={gdprAccepted}
+                      aria-invalid={Boolean(fieldErrors.gdpr)}
+                      onChange={(event) => {
+                        setGdprAccepted(event.target.checked);
+                        if (event.target.checked) {
+                          setFieldErrors((current) => {
+                            if (!current.gdpr) return current;
+                            const next = { ...current };
+                            delete next.gdpr;
+                            return next;
+                          });
+                        }
+                      }}
+                      className="mt-1 h-4 w-4 rounded border-[#DDF3F3]"
+                    />
+                    <span>
+                      Súhlasím so spracovaním osobných údajov za účelom vybavenia
+                      rezervácie a beriem na vedomie storno podmienky.
+                    </span>
+                  </label>
+                  {fieldErrors.gdpr ? (
+                    <span className="mt-2 block text-sm font-medium text-[#C83E3E]">
+                      {fieldErrors.gdpr}
+                    </span>
+                  ) : null}
+                </div>
 
                 <button
                   type="submit"
-                  disabled={submitting || !selectedDateAllowed || !selectedTime}
+                  disabled={!isMounted || submitting || !selectedDateAllowed || !selectedTime}
                   className="w-full rounded-full bg-[#1CC7C9] px-7 py-4 text-center font-semibold text-white shadow-lg shadow-[#1CC7C9]/20 transition hover:-translate-y-0.5 hover:bg-[#17B4B6] disabled:cursor-not-allowed disabled:bg-[#A7DCDC] disabled:shadow-none"
                 >
                   {submitting ? "Odosielam rezerváciu..." : "Potvrdiť rezerváciu"}
                 </button>
 
                 {reservationError ? (
-                  <div className="rounded-2xl border border-[#DDF3F3] bg-[#F8FEFE] p-4 text-sm font-medium text-[#174A4A]">
+                  <div className="rounded-2xl border border-[#E25555] bg-[#FFF5F5] p-4 text-sm font-semibold text-[#C83E3E]">
                     {reservationError}
                   </div>
                 ) : null}
 
                 {sent || reservationSuccess ? (
-                  <div className="rounded-2xl border border-[#C9D9BE] bg-[#F0F6EA] p-4 text-sm font-medium text-[#526C45]">
-                    {reservationSuccess || "Ďakujeme, vaša rezervácia bola úspešne vytvorená."}
+                  <div className="mx-auto w-full max-w-[900px] rounded-[1.75rem] border-2 border-[#1CC7C9] bg-[#F4FEFE] p-5 sm:p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#1CC7C9] text-2xl text-white">
+                        ✉
+                      </div>
+
+                      <div className="min-w-0">
+                        <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#1CC7C9]">
+                          Ešte jeden krok
+                        </p>
+                        <h4 className="mt-1 font-serif text-2xl font-semibold text-[#174A4A] sm:text-3xl">
+                          Vaša rezervácia ešte nie je potvrdená
+                        </h4>
+
+                        <p className="mt-3 text-base leading-relaxed text-[#3D6666]">
+                          Na vašu e-mailovú adresu sme poslali správu s tlačidlom
+                          <strong> „Potvrdiť rezerváciu“</strong>.
+                        </p>
+
+                        <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                          <div className="rounded-2xl border border-[#DDF3F3] bg-white p-4 text-center">
+                            <div className="mx-auto flex h-8 w-8 items-center justify-center rounded-full bg-[#E8FAFA] font-bold text-[#1CC7C9]">
+                              1
+                            </div>
+                            <p className="mt-2 text-sm font-semibold text-[#174A4A]">
+                              Otvorte e-mail
+                            </p>
+                          </div>
+
+                          <div className="rounded-2xl border border-[#DDF3F3] bg-white p-4 text-center">
+                            <div className="mx-auto flex h-8 w-8 items-center justify-center rounded-full bg-[#E8FAFA] font-bold text-[#1CC7C9]">
+                              2
+                            </div>
+                            <p className="mt-2 text-sm font-semibold text-[#174A4A]">
+                              Kliknite „Potvrdiť rezerváciu“
+                            </p>
+                          </div>
+
+                          <div className="rounded-2xl border border-[#DDF3F3] bg-white p-4 text-center">
+                            <div className="mx-auto flex h-8 w-8 items-center justify-center rounded-full bg-[#E8FAFA] font-bold text-[#1CC7C9]">
+                              3
+                            </div>
+                            <p className="mt-2 text-sm font-semibold text-[#174A4A]">
+                              Hotovo ✓
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="mt-5 rounded-2xl border border-[#DDF3F3] bg-white px-4 py-3">
+                          <p className="font-semibold text-[#174A4A]">
+                            ⏱ Termín pre vás držíme 10 minút.
+                          </p>
+                          <p className="mt-1 text-sm leading-relaxed text-[#6D8F8F]">
+                            Ak rezerváciu do 10 minút nepotvrdíte, termín sa automaticky uvoľní pre ďalších klientov.
+                          </p>
+                        </div>
+
+                        <p className="mt-4 text-sm text-[#6D8F8F]">
+                          <strong>E-mail nevidíte?</strong> Skontrolujte aj priečinok Spam alebo Nevyžiadaná pošta.
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 ) : null}
               </div>
@@ -1101,10 +1357,11 @@ export default function DentalHygienaPage() {
           </div>
         </section>
 
-        <section id="cennik" className="border-y border-[#DDF3F3] bg-[#FFFFFF]">
+        {showPriceSection ? (
+        <section id="cennik" className="scroll-mt-24 border-y border-[#DDF3F3] bg-[#FFFFFF]">
           <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-2 lg:items-start lg:gap-10 lg:py-20">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1CC7C9]">
+              <p className="text-base font-semibold uppercase tracking-[0.18em] text-[#1CC7C9]">
                 {data.priceSection?.label ?? "Cenník"}
               </p>
               <h2 className="mt-4 font-serif text-3xl text-[#174A4A] sm:text-4xl md:text-5xl">
@@ -1138,13 +1395,15 @@ export default function DentalHygienaPage() {
           </div>
         </section>
 
+        ) : null}
+
         <section
           id="kontakt"
-          className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:py-20"
+          className="scroll-mt-24 mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:py-20"
         >
           <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-10">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1CC7C9]">
+              <p className="text-base font-semibold uppercase tracking-[0.18em] text-[#1CC7C9]">
                 {data.contactSection?.label ?? "Kontakt a mapa"}
               </p>
               <h2 className="mt-4 font-serif text-3xl text-[#174A4A] sm:text-4xl md:text-5xl">
@@ -1164,6 +1423,22 @@ export default function DentalHygienaPage() {
                     {data.businessName ?? "Dientes dentálna hygiena"}
                   </div>
                   <p className="mt-2 text-[#6D8F8F]">{businessAddress}</p>
+                  {businessPhone ? (
+                    <p className="mt-3 text-[#6D8F8F]">
+                      <strong className="text-[#174A4A]">Telefón:</strong>{" "}
+                      <a href={`tel:${businessPhone.replace(/\s+/g, "")}`} className="hover:text-[#1CC7C9]">
+                        {businessPhone}
+                      </a>
+                    </p>
+                  ) : null}
+                  {businessEmail ? (
+                    <p className="mt-2 text-[#6D8F8F]">
+                      <strong className="text-[#174A4A]">E-mail:</strong>{" "}
+                      <a href={`mailto:${businessEmail}`} className="hover:text-[#1CC7C9]">
+                        {businessEmail}
+                      </a>
+                    </p>
+                  ) : null}
                 </div>
 
                 <a

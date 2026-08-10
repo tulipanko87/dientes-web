@@ -21,11 +21,22 @@ export default defineConfig({
         fields: [
           { type: "string", name: "businessName", label: "Názov prevádzky" },
           { type: "string", name: "businessAddress", label: "Adresa prevádzky" },
+          { type: "string", name: "businessPhone", label: "Telefón prevádzky" },
+          { type: "string", name: "businessEmail", label: "E-mail prevádzky" },
           imageField("logoImage", "Logo / obrázok v hlavičke"),
           {
             type: "object", name: "header", label: "Hlavička", fields: [
               { type: "string", name: "brandTitle", label: "Názov v hlavičke" },
               { type: "string", name: "brandSubtitle", label: "Podnadpis v hlavičke" }
+            ]
+          },
+          {
+            type: "object",
+            name: "displaySettings",
+            label: "Zobrazenie sekcií",
+            fields: [
+              { type: "boolean", name: "showGallery", label: "Zobraziť galériu" },
+              { type: "boolean", name: "showPriceSection", label: "Zobraziť cenník" }
             ]
           },
           {
@@ -118,15 +129,29 @@ export default defineConfig({
 
           {
             type: "object",
+            name: "insuranceSection",
+            label: "Príspevok zdravotných poisťovní",
+            fields: [
+              { type: "boolean", name: "enabled", label: "Zobraziť informáciu o poisťovniach" },
+              { type: "string", name: "title", label: "Nadpis" },
+              { type: "string", name: "description", label: "Text", ui: { component: "textarea" } },
+              { type: "string", name: "doveraFrequency", label: "Dôvera – frekvencia príspevku" },
+              { type: "string", name: "unionFrequency", label: "Union – frekvencia príspevku" },
+              { type: "string", name: "helpText", label: "Doplňujúci text", ui: { component: "textarea" } }
+            ]
+          },
+
+          {
+            type: "object",
             name: "bookingSettings",
-            label: "Nastavenia rezervácií",
+            label: "Otváracie hodiny a dostupnosť rezervácií",
             fields: [
               { type: "number", name: "daysAhead", label: "Koľko dní dopredu povoliť rezervácie" },
               { type: "number", name: "slotMinutes", label: "Dĺžka jedného termínu v minútach" },
               {
                 type: "object",
                 name: "weeklySchedule",
-                label: "Týždenný rozvrh objednávania",
+                label: "Bežné otváracie hodiny",
                 list: true,
                 ui: {
                   itemProps: (item: { day?: number; enabled?: boolean; startTime?: string; endTime?: string }) => {
@@ -158,16 +183,54 @@ export default defineConfig({
               {
                 type: "object",
                 name: "extraOpenDates",
-                label: "Výnimočne otvorené dátumy",
+                label: "Mimoriadne otvorené dni",
                 list: true,
-                ui: { itemProps: (item: { date?: string; startTime?: string; endTime?: string }) => ({ label: `${item?.date || "Dátum"} ${item?.startTime || ""}–${item?.endTime || ""}` }) },
+                ui: {
+                  itemProps: (item: { date?: string; startTime?: string; endTime?: string }) => ({
+                    label: `${item?.date ? new Date(item.date).toLocaleDateString("sk-SK") : "Vyberte dátum"} ${item?.startTime || ""}${item?.endTime ? `–${item.endTime}` : ""}`,
+                  }),
+                },
                 fields: [
-                  { type: "string", name: "date", label: "Dátum vo formáte RRRR-MM-DD" },
-                  { type: "string", name: "startTime", label: "Od" },
-                  { type: "string", name: "endTime", label: "Do" },
+                  {
+                    type: "datetime",
+                    name: "date",
+                    label: "Dátum",
+                    ui: { dateFormat: "DD.MM.YYYY" },
+                  },
+                  { type: "string", name: "startTime", label: "Otvorené od (napr. 08:00)" },
+                  { type: "string", name: "endTime", label: "Otvorené do (napr. 14:00)" },
                 ],
               },
-              { type: "string", name: "closedDates", label: "Zatvorené dátumy / dovolenka (RRRR-MM-DD)", list: true },
+              {
+                type: "object",
+                name: "closedDateRanges",
+                label: "Dovolenka / zatvorené obdobia",
+                list: true,
+                ui: {
+                  itemProps: (item: { startDate?: string; endDate?: string; note?: string }) => ({
+                    label: `${item?.startDate ? new Date(item.startDate).toLocaleDateString("sk-SK") : "Od"} – ${item?.endDate ? new Date(item.endDate).toLocaleDateString("sk-SK") : "Do"}${item?.note ? ` · ${item.note}` : ""}`,
+                  }),
+                },
+                fields: [
+                  {
+                    type: "datetime",
+                    name: "startDate",
+                    label: "Od dátumu",
+                    ui: { dateFormat: "DD.MM.YYYY" },
+                  },
+                  {
+                    type: "datetime",
+                    name: "endDate",
+                    label: "Do dátumu",
+                    ui: { dateFormat: "DD.MM.YYYY" },
+                  },
+                  {
+                    type: "string",
+                    name: "note",
+                    label: "Poznámka (voliteľné, napr. Dovolenka)",
+                  },
+                ],
+              },
             ],
           },
           {

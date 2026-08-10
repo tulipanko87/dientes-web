@@ -4,14 +4,8 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 type ReservationBody = {
-  service?: string;
-  name?: string;
-  email?: string;
-  phone?: string;
-  date?: string;
-  time?: string;
-  durationMinutes?: number;
-  note?: string;
+  service?: string; name?: string; email?: string; phone?: string;
+  date?: string; time?: string; durationMinutes?: number; note?: string;
 };
 
 function getCalendarClient() {
@@ -20,187 +14,94 @@ function getCalendarClient() {
     key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
     scopes: ["https://www.googleapis.com/auth/calendar"],
   });
-
   return google.calendar({ version: "v3", auth });
 }
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
+  auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
 });
 
 export async function POST(request: Request) {
   try {
     const body = (await request.json()) as ReservationBody;
+    const { service, name, email, phone, date, time, durationMinutes = 60, note } = body;
 
-    const {
-      service,
-      name,
-      email,
-      phone,
-      date,
-      time,
-      durationMinutes = 60,
-      note,
-    } = body;
-
-    if (!service || !name || !phone || !date || !time) {
-      return NextResponse.json(
-        { error: "Chýbajú povinné údaje rezervácie." },
-        { status: 400 }
-      );
+    if (!service || !name || !email || !phone || !date || !time) {
+      return NextResponse.json({ error: "Chýbajú povinné údaje rezervácie." }, { status: 400 });
     }
 
     const start = new Date(`${date}T${time}:00+02:00`);
     const end = new Date(start.getTime() + durationMinutes * 60 * 1000);
-    const formattedDate = new Date(`${date}T${time}:00`).toLocaleDateString("sk-SK");
+    if (Number.isNaN(start.getTime())) {
+      return NextResponse.json({ error: "Neplatný dátum alebo čas." }, { status: 400 });
+    }
 
-    const siteUrl = process.env.SITE_URL || "http://localhost:3000";
-    const cancelToken = crypto.randomUUID();
-    const cancelUrl = `${siteUrl}/api/cancel-reservation?token=${cancelToken}`;
-
+    const calendarId = process.env.GOOGLE_CALENDAR_ID as string;
     const calendar = getCalendarClient();
-
     const freebusy = await calendar.freebusy.query({
       requestBody: {
-        timeMin: start.toISOString(),
-        timeMax: end.toISOString(),
-        timeZone: "Europe/Bratislava",
-        items: [{ id: process.env.GOOGLE_CALENDAR_ID }],
+        timeMin: start.toISOString(), timeMax: end.toISOString(),
+        timeZone: "Europe/Bratislava", items: [{ id: calendarId }],
       },
     });
-
-    const busy =
-      freebusy.data.calendars?.[process.env.GOOGLE_CALENDAR_ID as string]?.busy ?? [];
-
-    if (busy.length > 0) {
-      return NextResponse.json(
-        { error: "Tento termín je už obsadený." },
-        { status: 409 }
-      );
+    const busy = freebusy.data.calendars?.[calendarId]?.busy ?? [];
+    if (busy.length) {
+      return NextResponse.json({ error: "Tento termín je už obsadený." }, { status: 409 });
     }
 
-    const event = await calendar.events.insert({
-      calendarId: process.env.GOOGLE_CALENDAR_ID,
+    const confirmationToken = crypto.randomBytes(32).toString("hex");
+    const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
+    const siteUrl = process.env.SITE_URL || "http://localhost:3000";
+    const confirmUrl = `${siteUrl}/api/confirm-reservation?token=${encodeURIComponent(confirmationToken)}`;
+    const formattedDate = new Date(`${date}T12:00:00`).toLocaleDateString("sk-SK");
+
+    const pendingEvent = await calendar.events.insert({
+      calendarId,
       requestBody: {
-        summary: `Rezervácia: ${service}`,
+        summary: `ČAKÁ NA POTVRDENIE – ${service}`,
         description: [
-          `Meno: ${name}`,
-          `Telefón: ${phone}`,
-          email ? `Email: ${email}` : null,
+          `Meno: ${name}`, `Telefón: ${phone}`, `Email: ${email}`,
           note ? `Poznámka: ${note}` : null,
-          `Storno odkaz: ${cancelUrl}`,
-        ]
-          .filter(Boolean)
-          .join("\n"),
-        start: {
-          dateTime: start.toISOString(),
-          timeZone: "Europe/Bratislava",
-        },
-        end: {
-          dateTime: end.toISOString(),
-          timeZone: "Europe/Bratislava",
-        },
-        extendedProperties: {
-          private: {
-            cancelToken,
-          },
-        },
+          "Stav: Čaká na potvrdenie e-mailu",
+          `Platnosť do: ${expiresAt.toISOString()}`,
+        ].filter(Boolean).join("\n"),
+        start: { dateTime: start.toISOString(), timeZone: "Europe/Bratislava" },
+        end: { dateTime: end.toISOString(), timeZone: "Europe/Bratislava" },
+        extendedProperties: { private: {
+          status: "pending", confirmationToken, expiresAt: expiresAt.toISOString(),
+          service, customerName: name, customerEmail: email, customerPhone: phone,
+          durationMinutes: String(durationMinutes), note: note || "",
+        }},
       },
     });
 
-    if (email) {
+    try {
       await transporter.sendMail({
-        from: process.env.SMTP_FROM,
-        to: email,
-        subject: "Potvrdenie rezervácie – Dientes dentálna hygiena",
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width:600px; line-height:1.6">
-            <h2>Ďakujeme za rezerváciu</h2>
-            <p>Dobrý deň ${name},</p>
-            <p>Vaša rezervácia bola úspešne vytvorená.</p>
-
-            <p>
-              <strong>Služba:</strong> ${service}<br>
-              <strong>Dátum:</strong> ${formattedDate}<br>
-              <strong>Čas:</strong> ${time}
-            </p>
-
-            <p>
-              <strong>Dientes dentálna hygiena</strong><br>
-              Pribinova 788/8<br>
-              040 01 Košice
-            </p>
-
-            <p>Tešíme sa na Vašu návštevu.</p>
-
-            <hr style="border:none;border-top:1px solid #eadbd2;margin:24px 0" />
-
-            <p style="font-size:14px;color:#6b5b52">
-              Ak potrebujete rezerváciu zrušiť, kliknite na odkaz nižšie:
-            </p>
-
-            <p>
-              <a
-                href="${cancelUrl}"
-                style="display:inline-block;background:#b37e74;color:#ffffff;text-decoration:none;padding:12px 18px;border-radius:999px;font-weight:bold"
-              >
-                Zrušiť rezerváciu
-              </a>
-            </p>
-
-            <p style="font-size:12px;color:#8a7a72">
-              Ak ste rezerváciu nechceli zrušiť, tento e-mail ignorujte.
-            </p>
-          </div>
-        `,
+        from: process.env.SMTP_FROM, to: email,
+        subject: "Potvrďte rezerváciu – Dientes dentálna hygiena",
+        html: `<div style="font-family:Arial,sans-serif;max-width:600px;line-height:1.6;color:#174A4A">
+          <h2>Potvrďte svoju rezerváciu</h2><p>Dobrý deň ${name},</p>
+          <p>Pre dokončenie rezervácie potvrďte svoju e-mailovú adresu.</p>
+          <p><strong>Služba:</strong> ${service}<br><strong>Dátum:</strong> ${formattedDate}<br><strong>Čas:</strong> ${time}</p>
+          <p>Termín pre Vás držíme <strong>10 minút</strong>.</p>
+          <p><a href="${confirmUrl}" style="display:inline-block;background:#1CC7C9;color:#fff;text-decoration:none;padding:14px 22px;border-radius:999px;font-weight:bold">POTVRDIŤ REZERVÁCIU</a></p>
+          <p style="font-size:13px;color:#6D8F8F">Ak ste túto rezerváciu nevytvorili, e-mail ignorujte.</p>
+        </div>`,
       });
+    } catch (mailError) {
+      if (pendingEvent.data.id) {
+        await calendar.events.delete({ calendarId, eventId: pendingEvent.data.id }).catch(() => undefined);
+      }
+      throw mailError;
     }
-
-    await transporter.sendMail({
-      from: process.env.SMTP_FROM,
-      to: process.env.SMTP_USER,
-      subject: `Nová rezervácia – ${service}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width:600px; line-height:1.6">
-          <h2>Nová rezervácia</h2>
-
-          <p><strong>Služba:</strong> ${service}</p>
-          <p><strong>Dátum:</strong> ${formattedDate}</p>
-          <p><strong>Čas:</strong> ${time}</p>
-          <p><strong>Trvanie:</strong> ${durationMinutes} min</p>
-
-          <hr>
-
-          <p><strong>Meno:</strong> ${name}</p>
-          <p><strong>Telefón:</strong> ${phone}</p>
-          <p><strong>Email:</strong> ${email || "Neuvedený"}</p>
-          <p><strong>Poznámka:</strong> ${note || "Bez poznámky"}</p>
-
-          <hr>
-
-          <p>
-            <strong>Storno odkaz:</strong><br>
-            <a href="${cancelUrl}">${cancelUrl}</a>
-          </p>
-        </div>
-      `,
-    });
 
     return NextResponse.json({
-      success: true,
-      eventId: event.data.id,
-      message: "Rezervácia bola úspešne vytvorená.",
+      success: true, pending: true,
+      message: "Na váš e-mail sme poslali odkaz na potvrdenie. Termín pre vás držíme 10 minút.",
     });
   } catch (error) {
     console.error("Reservation error:", error);
-
-    return NextResponse.json(
-      { error: "Rezerváciu sa nepodarilo vytvoriť." },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Rezerváciu sa nepodarilo pripraviť na potvrdenie." }, { status: 500 });
   }
 }
