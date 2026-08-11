@@ -186,7 +186,7 @@
   "insuranceSection": {
     "enabled": true,
     "title": "Príspevok od zdravotnej poisťovne",
-    "description": "Ambulancia Dientes nie je zmluvným partnerom zdravotných poisťovní, napriek tomu si môžete príspevok na dentálnu hygienu uplatniť zo svojho benefitného programu.",
+    "description": "Ambulancia Dientes nie je zmluvným partnerom zdravotných poisťovní, napriek tomu si môžete príspevok na dentálnu hygienu uplatniť zo svojho benefitného programu – táto možnosť však platí výhradne pre poistencov zdravotnej poisťovne UNION (pre VšZP a Dôveru príspevok u nezmluvného lekára neplatí).",
     "doveraFrequency": "- ",
     "unionFrequency": "2× ročne (80 % z ceny)",
     "helpText": "S vybavením príspevku vám radi pomôžeme priamo v ambulancii."
