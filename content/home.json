@@ -187,8 +187,8 @@
     "enabled": true,
     "title": "Príspevok od zdravotnej poisťovne",
     "description": "Ambulancia Dientes nie je zmluvným partnerom zdravotných poisťovní, napriek tomu si môžete príspevok na dentálnu hygienu uplatniť zo svojho benefitného programu.",
-    "doveraFrequency": "2× ročne",
-    "unionFrequency": "2× ročne",
+    "doveraFrequency": "- ",
+    "unionFrequency": "2× ročne (80 % z ceny)",
     "helpText": "S vybavením príspevku vám radi pomôžeme priamo v ambulancii."
   },
   "bookingSettings": {
