@@ -16,7 +16,7 @@
     "badge": "Šetrná starostlivosť o úsmev",
     "title": "Dientes",
     "subtitle": "dentálna hygiena",
-    "description": "Profesionálna dentálna hygiena pre čisté zuby, zdravé ďasná a prirodzene sebavedomý úsmev 🦷\n\nSme tu pre Vás: \nUtorok: 8:00 – 17:00\nStreda: 16:00 – 18:00\nPiatok: 8:00 – 15:00",
+    "description": "Profesionálna dentálna hygiena pre čisté zuby, zdravé ďasná a prirodzene sebavedomý úsmev \n",
     "image": "/uploads/1779912099264-78b20003-8a28-4360-9240-3125307e4643_2.jpg",
     "imageAlt": "Dientes dentálna hygiena",
     "sliderIntervalSeconds": 5,
@@ -26,7 +26,7 @@
         "alt": "Dientes dentálna hygiena"
       },
       {
-        "image": "",
+        "image": "/uploads/IMG_0910.jpeg",
         "alt": "Dientes dentálna hygiena"
       },
       {
