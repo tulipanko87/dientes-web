@@ -159,7 +159,7 @@
       "id": "vstupna",
       "name": "Komplexná dentálna hygiena",
       "duration": "60 min",
-      "price": "45 ",
+      "price": "45 €",
       "description": "Komplexné vstupné vyšetrenie a nastavenie individuálneho plánu starostlivosti podľa potrieb pacienta."
     },
     {
@@ -173,13 +173,13 @@
       "id": "deti do 10 rokov",
       "name": "Dentálna hygiena u detí do 10 rokov",
       "duration": "30 min.",
-      "price": "35",
+      "price": "35 €",
       "description": "Šetrná dentálna hygiena zameraná na prevenciu vzniku kazu a budovanie správnych hygienických návykov u detí."
     },
     {
       "name": "Ošetrenie citlivých krčkov / fluoridácia",
       "duration": "",
-      "price": "10 ",
+      "price": "10 €",
       "description": "Zmiernenie citlivosti zubných krčkov, ktoré reagujú na studené, teplé alebo sladké podnety."
     },
     {
