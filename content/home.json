@@ -215,9 +215,9 @@
     "weeklySchedule": [
       {
         "day": 1,
-        "enabled": false,
-        "startTime": "",
-        "endTime": ""
+        "enabled": true,
+        "startTime": "16:00",
+        "endTime": "18:00"
       },
       {
         "day": 2,
