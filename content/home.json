@@ -6,12 +6,12 @@
     "comfortTitle": "Prémiový komfort",
     "comfortDescription": "Slúchadlá s aktívnym potláčaním hluku v cene každého ošetrenia pre ničím nerušený relax.",
     "locationBadge": "Pribinova 8, Košice",
+    "sliderIntervalSeconds": 5,
     "images": [
       {
         "image": "/uploads/210200be-e0a8-489b-bee4-590eb4a56c5c.jpg"
       }
     ],
-    "sliderIntervalSeconds": 5,
     "stats": [
       {
         "title": "30–60 min",
@@ -44,7 +44,7 @@
         "name": "Komplexná dentálna hygiena",
         "description": "Komplexné vstupné vyšetrenie a nastavenie individuálneho plánu starostlivosti podľa potrieb pacienta.",
         "shortDescription": "",
-        "price": 45.0,
+        "price": 45,
         "durationMinutes": 60,
         "image": ""
       },
@@ -56,7 +56,7 @@
         "name": "Opakovaná dentálna hygiena  - do 4 mesiacov",
         "description": "Udržiavacie ošetrenie  do 4 mesiacov po vstupnej dentálnej hygiene.",
         "shortDescription": "",
-        "price": 40.0,
+        "price": 40,
         "durationMinutes": 45,
         "image": ""
       },
@@ -68,7 +68,7 @@
         "name": "Dentálna hygiena u detí do 10 rokov",
         "description": "Šetrná dentálna hygiena zameraná na prevenciu vzniku kazu a budovanie správnych hygienických návykov u detí.",
         "shortDescription": "",
-        "price": 35.0,
+        "price": 35,
         "durationMinutes": 30,
         "image": ""
       },
@@ -80,7 +80,7 @@
         "name": "Ošetrenie citlivých krčkov / fluoridácia",
         "description": "Zmiernenie citlivosti zubných krčkov, ktoré reagujú na studené, teplé alebo sladké podnety.",
         "shortDescription": "",
-        "price": 10.0,
+        "price": 10,
         "durationMinutes": 45,
         "image": ""
       },
@@ -92,7 +92,7 @@
         "name": "Domáce bielenie zubov",
         "description": "Individuálne zhotovené nosiče a postupné bielenie v pohodlí domova.",
         "shortDescription": "",
-        "price": 240.0,
+        "price": 240,
         "durationMinutes": 45,
         "image": ""
       },
@@ -104,7 +104,7 @@
         "name": "Ambulantné bielenie zubov",
         "description": "Profesionálne bielenie zubov v ambulancii pre rýchly výsledok",
         "shortDescription": "",
-        "price": 180.0,
+        "price": 180,
         "durationMinutes": 45,
         "image": ""
       },
@@ -116,7 +116,7 @@
         "name": "Kombinované bielenie zubov - Pure Whitening",
         "description": "Kombinácia ambulantného a domáceho bielenia pre dlhodobý výsledok.",
         "shortDescription": "",
-        "price": 350.0,
+        "price": 350,
         "durationMinutes": 45,
         "image": ""
       }
@@ -166,7 +166,7 @@
     ]
   },
   "clinic": {
-    "photo": "",
+    "photo": "/uploads/9eaa4798-47c3-4ae2-87a5-fe071b5a20f0.jpg",
     "photoAlt": "Bc. Gabriela Šenkovičová – dentálna hygienička",
     "personName": "Bc. Gabriela Šenkovičová",
     "personSubtitle": "Odborná dentálna hygienička s citlivým a empatickým prístupom",
@@ -184,16 +184,17 @@
     }
   },
   "prices": {
+    "enabled": true,
     "eyebrow": "Cenník",
     "title": "Kompletný cenník ošetrení",
-    "description": "Počas ošetrenia si môžete dopriať komfort slúchadiel s aktívnym potláčaním hluku pre pokojný a nerušený priebeh, pričom služba je zahrnutá v cene ošetrenia",
-    "enabled": true
+    "description": "Počas ošetrenia si môžete dopriať komfort slúchadiel s aktívnym potláčaním hluku pre pokojný a nerušený priebeh, pričom služba je zahrnutá v cene ošetrenia"
   },
   "contact": {
     "description": "Prevádzku Dientes nájdete v srdci Košíc, na Pribinovej ulici, s výbornou dostupnosťou pešo aj autom.",
     "address": "Pribinova 788/8, 040 01 Košice",
     "phone": "0948 718 046",
     "email": "dientes.dh@gmail.com",
+    "ico": "57572852",
     "latitude": 48.71739,
     "longitude": 21.25804,
     "mapLink": "",
@@ -250,8 +251,7 @@
       "icon": "verified",
       "title": "Príspevok Union ZP",
       "description": "Uplatnite si príspevok na dentálnu hygienu od Union zdravotnej poisťovne."
-    },
-    "ico": "57572852"
+    }
   },
   "reservations": {
     "enabled": true,
@@ -263,16 +263,16 @@
       {
         "startDate": "2026-08-14T00:00:00.000Z",
         "endDate": "2026-08-14T00:00:00.000Z",
-        "note": "Dovolenka",
         "type": "vacation",
+        "note": "Dovolenka",
         "publicMessage": "Dovolenka",
         "showNotice": true
       },
       {
         "startDate": "2027-01-11T00:00:00.000Z",
         "endDate": "2027-01-29T00:00:00.000Z",
-        "note": "Dovolenka",
         "type": "vacation",
+        "note": "Dovolenka",
         "publicMessage": "Dovolenka",
         "showNotice": true
       }
@@ -315,59 +315,59 @@
     }
   },
   "gallery": {
+    "enabled": true,
     "label": "Nahliadnite do našich priestorov",
     "title": "Pokojné prostredie v centre mesta",
     "description": "Navštívte moderne a útulne vybavenú ambulanciu s priateľskou atmosférou na Pribinovej 8 v Košiciach.",
     "items": [
       {
         "image": "/uploads/3792c3b5-e34d-48e8-9fa8-3936e81c4649.png",
-        "enabled": true,
-        "alt": "Fotografia ambulancie Dientes 1"
+        "alt": "Fotografia ambulancie Dientes 1",
+        "enabled": true
       },
       {
         "image": "/uploads/a24dae59-4ee4-4271-baa7-2c2ac3988e48.jpg",
-        "enabled": true,
-        "alt": "Fotografia ambulancie Dientes 2"
+        "alt": "Fotografia ambulancie Dientes 2",
+        "enabled": true
       },
       {
         "image": "/uploads/ca41f930-254a-41b8-9383-baf762838bce (1).jpg",
-        "enabled": true,
-        "alt": "Fotografia ambulancie Dientes 3"
+        "alt": "Fotografia ambulancie Dientes 3",
+        "enabled": true
       },
       {
         "image": "/uploads/2f126c4f-feca-46d8-9274-a94227609e60.jpg",
-        "enabled": true,
-        "alt": "Fotografia ambulancie Dientes 4"
+        "alt": "Fotografia ambulancie Dientes 4",
+        "enabled": true
       },
       {
         "image": "/uploads/210200be-e0a8-489b-bee4-590eb4a56c5c.jpg",
-        "enabled": true,
-        "alt": "Fotografia ambulancie Dientes 5"
+        "alt": "Fotografia ambulancie Dientes 5",
+        "enabled": true
       },
       {
         "image": "/uploads/1b2bba8f-a047-4d05-812f-17f24355f81e.jpg",
-        "enabled": true,
-        "alt": "Fotografia ambulancie Dientes 6"
+        "alt": "Fotografia ambulancie Dientes 6",
+        "enabled": true
       },
       {
         "image": "/uploads/bb99f52e-d026-44bf-858d-b451e20ca240.jpg",
-        "enabled": true,
-        "alt": "Fotografia ambulancie Dientes 7"
+        "alt": "Fotografia ambulancie Dientes 7",
+        "enabled": true
       },
       {
         "image": "/uploads/IMG_4053.jpeg",
-        "enabled": true,
-        "alt": "Fotografia ambulancie Dientes 8"
+        "alt": "Fotografia ambulancie Dientes 8",
+        "enabled": true
       }
-    ],
-    "enabled": true
+    ]
   },
   "seo": {
     "title": "Dentálna hygiena Košice | Dientes",
     "description": "Dentálna hygiena v Košiciach na Pribinovej 8. Šetrné ošetrenie, Airflow, dentálna hygiena detí aj bielenie zubov. Objednajte sa online.",
     "socialTitle": "Dientes – dentálna hygiena Košice",
     "socialDescription": "Šetrná dentálna hygiena a príjemná starostlivosť v centre Košíc. Rezervujte si termín online.",
-    "socialImage": "/opengraph-image.png",
+    "socialImage": "/uploads/opengraph-image.png",
     "businessName": "Dientes dentálna hygiena Košice",
     "businessDescription": "Dentálna hygiena v Košiciach na Pribinovej ulici. Profesionálna starostlivosť o zdravie zubov a ďasien."
   },
