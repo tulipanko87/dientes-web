@@ -67,8 +67,8 @@ export default function StitchInteractions() {
     }
     const hygienistImage = root.querySelector<HTMLImageElement>('#o-ambulancii img');
     if (hygienistImage && data.clinic?.photo) {
-      hygienistImage.src = data.hygienistSection.image;
-      hygienistImage.alt = data.hygienistSection.imageAlt || 'Dentálna hygienička Dientes';
+      hygienistImage.src = data.clinic.photo;
+      hygienistImage.alt = data.clinic.photoAlt || 'Dentálna hygienička Dientes';
     }
     const gallery = root.querySelector<HTMLElement>('#galeria');
     if (gallery) {
