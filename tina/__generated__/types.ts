@@ -165,50 +165,213 @@ export type CollectionDocumentsArgs = {
 
 export type DocumentNode = Home | Folder;
 
-export type HomeHeader = {
-  __typename?: 'HomeHeader';
-  brandTitle?: Maybe<Scalars['String']['output']>;
-  brandSubtitle?: Maybe<Scalars['String']['output']>;
-};
-
-export type HomeHeroImages = {
-  __typename?: 'HomeHeroImages';
+export type HomeIntroImages = {
+  __typename?: 'HomeIntroImages';
   image?: Maybe<Scalars['String']['output']>;
   alt?: Maybe<Scalars['String']['output']>;
 };
 
-export type HomeHeroStats = {
-  __typename?: 'HomeHeroStats';
+export type HomeIntroStats = {
+  __typename?: 'HomeIntroStats';
   title?: Maybe<Scalars['String']['output']>;
   subtitle?: Maybe<Scalars['String']['output']>;
 };
 
-export type HomeHero = {
-  __typename?: 'HomeHero';
+export type HomeIntro = {
+  __typename?: 'HomeIntro';
   badge?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  subtitle?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
-  image?: Maybe<Scalars['String']['output']>;
-  imageAlt?: Maybe<Scalars['String']['output']>;
+  comfortIcon?: Maybe<Scalars['String']['output']>;
+  comfortTitle?: Maybe<Scalars['String']['output']>;
+  comfortDescription?: Maybe<Scalars['String']['output']>;
+  locationBadge?: Maybe<Scalars['String']['output']>;
   sliderIntervalSeconds?: Maybe<Scalars['Float']['output']>;
-  images?: Maybe<Array<Maybe<HomeHeroImages>>>;
-  stats?: Maybe<Array<Maybe<HomeHeroStats>>>;
+  images?: Maybe<Array<Maybe<HomeIntroImages>>>;
+  stats?: Maybe<Array<Maybe<HomeIntroStats>>>;
 };
 
-export type HomeServicesSection = {
-  __typename?: 'HomeServicesSection';
-  label?: Maybe<Scalars['String']['output']>;
+export type HomeServicesItems = {
+  __typename?: 'HomeServicesItems';
+  id?: Maybe<Scalars['String']['output']>;
+  enabled?: Maybe<Scalars['Boolean']['output']>;
+  bookable?: Maybe<Scalars['Boolean']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  shortDescription?: Maybe<Scalars['String']['output']>;
+  price?: Maybe<Scalars['Float']['output']>;
+  durationMinutes?: Maybe<Scalars['Float']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomeServices = {
+  __typename?: 'HomeServices';
+  eyebrow?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<Maybe<HomeServicesItems>>>;
+};
+
+export type HomeProcessSteps = {
+  __typename?: 'HomeProcessSteps';
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  caption?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomeProcess = {
+  __typename?: 'HomeProcess';
+  eyebrow?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  steps?: Maybe<Array<Maybe<HomeProcessSteps>>>;
+};
+
+export type HomeClinicInsurance = {
+  __typename?: 'HomeClinicInsurance';
+  enabled?: Maybe<Scalars['Boolean']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  badge?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  disclaimer?: Maybe<Scalars['String']['output']>;
+  footerNote?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomeClinic = {
+  __typename?: 'HomeClinic';
+  photo?: Maybe<Scalars['String']['output']>;
+  photoAlt?: Maybe<Scalars['String']['output']>;
+  personName?: Maybe<Scalars['String']['output']>;
+  personSubtitle?: Maybe<Scalars['String']['output']>;
+  eyebrow?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  insurance?: Maybe<HomeClinicInsurance>;
+};
+
+export type HomePrices = {
+  __typename?: 'HomePrices';
+  enabled?: Maybe<Scalars['Boolean']['output']>;
+  eyebrow?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
 };
 
-export type HomeBenefits = {
-  __typename?: 'HomeBenefits';
+export type HomeContactWeeklySchedule = {
+  __typename?: 'HomeContactWeeklySchedule';
+  day?: Maybe<Scalars['Float']['output']>;
+  enabled?: Maybe<Scalars['Boolean']['output']>;
+  startTime?: Maybe<Scalars['String']['output']>;
+  endTime?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomeContactFooterInsurance = {
+  __typename?: 'HomeContactFooterInsurance';
+  enabled?: Maybe<Scalars['Boolean']['output']>;
+  icon?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
-  text?: Maybe<Scalars['String']['output']>;
-  image?: Maybe<Scalars['String']['output']>;
-  imageAlt?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomeContact = {
+  __typename?: 'HomeContact';
+  description?: Maybe<Scalars['String']['output']>;
+  address?: Maybe<Scalars['String']['output']>;
+  phone?: Maybe<Scalars['String']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
+  ico?: Maybe<Scalars['String']['output']>;
+  latitude?: Maybe<Scalars['Float']['output']>;
+  longitude?: Maybe<Scalars['Float']['output']>;
+  mapLink?: Maybe<Scalars['String']['output']>;
+  weeklySchedule?: Maybe<Array<Maybe<HomeContactWeeklySchedule>>>;
+  footerTitle?: Maybe<Scalars['String']['output']>;
+  footerDescription?: Maybe<Scalars['String']['output']>;
+  footerAccess?: Maybe<Scalars['String']['output']>;
+  footerHoursNote?: Maybe<Scalars['String']['output']>;
+  footerInsurance?: Maybe<HomeContactFooterInsurance>;
+};
+
+export type HomeReservationsExtraOpenDates = {
+  __typename?: 'HomeReservationsExtraOpenDates';
+  date?: Maybe<Scalars['String']['output']>;
+  startTime?: Maybe<Scalars['String']['output']>;
+  endTime?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomeReservationsClosedDateRanges = {
+  __typename?: 'HomeReservationsClosedDateRanges';
+  startDate?: Maybe<Scalars['String']['output']>;
+  endDate?: Maybe<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+  note?: Maybe<Scalars['String']['output']>;
+  publicMessage?: Maybe<Scalars['String']['output']>;
+  showNotice?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type HomeReservationsLegal = {
+  __typename?: 'HomeReservationsLegal';
+  privacyTitle?: Maybe<Scalars['String']['output']>;
+  privacyText?: Maybe<Scalars['String']['output']>;
+  cancellationTitle?: Maybe<Scalars['String']['output']>;
+  cancellationText?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomeReservationsEmailStyle = {
+  __typename?: 'HomeReservationsEmailStyle';
+  logoImage?: Maybe<Scalars['String']['output']>;
+  primaryColor?: Maybe<Scalars['String']['output']>;
+  header?: Maybe<Scalars['String']['output']>;
+  footer?: Maybe<Scalars['String']['output']>;
+  signature?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomeReservationsEmailTemplatesRequest = {
+  __typename?: 'HomeReservationsEmailTemplatesRequest';
+  subject?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  introduction?: Maybe<Scalars['String']['output']>;
+  button?: Maybe<Scalars['String']['output']>;
+  closing?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomeReservationsEmailTemplatesConfirmed = {
+  __typename?: 'HomeReservationsEmailTemplatesConfirmed';
+  subject?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  introduction?: Maybe<Scalars['String']['output']>;
+  button?: Maybe<Scalars['String']['output']>;
+  closing?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomeReservationsEmailTemplatesCancelled = {
+  __typename?: 'HomeReservationsEmailTemplatesCancelled';
+  subject?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  introduction?: Maybe<Scalars['String']['output']>;
+  button?: Maybe<Scalars['String']['output']>;
+  closing?: Maybe<Scalars['String']['output']>;
+};
+
+export type HomeReservationsEmailTemplates = {
+  __typename?: 'HomeReservationsEmailTemplates';
+  request?: Maybe<HomeReservationsEmailTemplatesRequest>;
+  confirmed?: Maybe<HomeReservationsEmailTemplatesConfirmed>;
+  cancelled?: Maybe<HomeReservationsEmailTemplatesCancelled>;
+};
+
+export type HomeReservations = {
+  __typename?: 'HomeReservations';
+  enabled?: Maybe<Scalars['Boolean']['output']>;
+  daysAhead?: Maybe<Scalars['Float']['output']>;
+  slotMinutes?: Maybe<Scalars['Float']['output']>;
+  minimumNoticeHours?: Maybe<Scalars['Float']['output']>;
+  extraOpenDates?: Maybe<Array<Maybe<HomeReservationsExtraOpenDates>>>;
+  closedDateRanges?: Maybe<Array<Maybe<HomeReservationsClosedDateRanges>>>;
+  legal?: Maybe<HomeReservationsLegal>;
+  emailStyle?: Maybe<HomeReservationsEmailStyle>;
+  emailTemplates?: Maybe<HomeReservationsEmailTemplates>;
 };
 
 export type HomeGalleryItems = {
@@ -216,62 +379,56 @@ export type HomeGalleryItems = {
   image?: Maybe<Scalars['String']['output']>;
   alt?: Maybe<Scalars['String']['output']>;
   caption?: Maybe<Scalars['String']['output']>;
+  enabled?: Maybe<Scalars['Boolean']['output']>;
 };
 
 export type HomeGallery = {
   __typename?: 'HomeGallery';
+  enabled?: Maybe<Scalars['Boolean']['output']>;
   label?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   items?: Maybe<Array<Maybe<HomeGalleryItems>>>;
 };
 
-export type HomePriceSectionItems = {
-  __typename?: 'HomePriceSectionItems';
-  name?: Maybe<Scalars['String']['output']>;
-  price?: Maybe<Scalars['String']['output']>;
-};
-
-export type HomePriceSection = {
-  __typename?: 'HomePriceSection';
-  label?: Maybe<Scalars['String']['output']>;
+export type HomeSeo = {
+  __typename?: 'HomeSeo';
   title?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
-  items?: Maybe<Array<Maybe<HomePriceSectionItems>>>;
+  socialTitle?: Maybe<Scalars['String']['output']>;
+  socialDescription?: Maybe<Scalars['String']['output']>;
+  socialImage?: Maybe<Scalars['String']['output']>;
+  businessName?: Maybe<Scalars['String']['output']>;
+  businessDescription?: Maybe<Scalars['String']['output']>;
 };
 
-export type HomeBookingServices = {
-  __typename?: 'HomeBookingServices';
-  id?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  duration?: Maybe<Scalars['String']['output']>;
-  price?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
+export type HomeFaqItems = {
+  __typename?: 'HomeFaqItems';
+  question?: Maybe<Scalars['String']['output']>;
+  answer?: Maybe<Scalars['String']['output']>;
+  enabled?: Maybe<Scalars['Boolean']['output']>;
 };
 
-export type HomeContactSection = {
-  __typename?: 'HomeContactSection';
-  label?: Maybe<Scalars['String']['output']>;
+export type HomeFaq = {
+  __typename?: 'HomeFaq';
+  enabled?: Maybe<Scalars['Boolean']['output']>;
+  eyebrow?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  mapTitle?: Maybe<Scalars['String']['output']>;
-  mapDescription?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Array<Maybe<HomeFaqItems>>>;
 };
 
 export type Home = Node & Document & {
   __typename?: 'Home';
-  businessName?: Maybe<Scalars['String']['output']>;
-  businessAddress?: Maybe<Scalars['String']['output']>;
-  logoImage?: Maybe<Scalars['String']['output']>;
-  header?: Maybe<HomeHeader>;
-  hero?: Maybe<HomeHero>;
-  servicesSection?: Maybe<HomeServicesSection>;
-  benefits?: Maybe<Array<Maybe<HomeBenefits>>>;
+  intro?: Maybe<HomeIntro>;
+  services?: Maybe<HomeServices>;
+  process?: Maybe<HomeProcess>;
+  clinic?: Maybe<HomeClinic>;
+  prices?: Maybe<HomePrices>;
+  contact?: Maybe<HomeContact>;
+  reservations?: Maybe<HomeReservations>;
   gallery?: Maybe<HomeGallery>;
-  steps?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  priceSection?: Maybe<HomePriceSection>;
-  bookingServices?: Maybe<Array<Maybe<HomeBookingServices>>>;
-  contactSection?: Maybe<HomeContactSection>;
+  seo?: Maybe<HomeSeo>;
+  faq?: Maybe<HomeFaq>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
@@ -284,18 +441,6 @@ export type StringFilter = {
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type ImageFilter = {
-  startsWith?: InputMaybe<Scalars['String']['input']>;
-  eq?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type HomeHeaderFilter = {
-  brandTitle?: InputMaybe<StringFilter>;
-  brandSubtitle?: InputMaybe<StringFilter>;
-};
-
 export type NumberFilter = {
   lt?: InputMaybe<Scalars['Float']['input']>;
   lte?: InputMaybe<Scalars['Float']['input']>;
@@ -306,95 +451,262 @@ export type NumberFilter = {
   in?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
 };
 
-export type HomeHeroImagesFilter = {
+export type ImageFilter = {
+  startsWith?: InputMaybe<Scalars['String']['input']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type HomeIntroImagesFilter = {
   image?: InputMaybe<ImageFilter>;
   alt?: InputMaybe<StringFilter>;
 };
 
-export type HomeHeroStatsFilter = {
+export type HomeIntroStatsFilter = {
   title?: InputMaybe<StringFilter>;
   subtitle?: InputMaybe<StringFilter>;
 };
 
-export type HomeHeroFilter = {
+export type HomeIntroFilter = {
   badge?: InputMaybe<StringFilter>;
-  title?: InputMaybe<StringFilter>;
-  subtitle?: InputMaybe<StringFilter>;
   description?: InputMaybe<StringFilter>;
-  image?: InputMaybe<ImageFilter>;
-  imageAlt?: InputMaybe<StringFilter>;
+  comfortIcon?: InputMaybe<StringFilter>;
+  comfortTitle?: InputMaybe<StringFilter>;
+  comfortDescription?: InputMaybe<StringFilter>;
+  locationBadge?: InputMaybe<StringFilter>;
   sliderIntervalSeconds?: InputMaybe<NumberFilter>;
-  images?: InputMaybe<HomeHeroImagesFilter>;
-  stats?: InputMaybe<HomeHeroStatsFilter>;
+  images?: InputMaybe<HomeIntroImagesFilter>;
+  stats?: InputMaybe<HomeIntroStatsFilter>;
 };
 
-export type HomeServicesSectionFilter = {
-  label?: InputMaybe<StringFilter>;
+export type BooleanFilter = {
+  eq?: InputMaybe<Scalars['Boolean']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type HomeServicesItemsFilter = {
+  id?: InputMaybe<StringFilter>;
+  enabled?: InputMaybe<BooleanFilter>;
+  bookable?: InputMaybe<BooleanFilter>;
+  icon?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  shortDescription?: InputMaybe<StringFilter>;
+  price?: InputMaybe<NumberFilter>;
+  durationMinutes?: InputMaybe<NumberFilter>;
+  image?: InputMaybe<ImageFilter>;
+};
+
+export type HomeServicesFilter = {
+  eyebrow?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  items?: InputMaybe<HomeServicesItemsFilter>;
+};
+
+export type HomeProcessStepsFilter = {
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  caption?: InputMaybe<StringFilter>;
+  icon?: InputMaybe<StringFilter>;
+};
+
+export type HomeProcessFilter = {
+  eyebrow?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  steps?: InputMaybe<HomeProcessStepsFilter>;
+};
+
+export type HomeClinicInsuranceFilter = {
+  enabled?: InputMaybe<BooleanFilter>;
+  icon?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  badge?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  disclaimer?: InputMaybe<StringFilter>;
+  footerNote?: InputMaybe<StringFilter>;
+};
+
+export type HomeClinicFilter = {
+  photo?: InputMaybe<ImageFilter>;
+  photoAlt?: InputMaybe<StringFilter>;
+  personName?: InputMaybe<StringFilter>;
+  personSubtitle?: InputMaybe<StringFilter>;
+  eyebrow?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  insurance?: InputMaybe<HomeClinicInsuranceFilter>;
+};
+
+export type HomePricesFilter = {
+  enabled?: InputMaybe<BooleanFilter>;
+  eyebrow?: InputMaybe<StringFilter>;
   title?: InputMaybe<StringFilter>;
   description?: InputMaybe<StringFilter>;
 };
 
-export type HomeBenefitsFilter = {
+export type HomeContactWeeklyScheduleFilter = {
+  day?: InputMaybe<NumberFilter>;
+  enabled?: InputMaybe<BooleanFilter>;
+  startTime?: InputMaybe<StringFilter>;
+  endTime?: InputMaybe<StringFilter>;
+};
+
+export type HomeContactFooterInsuranceFilter = {
+  enabled?: InputMaybe<BooleanFilter>;
+  icon?: InputMaybe<StringFilter>;
   title?: InputMaybe<StringFilter>;
-  text?: InputMaybe<StringFilter>;
-  image?: InputMaybe<ImageFilter>;
-  imageAlt?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+};
+
+export type HomeContactFilter = {
+  description?: InputMaybe<StringFilter>;
+  address?: InputMaybe<StringFilter>;
+  phone?: InputMaybe<StringFilter>;
+  email?: InputMaybe<StringFilter>;
+  ico?: InputMaybe<StringFilter>;
+  latitude?: InputMaybe<NumberFilter>;
+  longitude?: InputMaybe<NumberFilter>;
+  mapLink?: InputMaybe<StringFilter>;
+  weeklySchedule?: InputMaybe<HomeContactWeeklyScheduleFilter>;
+  footerTitle?: InputMaybe<StringFilter>;
+  footerDescription?: InputMaybe<StringFilter>;
+  footerAccess?: InputMaybe<StringFilter>;
+  footerHoursNote?: InputMaybe<StringFilter>;
+  footerInsurance?: InputMaybe<HomeContactFooterInsuranceFilter>;
+};
+
+export type DatetimeFilter = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  eq?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type HomeReservationsExtraOpenDatesFilter = {
+  date?: InputMaybe<DatetimeFilter>;
+  startTime?: InputMaybe<StringFilter>;
+  endTime?: InputMaybe<StringFilter>;
+};
+
+export type HomeReservationsClosedDateRangesFilter = {
+  startDate?: InputMaybe<DatetimeFilter>;
+  endDate?: InputMaybe<DatetimeFilter>;
+  type?: InputMaybe<StringFilter>;
+  note?: InputMaybe<StringFilter>;
+  publicMessage?: InputMaybe<StringFilter>;
+  showNotice?: InputMaybe<BooleanFilter>;
+};
+
+export type HomeReservationsLegalFilter = {
+  privacyTitle?: InputMaybe<StringFilter>;
+  privacyText?: InputMaybe<StringFilter>;
+  cancellationTitle?: InputMaybe<StringFilter>;
+  cancellationText?: InputMaybe<StringFilter>;
+};
+
+export type HomeReservationsEmailStyleFilter = {
+  logoImage?: InputMaybe<ImageFilter>;
+  primaryColor?: InputMaybe<StringFilter>;
+  header?: InputMaybe<StringFilter>;
+  footer?: InputMaybe<StringFilter>;
+  signature?: InputMaybe<StringFilter>;
+};
+
+export type HomeReservationsEmailTemplatesRequestFilter = {
+  subject?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  introduction?: InputMaybe<StringFilter>;
+  button?: InputMaybe<StringFilter>;
+  closing?: InputMaybe<StringFilter>;
+};
+
+export type HomeReservationsEmailTemplatesConfirmedFilter = {
+  subject?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  introduction?: InputMaybe<StringFilter>;
+  button?: InputMaybe<StringFilter>;
+  closing?: InputMaybe<StringFilter>;
+};
+
+export type HomeReservationsEmailTemplatesCancelledFilter = {
+  subject?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  introduction?: InputMaybe<StringFilter>;
+  button?: InputMaybe<StringFilter>;
+  closing?: InputMaybe<StringFilter>;
+};
+
+export type HomeReservationsEmailTemplatesFilter = {
+  request?: InputMaybe<HomeReservationsEmailTemplatesRequestFilter>;
+  confirmed?: InputMaybe<HomeReservationsEmailTemplatesConfirmedFilter>;
+  cancelled?: InputMaybe<HomeReservationsEmailTemplatesCancelledFilter>;
+};
+
+export type HomeReservationsFilter = {
+  enabled?: InputMaybe<BooleanFilter>;
+  daysAhead?: InputMaybe<NumberFilter>;
+  slotMinutes?: InputMaybe<NumberFilter>;
+  minimumNoticeHours?: InputMaybe<NumberFilter>;
+  extraOpenDates?: InputMaybe<HomeReservationsExtraOpenDatesFilter>;
+  closedDateRanges?: InputMaybe<HomeReservationsClosedDateRangesFilter>;
+  legal?: InputMaybe<HomeReservationsLegalFilter>;
+  emailStyle?: InputMaybe<HomeReservationsEmailStyleFilter>;
+  emailTemplates?: InputMaybe<HomeReservationsEmailTemplatesFilter>;
 };
 
 export type HomeGalleryItemsFilter = {
   image?: InputMaybe<ImageFilter>;
   alt?: InputMaybe<StringFilter>;
   caption?: InputMaybe<StringFilter>;
+  enabled?: InputMaybe<BooleanFilter>;
 };
 
 export type HomeGalleryFilter = {
+  enabled?: InputMaybe<BooleanFilter>;
   label?: InputMaybe<StringFilter>;
   title?: InputMaybe<StringFilter>;
   description?: InputMaybe<StringFilter>;
   items?: InputMaybe<HomeGalleryItemsFilter>;
 };
 
-export type HomePriceSectionItemsFilter = {
-  name?: InputMaybe<StringFilter>;
-  price?: InputMaybe<StringFilter>;
-};
-
-export type HomePriceSectionFilter = {
-  label?: InputMaybe<StringFilter>;
+export type HomeSeoFilter = {
   title?: InputMaybe<StringFilter>;
   description?: InputMaybe<StringFilter>;
-  items?: InputMaybe<HomePriceSectionItemsFilter>;
+  socialTitle?: InputMaybe<StringFilter>;
+  socialDescription?: InputMaybe<StringFilter>;
+  socialImage?: InputMaybe<ImageFilter>;
+  businessName?: InputMaybe<StringFilter>;
+  businessDescription?: InputMaybe<StringFilter>;
 };
 
-export type HomeBookingServicesFilter = {
-  id?: InputMaybe<StringFilter>;
-  name?: InputMaybe<StringFilter>;
-  duration?: InputMaybe<StringFilter>;
-  price?: InputMaybe<StringFilter>;
-  description?: InputMaybe<StringFilter>;
+export type HomeFaqItemsFilter = {
+  question?: InputMaybe<StringFilter>;
+  answer?: InputMaybe<StringFilter>;
+  enabled?: InputMaybe<BooleanFilter>;
 };
 
-export type HomeContactSectionFilter = {
-  label?: InputMaybe<StringFilter>;
+export type HomeFaqFilter = {
+  enabled?: InputMaybe<BooleanFilter>;
+  eyebrow?: InputMaybe<StringFilter>;
   title?: InputMaybe<StringFilter>;
-  description?: InputMaybe<StringFilter>;
-  mapTitle?: InputMaybe<StringFilter>;
-  mapDescription?: InputMaybe<StringFilter>;
+  items?: InputMaybe<HomeFaqItemsFilter>;
 };
 
 export type HomeFilter = {
-  businessName?: InputMaybe<StringFilter>;
-  businessAddress?: InputMaybe<StringFilter>;
-  logoImage?: InputMaybe<ImageFilter>;
-  header?: InputMaybe<HomeHeaderFilter>;
-  hero?: InputMaybe<HomeHeroFilter>;
-  servicesSection?: InputMaybe<HomeServicesSectionFilter>;
-  benefits?: InputMaybe<HomeBenefitsFilter>;
+  intro?: InputMaybe<HomeIntroFilter>;
+  services?: InputMaybe<HomeServicesFilter>;
+  process?: InputMaybe<HomeProcessFilter>;
+  clinic?: InputMaybe<HomeClinicFilter>;
+  prices?: InputMaybe<HomePricesFilter>;
+  contact?: InputMaybe<HomeContactFilter>;
+  reservations?: InputMaybe<HomeReservationsFilter>;
   gallery?: InputMaybe<HomeGalleryFilter>;
-  steps?: InputMaybe<StringFilter>;
-  priceSection?: InputMaybe<HomePriceSectionFilter>;
-  bookingServices?: InputMaybe<HomeBookingServicesFilter>;
-  contactSection?: InputMaybe<HomeContactSectionFilter>;
+  seo?: InputMaybe<HomeSeoFilter>;
+  faq?: InputMaybe<HomeFaqFilter>;
 };
 
 export type HomeConnectionEdges = {
@@ -475,110 +787,252 @@ export type DocumentMutation = {
   home?: InputMaybe<HomeMutation>;
 };
 
-export type HomeHeaderMutation = {
-  brandTitle?: InputMaybe<Scalars['String']['input']>;
-  brandSubtitle?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type HomeHeroImagesMutation = {
+export type HomeIntroImagesMutation = {
   image?: InputMaybe<Scalars['String']['input']>;
   alt?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type HomeHeroStatsMutation = {
+export type HomeIntroStatsMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   subtitle?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type HomeHeroMutation = {
+export type HomeIntroMutation = {
   badge?: InputMaybe<Scalars['String']['input']>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  subtitle?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
-  image?: InputMaybe<Scalars['String']['input']>;
-  imageAlt?: InputMaybe<Scalars['String']['input']>;
+  comfortIcon?: InputMaybe<Scalars['String']['input']>;
+  comfortTitle?: InputMaybe<Scalars['String']['input']>;
+  comfortDescription?: InputMaybe<Scalars['String']['input']>;
+  locationBadge?: InputMaybe<Scalars['String']['input']>;
   sliderIntervalSeconds?: InputMaybe<Scalars['Float']['input']>;
-  images?: InputMaybe<Array<InputMaybe<HomeHeroImagesMutation>>>;
-  stats?: InputMaybe<Array<InputMaybe<HomeHeroStatsMutation>>>;
+  images?: InputMaybe<Array<InputMaybe<HomeIntroImagesMutation>>>;
+  stats?: InputMaybe<Array<InputMaybe<HomeIntroStatsMutation>>>;
 };
 
-export type HomeServicesSectionMutation = {
-  label?: InputMaybe<Scalars['String']['input']>;
+export type HomeServicesItemsMutation = {
+  id?: InputMaybe<Scalars['String']['input']>;
+  enabled?: InputMaybe<Scalars['Boolean']['input']>;
+  bookable?: InputMaybe<Scalars['Boolean']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  shortDescription?: InputMaybe<Scalars['String']['input']>;
+  price?: InputMaybe<Scalars['Float']['input']>;
+  durationMinutes?: InputMaybe<Scalars['Float']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomeServicesMutation = {
+  eyebrow?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<HomeServicesItemsMutation>>>;
+};
+
+export type HomeProcessStepsMutation = {
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  caption?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomeProcessMutation = {
+  eyebrow?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  steps?: InputMaybe<Array<InputMaybe<HomeProcessStepsMutation>>>;
+};
+
+export type HomeClinicInsuranceMutation = {
+  enabled?: InputMaybe<Scalars['Boolean']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  badge?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  disclaimer?: InputMaybe<Scalars['String']['input']>;
+  footerNote?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomeClinicMutation = {
+  photo?: InputMaybe<Scalars['String']['input']>;
+  photoAlt?: InputMaybe<Scalars['String']['input']>;
+  personName?: InputMaybe<Scalars['String']['input']>;
+  personSubtitle?: InputMaybe<Scalars['String']['input']>;
+  eyebrow?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  insurance?: InputMaybe<HomeClinicInsuranceMutation>;
+};
+
+export type HomePricesMutation = {
+  enabled?: InputMaybe<Scalars['Boolean']['input']>;
+  eyebrow?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type HomeBenefitsMutation = {
+export type HomeContactWeeklyScheduleMutation = {
+  day?: InputMaybe<Scalars['Float']['input']>;
+  enabled?: InputMaybe<Scalars['Boolean']['input']>;
+  startTime?: InputMaybe<Scalars['String']['input']>;
+  endTime?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomeContactFooterInsuranceMutation = {
+  enabled?: InputMaybe<Scalars['Boolean']['input']>;
+  icon?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
-  text?: InputMaybe<Scalars['String']['input']>;
-  image?: InputMaybe<Scalars['String']['input']>;
-  imageAlt?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomeContactMutation = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  address?: InputMaybe<Scalars['String']['input']>;
+  phone?: InputMaybe<Scalars['String']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  ico?: InputMaybe<Scalars['String']['input']>;
+  latitude?: InputMaybe<Scalars['Float']['input']>;
+  longitude?: InputMaybe<Scalars['Float']['input']>;
+  mapLink?: InputMaybe<Scalars['String']['input']>;
+  weeklySchedule?: InputMaybe<Array<InputMaybe<HomeContactWeeklyScheduleMutation>>>;
+  footerTitle?: InputMaybe<Scalars['String']['input']>;
+  footerDescription?: InputMaybe<Scalars['String']['input']>;
+  footerAccess?: InputMaybe<Scalars['String']['input']>;
+  footerHoursNote?: InputMaybe<Scalars['String']['input']>;
+  footerInsurance?: InputMaybe<HomeContactFooterInsuranceMutation>;
+};
+
+export type HomeReservationsExtraOpenDatesMutation = {
+  date?: InputMaybe<Scalars['String']['input']>;
+  startTime?: InputMaybe<Scalars['String']['input']>;
+  endTime?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomeReservationsClosedDateRangesMutation = {
+  startDate?: InputMaybe<Scalars['String']['input']>;
+  endDate?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<Scalars['String']['input']>;
+  note?: InputMaybe<Scalars['String']['input']>;
+  publicMessage?: InputMaybe<Scalars['String']['input']>;
+  showNotice?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type HomeReservationsLegalMutation = {
+  privacyTitle?: InputMaybe<Scalars['String']['input']>;
+  privacyText?: InputMaybe<Scalars['String']['input']>;
+  cancellationTitle?: InputMaybe<Scalars['String']['input']>;
+  cancellationText?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomeReservationsEmailStyleMutation = {
+  logoImage?: InputMaybe<Scalars['String']['input']>;
+  primaryColor?: InputMaybe<Scalars['String']['input']>;
+  header?: InputMaybe<Scalars['String']['input']>;
+  footer?: InputMaybe<Scalars['String']['input']>;
+  signature?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomeReservationsEmailTemplatesRequestMutation = {
+  subject?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  introduction?: InputMaybe<Scalars['String']['input']>;
+  button?: InputMaybe<Scalars['String']['input']>;
+  closing?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomeReservationsEmailTemplatesConfirmedMutation = {
+  subject?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  introduction?: InputMaybe<Scalars['String']['input']>;
+  button?: InputMaybe<Scalars['String']['input']>;
+  closing?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomeReservationsEmailTemplatesCancelledMutation = {
+  subject?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  introduction?: InputMaybe<Scalars['String']['input']>;
+  button?: InputMaybe<Scalars['String']['input']>;
+  closing?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type HomeReservationsEmailTemplatesMutation = {
+  request?: InputMaybe<HomeReservationsEmailTemplatesRequestMutation>;
+  confirmed?: InputMaybe<HomeReservationsEmailTemplatesConfirmedMutation>;
+  cancelled?: InputMaybe<HomeReservationsEmailTemplatesCancelledMutation>;
+};
+
+export type HomeReservationsMutation = {
+  enabled?: InputMaybe<Scalars['Boolean']['input']>;
+  daysAhead?: InputMaybe<Scalars['Float']['input']>;
+  slotMinutes?: InputMaybe<Scalars['Float']['input']>;
+  minimumNoticeHours?: InputMaybe<Scalars['Float']['input']>;
+  extraOpenDates?: InputMaybe<Array<InputMaybe<HomeReservationsExtraOpenDatesMutation>>>;
+  closedDateRanges?: InputMaybe<Array<InputMaybe<HomeReservationsClosedDateRangesMutation>>>;
+  legal?: InputMaybe<HomeReservationsLegalMutation>;
+  emailStyle?: InputMaybe<HomeReservationsEmailStyleMutation>;
+  emailTemplates?: InputMaybe<HomeReservationsEmailTemplatesMutation>;
 };
 
 export type HomeGalleryItemsMutation = {
   image?: InputMaybe<Scalars['String']['input']>;
   alt?: InputMaybe<Scalars['String']['input']>;
   caption?: InputMaybe<Scalars['String']['input']>;
+  enabled?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type HomeGalleryMutation = {
+  enabled?: InputMaybe<Scalars['Boolean']['input']>;
   label?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   items?: InputMaybe<Array<InputMaybe<HomeGalleryItemsMutation>>>;
 };
 
-export type HomePriceSectionItemsMutation = {
-  name?: InputMaybe<Scalars['String']['input']>;
-  price?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type HomePriceSectionMutation = {
-  label?: InputMaybe<Scalars['String']['input']>;
+export type HomeSeoMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
-  items?: InputMaybe<Array<InputMaybe<HomePriceSectionItemsMutation>>>;
+  socialTitle?: InputMaybe<Scalars['String']['input']>;
+  socialDescription?: InputMaybe<Scalars['String']['input']>;
+  socialImage?: InputMaybe<Scalars['String']['input']>;
+  businessName?: InputMaybe<Scalars['String']['input']>;
+  businessDescription?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type HomeBookingServicesMutation = {
-  id?: InputMaybe<Scalars['String']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  duration?: InputMaybe<Scalars['String']['input']>;
-  price?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
+export type HomeFaqItemsMutation = {
+  question?: InputMaybe<Scalars['String']['input']>;
+  answer?: InputMaybe<Scalars['String']['input']>;
+  enabled?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-export type HomeContactSectionMutation = {
-  label?: InputMaybe<Scalars['String']['input']>;
+export type HomeFaqMutation = {
+  enabled?: InputMaybe<Scalars['Boolean']['input']>;
+  eyebrow?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  mapTitle?: InputMaybe<Scalars['String']['input']>;
-  mapDescription?: InputMaybe<Scalars['String']['input']>;
+  items?: InputMaybe<Array<InputMaybe<HomeFaqItemsMutation>>>;
 };
 
 export type HomeMutation = {
-  businessName?: InputMaybe<Scalars['String']['input']>;
-  businessAddress?: InputMaybe<Scalars['String']['input']>;
-  logoImage?: InputMaybe<Scalars['String']['input']>;
-  header?: InputMaybe<HomeHeaderMutation>;
-  hero?: InputMaybe<HomeHeroMutation>;
-  servicesSection?: InputMaybe<HomeServicesSectionMutation>;
-  benefits?: InputMaybe<Array<InputMaybe<HomeBenefitsMutation>>>;
+  intro?: InputMaybe<HomeIntroMutation>;
+  services?: InputMaybe<HomeServicesMutation>;
+  process?: InputMaybe<HomeProcessMutation>;
+  clinic?: InputMaybe<HomeClinicMutation>;
+  prices?: InputMaybe<HomePricesMutation>;
+  contact?: InputMaybe<HomeContactMutation>;
+  reservations?: InputMaybe<HomeReservationsMutation>;
   gallery?: InputMaybe<HomeGalleryMutation>;
-  steps?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  priceSection?: InputMaybe<HomePriceSectionMutation>;
-  bookingServices?: InputMaybe<Array<InputMaybe<HomeBookingServicesMutation>>>;
-  contactSection?: InputMaybe<HomeContactSectionMutation>;
+  seo?: InputMaybe<HomeSeoMutation>;
+  faq?: InputMaybe<HomeFaqMutation>;
 };
 
-export type HomePartsFragment = { __typename: 'Home', businessName?: string | null, businessAddress?: string | null, logoImage?: string | null, steps?: Array<string | null> | null, header?: { __typename: 'HomeHeader', brandTitle?: string | null, brandSubtitle?: string | null } | null, hero?: { __typename: 'HomeHero', badge?: string | null, title?: string | null, subtitle?: string | null, description?: string | null, image?: string | null, imageAlt?: string | null, sliderIntervalSeconds?: number | null, images?: Array<{ __typename: 'HomeHeroImages', image?: string | null, alt?: string | null } | null> | null, stats?: Array<{ __typename: 'HomeHeroStats', title?: string | null, subtitle?: string | null } | null> | null } | null, servicesSection?: { __typename: 'HomeServicesSection', label?: string | null, title?: string | null, description?: string | null } | null, benefits?: Array<{ __typename: 'HomeBenefits', title?: string | null, text?: string | null, image?: string | null, imageAlt?: string | null } | null> | null, gallery?: { __typename: 'HomeGallery', label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomeGalleryItems', image?: string | null, alt?: string | null, caption?: string | null } | null> | null } | null, priceSection?: { __typename: 'HomePriceSection', label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomePriceSectionItems', name?: string | null, price?: string | null } | null> | null } | null, bookingServices?: Array<{ __typename: 'HomeBookingServices', id?: string | null, name?: string | null, duration?: string | null, price?: string | null, description?: string | null } | null> | null, contactSection?: { __typename: 'HomeContactSection', label?: string | null, title?: string | null, description?: string | null, mapTitle?: string | null, mapDescription?: string | null } | null };
+export type HomePartsFragment = { __typename: 'Home', intro?: { __typename: 'HomeIntro', badge?: string | null, description?: string | null, comfortIcon?: string | null, comfortTitle?: string | null, comfortDescription?: string | null, locationBadge?: string | null, sliderIntervalSeconds?: number | null, images?: Array<{ __typename: 'HomeIntroImages', image?: string | null, alt?: string | null } | null> | null, stats?: Array<{ __typename: 'HomeIntroStats', title?: string | null, subtitle?: string | null } | null> | null } | null, services?: { __typename: 'HomeServices', eyebrow?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomeServicesItems', id?: string | null, enabled?: boolean | null, bookable?: boolean | null, icon?: string | null, name?: string | null, description?: string | null, shortDescription?: string | null, price?: number | null, durationMinutes?: number | null, image?: string | null } | null> | null } | null, process?: { __typename: 'HomeProcess', eyebrow?: string | null, title?: string | null, description?: string | null, steps?: Array<{ __typename: 'HomeProcessSteps', title?: string | null, description?: string | null, caption?: string | null, icon?: string | null } | null> | null } | null, clinic?: { __typename: 'HomeClinic', photo?: string | null, photoAlt?: string | null, personName?: string | null, personSubtitle?: string | null, eyebrow?: string | null, title?: string | null, description?: string | null, insurance?: { __typename: 'HomeClinicInsurance', enabled?: boolean | null, icon?: string | null, title?: string | null, badge?: string | null, description?: string | null, disclaimer?: string | null, footerNote?: string | null } | null } | null, prices?: { __typename: 'HomePrices', enabled?: boolean | null, eyebrow?: string | null, title?: string | null, description?: string | null } | null, contact?: { __typename: 'HomeContact', description?: string | null, address?: string | null, phone?: string | null, email?: string | null, ico?: string | null, latitude?: number | null, longitude?: number | null, mapLink?: string | null, footerTitle?: string | null, footerDescription?: string | null, footerAccess?: string | null, footerHoursNote?: string | null, weeklySchedule?: Array<{ __typename: 'HomeContactWeeklySchedule', day?: number | null, enabled?: boolean | null, startTime?: string | null, endTime?: string | null } | null> | null, footerInsurance?: { __typename: 'HomeContactFooterInsurance', enabled?: boolean | null, icon?: string | null, title?: string | null, description?: string | null } | null } | null, reservations?: { __typename: 'HomeReservations', enabled?: boolean | null, daysAhead?: number | null, slotMinutes?: number | null, minimumNoticeHours?: number | null, extraOpenDates?: Array<{ __typename: 'HomeReservationsExtraOpenDates', date?: string | null, startTime?: string | null, endTime?: string | null } | null> | null, closedDateRanges?: Array<{ __typename: 'HomeReservationsClosedDateRanges', startDate?: string | null, endDate?: string | null, type?: string | null, note?: string | null, publicMessage?: string | null, showNotice?: boolean | null } | null> | null, legal?: { __typename: 'HomeReservationsLegal', privacyTitle?: string | null, privacyText?: string | null, cancellationTitle?: string | null, cancellationText?: string | null } | null, emailStyle?: { __typename: 'HomeReservationsEmailStyle', logoImage?: string | null, primaryColor?: string | null, header?: string | null, footer?: string | null, signature?: string | null } | null, emailTemplates?: { __typename: 'HomeReservationsEmailTemplates', request?: { __typename: 'HomeReservationsEmailTemplatesRequest', subject?: string | null, title?: string | null, introduction?: string | null, button?: string | null, closing?: string | null } | null, confirmed?: { __typename: 'HomeReservationsEmailTemplatesConfirmed', subject?: string | null, title?: string | null, introduction?: string | null, button?: string | null, closing?: string | null } | null, cancelled?: { __typename: 'HomeReservationsEmailTemplatesCancelled', subject?: string | null, title?: string | null, introduction?: string | null, button?: string | null, closing?: string | null } | null } | null } | null, gallery?: { __typename: 'HomeGallery', enabled?: boolean | null, label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomeGalleryItems', image?: string | null, alt?: string | null, caption?: string | null, enabled?: boolean | null } | null> | null } | null, seo?: { __typename: 'HomeSeo', title?: string | null, description?: string | null, socialTitle?: string | null, socialDescription?: string | null, socialImage?: string | null, businessName?: string | null, businessDescription?: string | null } | null, faq?: { __typename: 'HomeFaq', enabled?: boolean | null, eyebrow?: string | null, title?: string | null, items?: Array<{ __typename: 'HomeFaqItems', question?: string | null, answer?: string | null, enabled?: boolean | null } | null> | null } | null };
 
 export type HomeQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
 }>;
 
 
-export type HomeQuery = { __typename?: 'Query', home: { __typename: 'Home', id: string, businessName?: string | null, businessAddress?: string | null, logoImage?: string | null, steps?: Array<string | null> | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, header?: { __typename: 'HomeHeader', brandTitle?: string | null, brandSubtitle?: string | null } | null, hero?: { __typename: 'HomeHero', badge?: string | null, title?: string | null, subtitle?: string | null, description?: string | null, image?: string | null, imageAlt?: string | null, sliderIntervalSeconds?: number | null, images?: Array<{ __typename: 'HomeHeroImages', image?: string | null, alt?: string | null } | null> | null, stats?: Array<{ __typename: 'HomeHeroStats', title?: string | null, subtitle?: string | null } | null> | null } | null, servicesSection?: { __typename: 'HomeServicesSection', label?: string | null, title?: string | null, description?: string | null } | null, benefits?: Array<{ __typename: 'HomeBenefits', title?: string | null, text?: string | null, image?: string | null, imageAlt?: string | null } | null> | null, gallery?: { __typename: 'HomeGallery', label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomeGalleryItems', image?: string | null, alt?: string | null, caption?: string | null } | null> | null } | null, priceSection?: { __typename: 'HomePriceSection', label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomePriceSectionItems', name?: string | null, price?: string | null } | null> | null } | null, bookingServices?: Array<{ __typename: 'HomeBookingServices', id?: string | null, name?: string | null, duration?: string | null, price?: string | null, description?: string | null } | null> | null, contactSection?: { __typename: 'HomeContactSection', label?: string | null, title?: string | null, description?: string | null, mapTitle?: string | null, mapDescription?: string | null } | null } };
+export type HomeQuery = { __typename?: 'Query', home: { __typename: 'Home', id: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, intro?: { __typename: 'HomeIntro', badge?: string | null, description?: string | null, comfortIcon?: string | null, comfortTitle?: string | null, comfortDescription?: string | null, locationBadge?: string | null, sliderIntervalSeconds?: number | null, images?: Array<{ __typename: 'HomeIntroImages', image?: string | null, alt?: string | null } | null> | null, stats?: Array<{ __typename: 'HomeIntroStats', title?: string | null, subtitle?: string | null } | null> | null } | null, services?: { __typename: 'HomeServices', eyebrow?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomeServicesItems', id?: string | null, enabled?: boolean | null, bookable?: boolean | null, icon?: string | null, name?: string | null, description?: string | null, shortDescription?: string | null, price?: number | null, durationMinutes?: number | null, image?: string | null } | null> | null } | null, process?: { __typename: 'HomeProcess', eyebrow?: string | null, title?: string | null, description?: string | null, steps?: Array<{ __typename: 'HomeProcessSteps', title?: string | null, description?: string | null, caption?: string | null, icon?: string | null } | null> | null } | null, clinic?: { __typename: 'HomeClinic', photo?: string | null, photoAlt?: string | null, personName?: string | null, personSubtitle?: string | null, eyebrow?: string | null, title?: string | null, description?: string | null, insurance?: { __typename: 'HomeClinicInsurance', enabled?: boolean | null, icon?: string | null, title?: string | null, badge?: string | null, description?: string | null, disclaimer?: string | null, footerNote?: string | null } | null } | null, prices?: { __typename: 'HomePrices', enabled?: boolean | null, eyebrow?: string | null, title?: string | null, description?: string | null } | null, contact?: { __typename: 'HomeContact', description?: string | null, address?: string | null, phone?: string | null, email?: string | null, ico?: string | null, latitude?: number | null, longitude?: number | null, mapLink?: string | null, footerTitle?: string | null, footerDescription?: string | null, footerAccess?: string | null, footerHoursNote?: string | null, weeklySchedule?: Array<{ __typename: 'HomeContactWeeklySchedule', day?: number | null, enabled?: boolean | null, startTime?: string | null, endTime?: string | null } | null> | null, footerInsurance?: { __typename: 'HomeContactFooterInsurance', enabled?: boolean | null, icon?: string | null, title?: string | null, description?: string | null } | null } | null, reservations?: { __typename: 'HomeReservations', enabled?: boolean | null, daysAhead?: number | null, slotMinutes?: number | null, minimumNoticeHours?: number | null, extraOpenDates?: Array<{ __typename: 'HomeReservationsExtraOpenDates', date?: string | null, startTime?: string | null, endTime?: string | null } | null> | null, closedDateRanges?: Array<{ __typename: 'HomeReservationsClosedDateRanges', startDate?: string | null, endDate?: string | null, type?: string | null, note?: string | null, publicMessage?: string | null, showNotice?: boolean | null } | null> | null, legal?: { __typename: 'HomeReservationsLegal', privacyTitle?: string | null, privacyText?: string | null, cancellationTitle?: string | null, cancellationText?: string | null } | null, emailStyle?: { __typename: 'HomeReservationsEmailStyle', logoImage?: string | null, primaryColor?: string | null, header?: string | null, footer?: string | null, signature?: string | null } | null, emailTemplates?: { __typename: 'HomeReservationsEmailTemplates', request?: { __typename: 'HomeReservationsEmailTemplatesRequest', subject?: string | null, title?: string | null, introduction?: string | null, button?: string | null, closing?: string | null } | null, confirmed?: { __typename: 'HomeReservationsEmailTemplatesConfirmed', subject?: string | null, title?: string | null, introduction?: string | null, button?: string | null, closing?: string | null } | null, cancelled?: { __typename: 'HomeReservationsEmailTemplatesCancelled', subject?: string | null, title?: string | null, introduction?: string | null, button?: string | null, closing?: string | null } | null } | null } | null, gallery?: { __typename: 'HomeGallery', enabled?: boolean | null, label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomeGalleryItems', image?: string | null, alt?: string | null, caption?: string | null, enabled?: boolean | null } | null> | null } | null, seo?: { __typename: 'HomeSeo', title?: string | null, description?: string | null, socialTitle?: string | null, socialDescription?: string | null, socialImage?: string | null, businessName?: string | null, businessDescription?: string | null } | null, faq?: { __typename: 'HomeFaq', enabled?: boolean | null, eyebrow?: string | null, title?: string | null, items?: Array<{ __typename: 'HomeFaqItems', question?: string | null, answer?: string | null, enabled?: boolean | null } | null> | null } | null } };
 
 export type HomeConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -590,27 +1044,19 @@ export type HomeConnectionQueryVariables = Exact<{
 }>;
 
 
-export type HomeConnectionQuery = { __typename?: 'Query', homeConnection: { __typename?: 'HomeConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HomeConnectionEdges', cursor: string, node?: { __typename: 'Home', id: string, businessName?: string | null, businessAddress?: string | null, logoImage?: string | null, steps?: Array<string | null> | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, header?: { __typename: 'HomeHeader', brandTitle?: string | null, brandSubtitle?: string | null } | null, hero?: { __typename: 'HomeHero', badge?: string | null, title?: string | null, subtitle?: string | null, description?: string | null, image?: string | null, imageAlt?: string | null, sliderIntervalSeconds?: number | null, images?: Array<{ __typename: 'HomeHeroImages', image?: string | null, alt?: string | null } | null> | null, stats?: Array<{ __typename: 'HomeHeroStats', title?: string | null, subtitle?: string | null } | null> | null } | null, servicesSection?: { __typename: 'HomeServicesSection', label?: string | null, title?: string | null, description?: string | null } | null, benefits?: Array<{ __typename: 'HomeBenefits', title?: string | null, text?: string | null, image?: string | null, imageAlt?: string | null } | null> | null, gallery?: { __typename: 'HomeGallery', label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomeGalleryItems', image?: string | null, alt?: string | null, caption?: string | null } | null> | null } | null, priceSection?: { __typename: 'HomePriceSection', label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomePriceSectionItems', name?: string | null, price?: string | null } | null> | null } | null, bookingServices?: Array<{ __typename: 'HomeBookingServices', id?: string | null, name?: string | null, duration?: string | null, price?: string | null, description?: string | null } | null> | null, contactSection?: { __typename: 'HomeContactSection', label?: string | null, title?: string | null, description?: string | null, mapTitle?: string | null, mapDescription?: string | null } | null } | null } | null> | null } };
+export type HomeConnectionQuery = { __typename?: 'Query', homeConnection: { __typename?: 'HomeConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'HomeConnectionEdges', cursor: string, node?: { __typename: 'Home', id: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, intro?: { __typename: 'HomeIntro', badge?: string | null, description?: string | null, comfortIcon?: string | null, comfortTitle?: string | null, comfortDescription?: string | null, locationBadge?: string | null, sliderIntervalSeconds?: number | null, images?: Array<{ __typename: 'HomeIntroImages', image?: string | null, alt?: string | null } | null> | null, stats?: Array<{ __typename: 'HomeIntroStats', title?: string | null, subtitle?: string | null } | null> | null } | null, services?: { __typename: 'HomeServices', eyebrow?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomeServicesItems', id?: string | null, enabled?: boolean | null, bookable?: boolean | null, icon?: string | null, name?: string | null, description?: string | null, shortDescription?: string | null, price?: number | null, durationMinutes?: number | null, image?: string | null } | null> | null } | null, process?: { __typename: 'HomeProcess', eyebrow?: string | null, title?: string | null, description?: string | null, steps?: Array<{ __typename: 'HomeProcessSteps', title?: string | null, description?: string | null, caption?: string | null, icon?: string | null } | null> | null } | null, clinic?: { __typename: 'HomeClinic', photo?: string | null, photoAlt?: string | null, personName?: string | null, personSubtitle?: string | null, eyebrow?: string | null, title?: string | null, description?: string | null, insurance?: { __typename: 'HomeClinicInsurance', enabled?: boolean | null, icon?: string | null, title?: string | null, badge?: string | null, description?: string | null, disclaimer?: string | null, footerNote?: string | null } | null } | null, prices?: { __typename: 'HomePrices', enabled?: boolean | null, eyebrow?: string | null, title?: string | null, description?: string | null } | null, contact?: { __typename: 'HomeContact', description?: string | null, address?: string | null, phone?: string | null, email?: string | null, ico?: string | null, latitude?: number | null, longitude?: number | null, mapLink?: string | null, footerTitle?: string | null, footerDescription?: string | null, footerAccess?: string | null, footerHoursNote?: string | null, weeklySchedule?: Array<{ __typename: 'HomeContactWeeklySchedule', day?: number | null, enabled?: boolean | null, startTime?: string | null, endTime?: string | null } | null> | null, footerInsurance?: { __typename: 'HomeContactFooterInsurance', enabled?: boolean | null, icon?: string | null, title?: string | null, description?: string | null } | null } | null, reservations?: { __typename: 'HomeReservations', enabled?: boolean | null, daysAhead?: number | null, slotMinutes?: number | null, minimumNoticeHours?: number | null, extraOpenDates?: Array<{ __typename: 'HomeReservationsExtraOpenDates', date?: string | null, startTime?: string | null, endTime?: string | null } | null> | null, closedDateRanges?: Array<{ __typename: 'HomeReservationsClosedDateRanges', startDate?: string | null, endDate?: string | null, type?: string | null, note?: string | null, publicMessage?: string | null, showNotice?: boolean | null } | null> | null, legal?: { __typename: 'HomeReservationsLegal', privacyTitle?: string | null, privacyText?: string | null, cancellationTitle?: string | null, cancellationText?: string | null } | null, emailStyle?: { __typename: 'HomeReservationsEmailStyle', logoImage?: string | null, primaryColor?: string | null, header?: string | null, footer?: string | null, signature?: string | null } | null, emailTemplates?: { __typename: 'HomeReservationsEmailTemplates', request?: { __typename: 'HomeReservationsEmailTemplatesRequest', subject?: string | null, title?: string | null, introduction?: string | null, button?: string | null, closing?: string | null } | null, confirmed?: { __typename: 'HomeReservationsEmailTemplatesConfirmed', subject?: string | null, title?: string | null, introduction?: string | null, button?: string | null, closing?: string | null } | null, cancelled?: { __typename: 'HomeReservationsEmailTemplatesCancelled', subject?: string | null, title?: string | null, introduction?: string | null, button?: string | null, closing?: string | null } | null } | null } | null, gallery?: { __typename: 'HomeGallery', enabled?: boolean | null, label?: string | null, title?: string | null, description?: string | null, items?: Array<{ __typename: 'HomeGalleryItems', image?: string | null, alt?: string | null, caption?: string | null, enabled?: boolean | null } | null> | null } | null, seo?: { __typename: 'HomeSeo', title?: string | null, description?: string | null, socialTitle?: string | null, socialDescription?: string | null, socialImage?: string | null, businessName?: string | null, businessDescription?: string | null } | null, faq?: { __typename: 'HomeFaq', enabled?: boolean | null, eyebrow?: string | null, title?: string | null, items?: Array<{ __typename: 'HomeFaqItems', question?: string | null, answer?: string | null, enabled?: boolean | null } | null> | null } | null } | null } | null> | null } };
 
 export const HomePartsFragmentDoc = gql`
     fragment HomeParts on Home {
   __typename
-  businessName
-  businessAddress
-  logoImage
-  header {
-    __typename
-    brandTitle
-    brandSubtitle
-  }
-  hero {
+  intro {
     __typename
     badge
-    title
-    subtitle
     description
-    image
-    imageAlt
+    comfortIcon
+    comfortTitle
+    comfortDescription
+    locationBadge
     sliderIntervalSeconds
     images {
       __typename
@@ -623,21 +1069,161 @@ export const HomePartsFragmentDoc = gql`
       subtitle
     }
   }
-  servicesSection {
+  services {
     __typename
-    label
+    eyebrow
+    title
+    description
+    items {
+      __typename
+      id
+      enabled
+      bookable
+      icon
+      name
+      description
+      shortDescription
+      price
+      durationMinutes
+      image
+    }
+  }
+  process {
+    __typename
+    eyebrow
+    title
+    description
+    steps {
+      __typename
+      title
+      description
+      caption
+      icon
+    }
+  }
+  clinic {
+    __typename
+    photo
+    photoAlt
+    personName
+    personSubtitle
+    eyebrow
+    title
+    description
+    insurance {
+      __typename
+      enabled
+      icon
+      title
+      badge
+      description
+      disclaimer
+      footerNote
+    }
+  }
+  prices {
+    __typename
+    enabled
+    eyebrow
     title
     description
   }
-  benefits {
+  contact {
     __typename
-    title
-    text
-    image
-    imageAlt
+    description
+    address
+    phone
+    email
+    ico
+    latitude
+    longitude
+    mapLink
+    weeklySchedule {
+      __typename
+      day
+      enabled
+      startTime
+      endTime
+    }
+    footerTitle
+    footerDescription
+    footerAccess
+    footerHoursNote
+    footerInsurance {
+      __typename
+      enabled
+      icon
+      title
+      description
+    }
+  }
+  reservations {
+    __typename
+    enabled
+    daysAhead
+    slotMinutes
+    minimumNoticeHours
+    extraOpenDates {
+      __typename
+      date
+      startTime
+      endTime
+    }
+    closedDateRanges {
+      __typename
+      startDate
+      endDate
+      type
+      note
+      publicMessage
+      showNotice
+    }
+    legal {
+      __typename
+      privacyTitle
+      privacyText
+      cancellationTitle
+      cancellationText
+    }
+    emailStyle {
+      __typename
+      logoImage
+      primaryColor
+      header
+      footer
+      signature
+    }
+    emailTemplates {
+      __typename
+      request {
+        __typename
+        subject
+        title
+        introduction
+        button
+        closing
+      }
+      confirmed {
+        __typename
+        subject
+        title
+        introduction
+        button
+        closing
+      }
+      cancelled {
+        __typename
+        subject
+        title
+        introduction
+        button
+        closing
+      }
+    }
   }
   gallery {
     __typename
+    enabled
     label
     title
     description
@@ -646,35 +1232,30 @@ export const HomePartsFragmentDoc = gql`
       image
       alt
       caption
+      enabled
     }
   }
-  steps
-  priceSection {
+  seo {
     __typename
-    label
     title
     description
+    socialTitle
+    socialDescription
+    socialImage
+    businessName
+    businessDescription
+  }
+  faq {
+    __typename
+    enabled
+    eyebrow
+    title
     items {
       __typename
-      name
-      price
+      question
+      answer
+      enabled
     }
-  }
-  bookingServices {
-    __typename
-    id
-    name
-    duration
-    price
-    description
-  }
-  contactSection {
-    __typename
-    label
-    title
-    description
-    mapTitle
-    mapDescription
   }
 }
     `;
@@ -791,7 +1372,7 @@ export const ExperimentalGetTinaClient = () =>
   getSdk(
     generateRequester(
       createClient({
-        url: "http://localhost:4001/graphql",
+        url: "https://content.tinajs.io/1.6/content/6d04d4d1-6327-4d8a-8d8c-ba8990ea40eb/github/main",
         queries,
       })
     )

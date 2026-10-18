@@ -1,3 +1,4 @@
+import { patientMail } from "../../../lib/email-template";
 import crypto from "crypto";
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
@@ -65,12 +66,7 @@ export async function GET(request: Request) {
 
     await transporter.sendMail({
       from: process.env.SMTP_FROM, to: email,
-      subject: "Rezervácia potvrdená – Dientes dentálna hygiena",
-      html: `<div style="font-family:Arial,sans-serif;max-width:600px;line-height:1.6;color:#174A4A"><h2>Rezervácia je potvrdená</h2>
-      <p>Dobrý deň ${name},</p><p>Vaša e-mailová adresa bola overená a rezervácia je potvrdená.</p>
-      <p><strong>Služba:</strong> ${service}<br><strong>Dátum:</strong> ${formattedDate}<br><strong>Čas:</strong> ${formattedTime}</p>
-      <p><strong>Dientes dentálna hygiena</strong><br>Pribinova 788/8<br>040 01 Košice</p>
-      <p><a href="${cancelUrl}" style="display:inline-block;background:#1CC7C9;color:#fff;text-decoration:none;padding:12px 18px;border-radius:999px;font-weight:bold">Zrušiť rezerváciu</a></p></div>`,
+      ...patientMail('confirmed',{name,service,date:formattedDate,time:formattedTime,url:cancelUrl}),
     });
 
     await transporter.sendMail({

@@ -1,3 +1,5 @@
+import { bookingCheck } from "../../../lib/booking-rules";
+import { patientMail } from "../../../lib/email-template";
 import crypto from "crypto";
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
@@ -31,8 +33,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Chýbajú povinné údaje rezervácie." }, { status: 400 });
     }
 
-    const start = new Date(`${date}T${time}:00+02:00`);
-    const end = new Date(start.getTime() + durationMinutes * 60 * 1000);
+    const check = bookingCheck(service,date,time);
+    if (check.error || !check.startAt || !check.duration) {
+      return NextResponse.json({error:check.error||'Neplatný termín.'},{status:400});
+    }
+    const start = check.startAt;
+    const end = new Date(start.getTime() + check.duration * 60 * 1000);
     if (Number.isNaN(start.getTime())) {
       return NextResponse.json({ error: "Neplatný dátum alebo čas." }, { status: 400 });
     }
@@ -71,7 +77,7 @@ export async function POST(request: Request) {
         extendedProperties: { private: {
           status: "pending", confirmationToken, expiresAt: expiresAt.toISOString(),
           service, customerName: name, customerEmail: email, customerPhone: phone,
-          durationMinutes: String(durationMinutes), note: note || "",
+          durationMinutes: String(check.duration), note: note || "",
         }},
       },
     });
@@ -79,15 +85,7 @@ export async function POST(request: Request) {
     try {
       await transporter.sendMail({
         from: process.env.SMTP_FROM, to: email,
-        subject: "Potvrďte rezerváciu – Dientes dentálna hygiena",
-        html: `<div style="font-family:Arial,sans-serif;max-width:600px;line-height:1.6;color:#174A4A">
-          <h2>Potvrďte svoju rezerváciu</h2><p>Dobrý deň ${name},</p>
-          <p>Pre dokončenie rezervácie potvrďte svoju e-mailovú adresu.</p>
-          <p><strong>Služba:</strong> ${service}<br><strong>Dátum:</strong> ${formattedDate}<br><strong>Čas:</strong> ${time}</p>
-          <p>Termín pre Vás držíme <strong>10 minút</strong>.</p>
-          <p><a href="${confirmUrl}" style="display:inline-block;background:#1CC7C9;color:#fff;text-decoration:none;padding:14px 22px;border-radius:999px;font-weight:bold">POTVRDIŤ REZERVÁCIU</a></p>
-          <p style="font-size:13px;color:#6D8F8F">Ak ste túto rezerváciu nevytvorili, e-mail ignorujte.</p>
-        </div>`,
+        ...patientMail('request',{name,service,date:formattedDate,time,url:confirmUrl}),
       });
     } catch (mailError) {
       if (pendingEvent.data.id) {

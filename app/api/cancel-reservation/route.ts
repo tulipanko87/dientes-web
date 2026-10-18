@@ -1,3 +1,4 @@
+import { patientMail } from "../../../lib/email-template";
 import nodemailer from "nodemailer";
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
@@ -60,20 +61,7 @@ export async function GET(request: Request) {
       await transporter.sendMail({
         from: process.env.SMTP_FROM,
         to: customerEmail,
-        subject: "Rezervácia bola zrušená – Dientes dentálna hygiena",
-        html: `
-          <div style="font-family:Arial,sans-serif;max-width:600px;line-height:1.6">
-            <h2>Rezervácia bola zrušená</h2>
-            <p>Dobrý deň ${customerName},</p>
-            <p>Vaša rezervácia bola úspešne zrušená.</p>
-            <p>Ak išlo o omyl, môžete si vytvoriť novú rezerváciu na stránke Dientes.</p>
-            <p>
-              <strong>Dientes dentálna hygiena</strong><br>
-              Pribinova 788/8<br>
-              Košice
-            </p>
-          </div>
-        `,
+        ...patientMail('cancelled',{name:customerName}),
       });
     }
 
