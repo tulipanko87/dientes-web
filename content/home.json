@@ -9,7 +9,8 @@
     "sliderIntervalSeconds": 5,
     "images": [
       {
-        "image": "/uploads/210200be-e0a8-489b-bee4-590eb4a56c5c.jpg"
+        "image": "/uploads/210200be-e0a8-489b-bee4-590eb4a56c5c.jpg",
+        "alt": "hygiena"
       }
     ],
     "stats": [
