@@ -121,7 +121,7 @@ export default function StitchInteractions() {
           const t=card.querySelector('h3'),d=card.querySelector('p'),icon=card.querySelector('.material-symbols-outlined');
           if(t)t.textContent=svc.name||'';if(d)d.textContent=svc.description||'';
           if(icon && /^[a-z_]+$/.test(svc.icon||''))icon.textContent=svc.icon;
-          const price=card.querySelector('.pt-space-sm span:last-child');if(price)price.textContent=money(svc.price);
+          const price=card.querySelector('.pt-space-sm > span:last-child');if(price)price.textContent=money(svc.price);
           const duration=card.querySelector('.pt-space-sm span:first-child');if(duration)duration.textContent=`${svc.durationMinutes||45} min`;
           fragment.append(card);
         });serviceGrid.replaceChildren(fragment);
