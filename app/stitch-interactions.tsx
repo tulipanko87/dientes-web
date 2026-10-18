@@ -412,7 +412,7 @@ export default function StitchInteractions() {
       try{
         const resp=await fetch('/api/reservation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({service:svc?.name||'Dentálna hygiena',name:nameInput.value.trim(),phone:phoneInput.value.replace(/\s+/g,''),email:emailInput.value.trim(),note:noteInput?.value.trim()||'',date:date.value,time:selectedTime,durationMinutes:getDuration(svc,Number(settings.slotMinutes)||45)})});
         const res=await resp.json();if(!resp.ok)throw Error(res.error||'Rezerváciu sa nepodarilo vytvoriť.');
-        feedback.className='mt-4 rounded-xl bg-surface-container p-4 text-sm font-semibold text-primary';feedback.textContent='Ešte jeden krok: skontrolujte e-mail a kliknite na odkaz na potvrdenie rezervácie do 10 minút.';
+        feedback.className='mt-4 rounded-xl border-2 border-red-400 bg-red-50 p-4 text-base font-bold text-red-800';feedback.textContent='Ešte jeden krok: skontrolujte e-mail a kliknite na odkaz na potvrdenie rezervácie do 10 minút.';
         checkbox.checked=false;void refresh();
       }catch(e){feedback.textContent=e instanceof Error?e.message:'Rezervácia sa nepodarila.';}
       finally{sending=false;if(submit)submit.disabled=false;}
