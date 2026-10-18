@@ -318,6 +318,7 @@ export default function StitchInteractions() {
 
   render();
 });
+    });
     const updateSummary=()=>{
       const svc=services[selectedService]||services[0];
       summaryService.textContent=svc?.name||'Dentálna hygiena';
