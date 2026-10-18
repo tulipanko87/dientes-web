@@ -1,38 +1,21 @@
 {
-  "businessName": "Dientes dentálna hygiena",
-  "businessAddress": "Pribinova 788/8, 040 01 Košice",
-  "businessPhone": "0948 718 046",
-  "businessEmail": "dientes.dh@gmail.com",
-  "logoImage": "/uploads/1779912099264-78b20003-8a28-4360-9240-3125307e4643_2.jpg",
-  "header": {
-    "brandTitle": "DIENTES",
-    "brandSubtitle": "dentálna hygiena"
-  },
-  "displaySettings": {
-    "showGallery": true,
-    "showPriceSection": true
-  },
-  "hero": {
+  "intro": {
     "badge": "Šetrná starostlivosť o úsmev",
-    "title": "Dientes",
-    "subtitle": "dentálna hygiena",
     "description": "Profesionálna dentálna hygiena pre čisté zuby, zdravé ďasná a prirodzene sebavedomý úsmev \n",
-    "image": "/uploads/1779912099264-78b20003-8a28-4360-9240-3125307e4643_2.jpg",
-    "imageAlt": "Dientes dentálna hygiena",
+    "comfortIcon": "headphones",
+    "comfortTitle": "Prémiový komfort",
+    "comfortDescription": "Slúchadlá s aktívnym potláčaním hluku v cene každého ošetrenia pre ničím nerušený relax.",
+    "locationBadge": "Pribinova 8, Košice",
     "sliderIntervalSeconds": 5,
     "images": [
       {
-        "image": "/uploads/logo.png",
-        "alt": "Dientes dentálna hygiena"
+        "image": "/uploads/210200be-e0a8-489b-bee4-590eb4a56c5c.jpg",
+        "alt": "hygiena"
       },
       {
-        "image": "/uploads/IMG_0910.jpeg",
-        "alt": "Dientes dentálna hygiena"
-      },
-      {
-        "image": ""
-      },
-      {}
+        "image": "/uploads/1779912099264-78b20003-8a28-4360-9240-3125307e4643_2.jpg",
+        "alt": "logo"
+      }
     ],
     "stats": [
       {
@@ -53,165 +36,173 @@
       }
     ]
   },
-  "servicesSection": {
-    "label": "Všetko pre krásny a zdravý úsmev",
-    "title": "Individuálny prístup, šetrné ošetrenie a dôraz na zdravie Vašich úst",
-    "description": "V našej ambulancii dentálnej hygieny Dientes máme ku každému pacientovi individuálny prístup a snažíme sa zabezpečiť čo najpríjemnejší priebeh ošetrenia. O to sa s radosťou postará dentálna hygienička Bc. Gabriela Šenkovičová\n\n"
-  },
-  "benefits": [
-    {
-      "title": "Komplexná dentálna hygiena ",
-      "text": "Šetrné odstránenie zubného kameňa, povlakov a pigmentácií. Súčasťou je pieskovanie, leštenie zubov a fluoridácia.\nPomáha udržať zdravé ďasná a predchádza vzniku kazov."
-    },
-    {
-      "title": "Dentálna hygiena detí do 10 rokov  ",
-      "text": "Šetrné odstránenie povlakov a zubného kameňa u detí. Súčasťou je aj farbenie povlaku a názorná inštruktáž správneho čistenia zubov prispôsobená veku dieťaťa."
-    },
-    {
-      "title": "Fluoridácia",
-      "text": "Ošetrenie na posilnenie zubnej skloviny pri zvýšenom riziku vznika zubného kazu.\n"
-    },
-    {
-      "title": "Ošetrenie citlivých zubných krčkov",
-      "text": "Podľa potreby sa aplikujú desenzibilizačné prípravky-ochranné laky alebo fluoridačné gély, ktoré pomáhajú upokojiť citlivé miesta na studené, teplé alebo sladké podnety a chránia odkrytý dentín."
-    },
-    {
-      "title": "Bielenie zubov",
-      "text": "Profesionálne bielenie pre viditeľne belší úsmev. \n\nAmbulantné bielenie - rýchly výsledok v kresle\n\nKombinované bielenie - ambulantné + domáce pre dlhší efekt"
-    }
-  ],
-  "gallery": {
-    "label": "Galéria",
-    "title": "",
-    "description": " ",
+  "services": {
+    "eyebrow": "Komplexná starostlivosť",
+    "title": "Prehľad ponúkaných služieb",
+    "description": "Každý zákrok je vykonávaný šetrne, s dôrazom na dlhodobé zdravie chrupu, svieži dych a dokonale čistý povrch zubov.",
     "items": [
       {
-        "image": "/uploads/3792c3b5-e34d-48e8-9fa8-3936e81c4649.png"
-      },
-      {
-        "image": "/uploads/a24dae59-4ee4-4271-baa7-2c2ac3988e48.jpg"
-      },
-      {
-        "image": "/uploads/ca41f930-254a-41b8-9383-baf762838bce (1).jpg"
-      },
-      {
-        "image": "/uploads/2f126c4f-feca-46d8-9274-a94227609e60.jpg"
-      },
-      {
-        "image": "/uploads/210200be-e0a8-489b-bee4-590eb4a56c5c.jpg"
-      },
-      {
-        "image": "/uploads/1b2bba8f-a047-4d05-812f-17f24355f81e.jpg"
-      },
-      {
-        "image": "/uploads/bb99f52e-d026-44bf-858d-b451e20ca240.jpg"
-      },
-      {
-        "image": "/uploads/IMG_4053.jpeg"
-      }
-    ]
-  },
-  "steps": [
-    "Vyšetrenie stavu chrupu a ďasien, podľa potreby aj farbenie povlaku pre jeho lepšiu vizualizáciu.",
-    "Inštruktáž správnej domácej techniky čistenia",
-    "Odporúčania pre domácu hygienu a prevenciu",
-    "Airflow čistenie na odstránenie plaku a pigmentácií ",
-    "Odstránenie zubného kameňa ultrazvukom",
-    "Záverečná kontrola pre hladký a príjemný pocit + odporúčania na domácu starostlivosť"
-  ],
-  "priceSection": {
-    "label": "Cenník",
-    "title": "",
-    "description": "Počas ošetrenia si môžete dopriať komfort slúchadiel s aktívnym potláčaním hluku pre pokojný a nerušený priebeh, pričom služba je zahrnutá v cene ošetrenia",
-    "items": [
-      {
+        "id": "vstupna",
+        "enabled": true,
+        "bookable": true,
+        "icon": "dentistry",
         "name": "Komplexná dentálna hygiena",
-        "price": "45€"
+        "description": "Komplexné vstupné vyšetrenie a nastavenie individuálneho plánu starostlivosti podľa potrieb pacienta.",
+        "shortDescription": "",
+        "price": 45,
+        "durationMinutes": 60,
+        "image": ""
       },
       {
-        "name": "Opakovaná dentálna hygiena (do 4 mesiacov)",
-        "price": "40 €"
+        "id": "pravidelna",
+        "enabled": true,
+        "bookable": true,
+        "icon": "autorenew",
+        "name": "Opakovaná dentálna hygiena  - do 4 mesiacov",
+        "description": "Udržiavacie ošetrenie  do 4 mesiacov po vstupnej dentálnej hygiene.",
+        "shortDescription": "",
+        "price": 40,
+        "durationMinutes": 45,
+        "image": ""
       },
       {
+        "id": "deti do 10 rokov",
+        "enabled": true,
+        "bookable": true,
+        "icon": "child_care",
         "name": "Dentálna hygiena u detí do 10 rokov",
-        "price": "35 €"
+        "description": "Šetrná dentálna hygiena zameraná na prevenciu vzniku kazu a budovanie správnych hygienických návykov u detí.",
+        "shortDescription": "",
+        "price": 35,
+        "durationMinutes": 30,
+        "image": ""
       },
       {
-        "name": "Ošetrenie citlivých krčkov/fluoridácia",
-        "price": "10 €"
+        "id": "sluzba-4",
+        "enabled": true,
+        "bookable": true,
+        "icon": "health_and_safety",
+        "name": "Ošetrenie citlivých krčkov / fluoridácia",
+        "description": "Zmiernenie citlivosti zubných krčkov, ktoré reagujú na studené, teplé alebo sladké podnety.",
+        "shortDescription": "",
+        "price": 10,
+        "durationMinutes": 45,
+        "image": ""
       },
       {
+        "id": "domace bielenie",
+        "enabled": true,
+        "bookable": true,
+        "icon": "home",
         "name": "Domáce bielenie zubov",
-        "price": "240 €"
+        "description": "Individuálne zhotovené nosiče a postupné bielenie v pohodlí domova.",
+        "shortDescription": "",
+        "price": 240,
+        "durationMinutes": 45,
+        "image": ""
       },
       {
+        "id": "Ambulantne bielenie",
+        "enabled": true,
+        "bookable": true,
+        "icon": "auto_awesome",
         "name": "Ambulantné bielenie zubov",
-        "price": "180 €"
+        "description": "Profesionálne bielenie zubov v ambulancii pre rýchly výsledok",
+        "shortDescription": "",
+        "price": 180,
+        "durationMinutes": 45,
+        "image": ""
       },
       {
-        "name": "Kombinované bielenie - Pure Whitening",
-        "price": "350 €"
+        "id": "Kombinované bielenie ",
+        "enabled": true,
+        "bookable": true,
+        "icon": "workspace_premium",
+        "name": "Kombinované bielenie zubov - Pure Whitening",
+        "description": "Kombinácia ambulantného a domáceho bielenia pre dlhodobý výsledok.",
+        "shortDescription": "",
+        "price": 350,
+        "durationMinutes": 45,
+        "image": ""
       }
     ]
   },
-  "bookingServices": [
-    {
-      "id": "vstupna",
-      "name": "Komplexná dentálna hygiena",
-      "duration": "60 min",
-      "price": "45 €",
-      "description": "Komplexné vstupné vyšetrenie a nastavenie individuálneho plánu starostlivosti podľa potrieb pacienta."
-    },
-    {
-      "id": "pravidelna",
-      "name": "Opakovaná dentálna hygiena  - do 4 mesiacov ",
-      "duration": "45 min",
-      "price": "40 €",
-      "description": "Udržiavacie ošetrenie  do 4 mesiacov po vstupnej dentálnej hygiene."
-    },
-    {
-      "id": "deti do 10 rokov",
-      "name": "Dentálna hygiena u detí do 10 rokov",
-      "duration": "30 min.",
-      "price": "35 €",
-      "description": "Šetrná dentálna hygiena zameraná na prevenciu vzniku kazu a budovanie správnych hygienických návykov u detí."
-    },
-    {
-      "name": "Ošetrenie citlivých krčkov / fluoridácia",
-      "duration": "",
-      "price": "10 €",
-      "description": "Zmiernenie citlivosti zubných krčkov, ktoré reagujú na studené, teplé alebo sladké podnety."
-    },
-    {
-      "id": "domace bielenie",
-      "name": "Domáce bielenie zubov",
-      "price": "240 €",
-      "description": "Individuálne zhotovené nosiče a postupné bielenie v pohodlí domova."
-    },
-    {
-      "id": "Ambulantne bielenie",
-      "name": "Ambulantné bielenie zubov",
-      "price": " 180 €",
-      "description": "Profesionálne bielenie zubov v ambulancii pre rýchly výsledok"
-    },
-    {
-      "id": "Kombinované bielenie ",
-      "name": "Kombinované bielenie zubov - Pure Whitening ",
-      "price": " 350 €",
-      "description": "Kombinácia ambulantného a domáceho bielenia pre dlhodobý výsledok."
-    }
-  ],
-  "insuranceSection": {
-    "enabled": true,
-    "title": "Príspevok od zdravotnej poisťovne",
-    "description": "Ambulancia Dientes nie je zmluvným partnerom zdravotných poisťovní, napriek tomu si môžete príspevok na dentálnu hygienu uplatniť zo svojho benefitného programu – táto možnosť však platí výhradne pre poistencov zdravotnej poisťovne UNION (pre VšZP a Dôveru príspevok u nezmluvného lekára neplatí).",
-    "doveraFrequency": "- ",
-    "unionFrequency": "2× ročne (80 % z ceny)",
-    "helpText": "S vybavením príspevku vám radi pomôžeme priamo v ambulancii."
+  "process": {
+    "eyebrow": "JASNÝ A TRANSPARENTNÝ POSTUP",
+    "title": "Ako prebieha dentálna hygiena",
+    "description": "Šesť premyslených krokov, ktoré zaručia bezbolestný zážitok, dokonale hladké zuby a zdravé ďasná.",
+    "steps": [
+      {
+        "title": "Vstupné vyšetrenie chrupu",
+        "description": "Vyšetrenie stavu chrupu a ďasien, podľa potreby aj farbenie povlaku pre jeho lepšiu vizualizáciu.",
+        "caption": "",
+        "icon": "visibility"
+      },
+      {
+        "title": "Inštruktáž správnej techniky",
+        "description": "Inštruktáž správnej domácej techniky čistenia",
+        "caption": "",
+        "icon": "school"
+      },
+      {
+        "title": "Medzizubné pomôcky",
+        "description": "Odporúčania pre domácu hygienu a prevenciu",
+        "caption": "",
+        "icon": "straighten"
+      },
+      {
+        "title": "Airflow pieskovanie",
+        "description": "Airflow čistenie na odstránenie plaku a pigmentácií ",
+        "caption": "",
+        "icon": "air"
+      },
+      {
+        "title": "Odstránenie kameňa ultrazvukom",
+        "description": "Odstránenie zubného kameňa ultrazvukom",
+        "caption": "",
+        "icon": "health_and_safety"
+      },
+      {
+        "title": "Leštenie a fluoridácia",
+        "description": "Záverečná kontrola pre hladký a príjemný pocit + odporúčania na domácu starostlivosť",
+        "caption": "",
+        "icon": "auto_awesome"
+      }
+    ]
   },
-  "bookingSettings": {
-    "daysAhead": 90,
-    "slotMinutes": 45,
+  "clinic": {
+    "photo": "/uploads/9eaa4798-47c3-4ae2-87a5-fe071b5a20f0.jpg",
+    "photoAlt": "Bc. Gabriela Šenkovičová – dentálna hygienička",
+    "personName": "Bc. Gabriela Šenkovičová",
+    "personSubtitle": "Odborná dentálna hygienička s citlivým a empatickým prístupom",
+    "eyebrow": "Všetko pre krásny a zdravý úsmev",
+    "title": "Individuálny prístup, šetrné ošetrenie a dôraz na zdravie Vašich úst",
+    "description": "V našej ambulancii dentálnej hygieny Dientes máme ku každému pacientovi individuálny prístup a snažíme sa zabezpečiť čo najpríjemnejší priebeh ošetrenia. O to sa s radosťou postará dentálna hygienička Bc. Gabriela Šenkovičová\n\n",
+    "insurance": {
+      "enabled": true,
+      "icon": "health_and_safety",
+      "title": "Príspevok od zdravotnej poisťovne Union",
+      "badge": "Až 80 % späť",
+      "description": "Ambulancia Dientes nie je zmluvným partnerom zdravotných poisťovní, napriek tomu si môžete príspevok na dentálnu hygienu uplatniť zo svojho benefitného programu – táto možnosť však platí výhradne pre poistencov zdravotnej poisťovne UNION (pre VšZP a Dôveru príspevok u nezmluvného lekára neplatí).",
+      "disclaimer": "*Pre poistencov VšZP a Dôvera benefit u nezmluvných lekárov neplatí.",
+      "footerNote": "Potvrdenie vystavíme ihneď"
+    }
+  },
+  "prices": {
+    "enabled": true,
+    "eyebrow": "Cenník",
+    "title": "Kompletný cenník ošetrení",
+    "description": "Počas ošetrenia si môžete dopriať komfort slúchadiel s aktívnym potláčaním hluku pre pokojný a nerušený priebeh, pričom služba je zahrnutá v cene ošetrenia"
+  },
+  "contact": {
+    "description": "Prevádzku Dientes nájdete v srdci Košíc, na Pribinovej ulici, s výbornou dostupnosťou pešo aj autom.",
+    "address": "Pribinova 788/8, 040 01 Košice",
+    "phone": "0948 718 046",
+    "email": "dientes.dh@gmail.com",
+    "ico": "57572852",
+    "latitude": 48.71739,
+    "longitude": 21.25804,
+    "mapLink": "",
     "weeklySchedule": [
       {
         "day": 1,
@@ -256,25 +247,190 @@
         "endTime": ""
       }
     ],
+    "footerTitle": "Dientes Košice",
+    "footerDescription": "Špecializovaná dentálna hygiena a prevencia s dôrazom na maximálny komfort, bezbolestný prístup a moderné technologické vybavenie v centre Košíc.",
+    "footerAccess": "Ambulancia v centre mesta s pohodlnou dostupnosťou",
+    "footerHoursNote": "Ošetrenia prebiehajú výhradne na základe vopred dohodnutého termínu.",
+    "footerInsurance": {
+      "enabled": true,
+      "icon": "verified",
+      "title": "Príspevok Union ZP",
+      "description": "Uplatnite si príspevok na dentálnu hygienu od Union zdravotnej poisťovne."
+    }
+  },
+  "reservations": {
+    "enabled": true,
+    "daysAhead": 90,
+    "slotMinutes": 45,
+    "minimumNoticeHours": 0,
     "extraOpenDates": [],
     "closedDateRanges": [
       {
         "startDate": "2026-08-14T00:00:00.000Z",
         "endDate": "2026-08-14T00:00:00.000Z",
-        "note": "Dovolenka"
+        "type": "vacation",
+        "note": "Dovolenka",
+        "publicMessage": "Dovolenka",
+        "showNotice": true
       },
       {
         "startDate": "2027-01-11T00:00:00.000Z",
         "endDate": "2027-01-29T00:00:00.000Z",
-        "note": "Dovolenka"
+        "type": "vacation",
+        "note": "Dovolenka",
+        "publicMessage": "Dovolenka",
+        "showNotice": true
+      }
+    ],
+    "legal": {
+      "privacyTitle": "Spracovanie osobných údajov",
+      "privacyText": "test",
+      "cancellationTitle": "Storno podmienky",
+      "cancellationText": "test"
+    },
+    "emailStyle": {
+      "logoImage": "/uploads/1779912099264-78b20003-8a28-4360-9240-3125307e4643_2.jpg",
+      "primaryColor": "#00aeb0",
+      "header": "DIENTES",
+      "footer": "Dientes dentálna hygiena Košice",
+      "signature": "Tím Dientes Košice"
+    },
+    "emailTemplates": {
+      "request": {
+        "subject": "Potvrďte rezerváciu – Dientes dentálna hygiena",
+        "title": "Potvrďte svoju rezerváciu",
+        "introduction": "Pre dokončenie rezervácie potvrďte svoju e-mailovú adresu.",
+        "button": "POTVRDIŤ REZERVÁCIU",
+        "closing": "Ak ste túto rezerváciu nevytvorili, e-mail ignorujte."
+      },
+      "confirmed": {
+        "subject": "Rezervácia potvrdená – Dientes",
+        "title": "Rezervácia bola potvrdená",
+        "introduction": "Ďakujeme, váš termín je potvrdený.",
+        "button": "ZRUŠIŤ REZERVÁCIU",
+        "closing": "Tešíme sa na vašu návštevu."
+      },
+      "cancelled": {
+        "subject": "Rezervácia zrušená – Dientes",
+        "title": "Rezervácia bola zrušená",
+        "introduction": "Vaša rezervácia bola úspešne zrušená.",
+        "button": "",
+        "closing": "V prípade otázok nás kontaktujte."
+      }
+    }
+  },
+  "gallery": {
+    "enabled": true,
+    "label": "Nahliadnite do našich priestorov",
+    "title": "Pokojné prostredie v centre mesta",
+    "description": "Navštívte moderne a útulne vybavenú ambulanciu s priateľskou atmosférou na Pribinovej 8 v Košiciach.",
+    "items": [
+      {
+        "image": "/uploads/3792c3b5-e34d-48e8-9fa8-3936e81c4649.png",
+        "alt": "Fotografia ambulancie Dientes 1",
+        "enabled": true
+      },
+      {
+        "image": "/uploads/a24dae59-4ee4-4271-baa7-2c2ac3988e48.jpg",
+        "alt": "Fotografia ambulancie Dientes 2",
+        "enabled": true
+      },
+      {
+        "image": "/uploads/ca41f930-254a-41b8-9383-baf762838bce (1).jpg",
+        "alt": "Fotografia ambulancie Dientes 3",
+        "enabled": true
+      },
+      {
+        "image": "/uploads/2f126c4f-feca-46d8-9274-a94227609e60.jpg",
+        "alt": "Fotografia ambulancie Dientes 4",
+        "enabled": true
+      },
+      {
+        "image": "/uploads/210200be-e0a8-489b-bee4-590eb4a56c5c.jpg",
+        "alt": "Fotografia ambulancie Dientes 5",
+        "enabled": true
+      },
+      {
+        "image": "/uploads/1b2bba8f-a047-4d05-812f-17f24355f81e.jpg",
+        "alt": "Fotografia ambulancie Dientes 6",
+        "enabled": true
+      },
+      {
+        "image": "/uploads/bb99f52e-d026-44bf-858d-b451e20ca240.jpg",
+        "alt": "Fotografia ambulancie Dientes 7",
+        "enabled": true
+      },
+      {
+        "image": "/uploads/IMG_4053.jpeg",
+        "alt": "Fotografia ambulancie Dientes 8",
+        "enabled": true
       }
     ]
   },
-  "contactSection": {
-    "label": "Kontakt a mapa",
-    "title": "Kde nás nájdete",
-    "description": "Prevádzku Dientes nájdete jednoducho podľa mapy.",
-    "mapTitle": "Mapa prevádzky",
-    "mapDescription": "Kliknutím na mapu si viete pozrieť polohu alebo naplánovať trasu."
+  "seo": {
+    "title": "Dentálna hygiena Košice | Dientes",
+    "description": "Dentálna hygiena v Košiciach na Pribinovej 8. Šetrné ošetrenie, Airflow, dentálna hygiena detí aj bielenie zubov. Objednajte sa online.",
+    "socialTitle": "Dientes – dentálna hygiena Košice",
+    "socialDescription": "Šetrná dentálna hygiena a príjemná starostlivosť v centre Košíc. Rezervujte si termín online.",
+    "socialImage": "/uploads/opengraph-image.png",
+    "businessName": "Dientes dentálna hygiena Košice",
+    "businessDescription": "Dentálna hygiena v Košiciach na Pribinovej ulici. Profesionálna starostlivosť o zdravie zubov a ďasien."
+  },
+  "faq": {
+    "enabled": true,
+    "eyebrow": "NAJČASTEJŠIE OTÁZKY",
+    "title": "Často kladené otázky",
+    "items": [
+      {
+        "question": "Čo je dentálna hygiena a prečo je dôležitá?",
+        "answer": "Dentálna hygiena je profesionálna starostlivosť o čistotu zubov a zdravie ďasien. Pomáha odstrániť povlak, zubný kameň a niektoré povrchové pigmentácie. Súčasťou návštevy je aj poradenstvo, ako sa správne starať o zuby doma.",
+        "enabled": true
+      },
+      {
+        "question": "Ako často by som mal(a) chodiť na dentálnu hygienu?",
+        "answer": "Interval je individuálny. Mnohým ľuďom vyhovuje návšteva približne každých šesť mesiacov, pri zvýšenej tvorbe zubného kameňa alebo problémoch s ďasnami môže byť vhodná častejšia starostlivosť. Odporúčanie dostanete podľa stavu svojich zubov a ďasien.",
+        "enabled": true
+      },
+      {
+        "question": "Je dentálna hygiena bolestivá?",
+        "answer": "Väčšina ľudí zvláda ošetrenie dobre. Pri citlivých zuboch, zapálených ďasnách alebo väčšom množstve kameňa môžete cítiť dočasnú citlivosť. Ak máte obavy, povedzte nám to pred ošetrením, aby sme postup prispôsobili vašim potrebám.",
+        "enabled": true
+      },
+      {
+        "question": "Ako dlho trvá dentálna hygiena?",
+        "answer": "Závisí od zvoleného ošetrenia a stavu chrupu. Aktuálne trvanie jednotlivých služieb nájdete pri ich popise v sekcii Služby a v rezervačnom formulári.",
+        "enabled": true
+      },
+      {
+        "question": "Čo ak mi pri čistení zubov krvácajú ďasná?",
+        "answer": "Krvácanie môže byť príznakom zápalu ďasien spôsobeného nahromadeným povlakom. Neignorujte ho a objednajte sa na odborné vyšetrenie. Pri návšteve vám poradíme aj vhodné čistenie medzizubných priestorov.",
+        "enabled": true
+      },
+      {
+        "question": "Môžu absolvovať dentálnu hygienu aj deti?",
+        "answer": "Áno. Detské ošetrenie prispôsobujeme veku a spolupráci dieťaťa. Zameriavame sa na šetrné čistenie, prevenciu a nácvik správnych návykov. V ponuke nájdete aj službu pre deti do 10 rokov.",
+        "enabled": true
+      },
+      {
+        "question": "Čo je Airflow pieskovanie?",
+        "answer": "Airflow je metóda čistenia, pri ktorej sa používa prúd vody, vzduchu a jemného prášku. Pomáha odstraňovať zubný biofilm a povrchové pigmentácie, napríklad z kávy či čaju. Vhodnosť postupu posúdime pri ošetrení.",
+        "enabled": true
+      },
+      {
+        "question": "Musím si pred návštevou nejako pripraviť zuby?",
+        "answer": "Stačí bežná ústna hygiena. Ak máte citlivé zuby, krvácanie ďasien, strojček alebo iné ťažkosti, spomeňte ich pri návšteve. O vhodnom postupe a pomôckach sa poradíte priamo s hygieničkou.",
+        "enabled": true
+      },
+      {
+        "question": "Nahradí dentálna hygiena každodenné čistenie zubov?",
+        "answer": "Nie. Profesionálna hygiena dopĺňa každodennú starostlivosť. Zuby si čistite fluoridovou pastou dvakrát denne a pravidelne čistite aj medzizubné priestory vhodnou pomôckou.",
+        "enabled": true
+      },
+      {
+        "question": "Ako sa môžem objednať na dentálnu hygienu v Košiciach?",
+        "answer": "Vyberte si službu a voľný termín v online rezervačnom formulári na našej stránke. Rezerváciu dokončíte podľa pokynov v potvrdzovacom e-maile. Prípadne nás môžete kontaktovať telefonicky.",
+        "enabled": true
+      }
+    ]
   }
 }

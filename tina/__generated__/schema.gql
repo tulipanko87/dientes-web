@@ -87,100 +87,242 @@ type Collection {
 
 union DocumentNode = Home | Folder
 
-type HomeHeader {
-  brandTitle: String
-  brandSubtitle: String
-}
-
-type HomeHeroImages {
+type HomeIntroImages {
   image: String
   alt: String
 }
 
-type HomeHeroStats {
+type HomeIntroStats {
   title: String
   subtitle: String
 }
 
-type HomeHero {
+type HomeIntro {
   badge: String
-  title: String
-  subtitle: String
   description: String
-  image: String
-  imageAlt: String
+  comfortIcon: String
+  comfortTitle: String
+  comfortDescription: String
+  locationBadge: String
   sliderIntervalSeconds: Float
-  images: [HomeHeroImages]
-  stats: [HomeHeroStats]
+  images: [HomeIntroImages]
+  stats: [HomeIntroStats]
 }
 
-type HomeServicesSection {
-  label: String
+type HomeServicesItems {
+  id: String
+  enabled: Boolean
+  bookable: Boolean
+  icon: String
+  name: String
+  description: String
+  shortDescription: String
+  price: Float
+  durationMinutes: Float
+  image: String
+}
+
+type HomeServices {
+  eyebrow: String
+  title: String
+  description: String
+  items: [HomeServicesItems]
+}
+
+type HomeProcessSteps {
+  title: String
+  description: String
+  caption: String
+  icon: String
+}
+
+type HomeProcess {
+  eyebrow: String
+  title: String
+  description: String
+  steps: [HomeProcessSteps]
+}
+
+type HomeClinicInsurance {
+  enabled: Boolean
+  icon: String
+  title: String
+  badge: String
+  description: String
+  disclaimer: String
+  footerNote: String
+}
+
+type HomeClinic {
+  photo: String
+  photoAlt: String
+  personName: String
+  personSubtitle: String
+  eyebrow: String
+  title: String
+  description: String
+  insurance: HomeClinicInsurance
+}
+
+type HomePrices {
+  enabled: Boolean
+  eyebrow: String
   title: String
   description: String
 }
 
-type HomeBenefits {
+type HomeContactWeeklySchedule {
+  day: Float
+  enabled: Boolean
+  startTime: String
+  endTime: String
+}
+
+type HomeContactFooterInsurance {
+  enabled: Boolean
+  icon: String
   title: String
-  text: String
-  image: String
-  imageAlt: String
+  description: String
+}
+
+type HomeContact {
+  description: String
+  address: String
+  phone: String
+  email: String
+  ico: String
+  latitude: Float
+  longitude: Float
+  mapLink: String
+  weeklySchedule: [HomeContactWeeklySchedule]
+  footerTitle: String
+  footerDescription: String
+  footerAccess: String
+  footerHoursNote: String
+  footerInsurance: HomeContactFooterInsurance
+}
+
+type HomeReservationsExtraOpenDates {
+  date: String
+  startTime: String
+  endTime: String
+}
+
+type HomeReservationsClosedDateRanges {
+  startDate: String
+  endDate: String
+  type: String
+  note: String
+  publicMessage: String
+  showNotice: Boolean
+}
+
+type HomeReservationsLegal {
+  privacyTitle: String
+  privacyText: String
+  cancellationTitle: String
+  cancellationText: String
+}
+
+type HomeReservationsEmailStyle {
+  logoImage: String
+  primaryColor: String
+  header: String
+  footer: String
+  signature: String
+}
+
+type HomeReservationsEmailTemplatesRequest {
+  subject: String
+  title: String
+  introduction: String
+  button: String
+  closing: String
+}
+
+type HomeReservationsEmailTemplatesConfirmed {
+  subject: String
+  title: String
+  introduction: String
+  button: String
+  closing: String
+}
+
+type HomeReservationsEmailTemplatesCancelled {
+  subject: String
+  title: String
+  introduction: String
+  button: String
+  closing: String
+}
+
+type HomeReservationsEmailTemplates {
+  request: HomeReservationsEmailTemplatesRequest
+  confirmed: HomeReservationsEmailTemplatesConfirmed
+  cancelled: HomeReservationsEmailTemplatesCancelled
+}
+
+type HomeReservations {
+  enabled: Boolean
+  daysAhead: Float
+  slotMinutes: Float
+  minimumNoticeHours: Float
+  extraOpenDates: [HomeReservationsExtraOpenDates]
+  closedDateRanges: [HomeReservationsClosedDateRanges]
+  legal: HomeReservationsLegal
+  emailStyle: HomeReservationsEmailStyle
+  emailTemplates: HomeReservationsEmailTemplates
 }
 
 type HomeGalleryItems {
   image: String
   alt: String
   caption: String
+  enabled: Boolean
 }
 
 type HomeGallery {
+  enabled: Boolean
   label: String
   title: String
   description: String
   items: [HomeGalleryItems]
 }
 
-type HomePriceSectionItems {
-  name: String
-  price: String
-}
-
-type HomePriceSection {
-  label: String
+type HomeSeo {
   title: String
   description: String
-  items: [HomePriceSectionItems]
+  socialTitle: String
+  socialDescription: String
+  socialImage: String
+  businessName: String
+  businessDescription: String
 }
 
-type HomeBookingServices {
-  id: String
-  name: String
-  duration: String
-  price: String
-  description: String
+type HomeFaqItems {
+  question: String
+  answer: String
+  enabled: Boolean
 }
 
-type HomeContactSection {
-  label: String
+type HomeFaq {
+  enabled: Boolean
+  eyebrow: String
   title: String
-  description: String
-  mapTitle: String
-  mapDescription: String
+  items: [HomeFaqItems]
 }
 
 type Home implements Node & Document {
-  businessName: String
-  businessAddress: String
-  logoImage: String
-  header: HomeHeader
-  hero: HomeHero
-  servicesSection: HomeServicesSection
-  benefits: [HomeBenefits]
+  intro: HomeIntro
+  services: HomeServices
+  process: HomeProcess
+  clinic: HomeClinic
+  prices: HomePrices
+  contact: HomeContact
+  reservations: HomeReservations
   gallery: HomeGallery
-  steps: [String]
-  priceSection: HomePriceSection
-  bookingServices: [HomeBookingServices]
-  contactSection: HomeContactSection
+  seo: HomeSeo
+  faq: HomeFaq
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -193,18 +335,6 @@ input StringFilter {
   in: [String]
 }
 
-input ImageFilter {
-  startsWith: String
-  eq: String
-  exists: Boolean
-  in: [String]
-}
-
-input HomeHeaderFilter {
-  brandTitle: StringFilter
-  brandSubtitle: StringFilter
-}
-
 input NumberFilter {
   lt: Float
   lte: Float
@@ -215,95 +345,262 @@ input NumberFilter {
   in: [Float]
 }
 
-input HomeHeroImagesFilter {
+input ImageFilter {
+  startsWith: String
+  eq: String
+  exists: Boolean
+  in: [String]
+}
+
+input HomeIntroImagesFilter {
   image: ImageFilter
   alt: StringFilter
 }
 
-input HomeHeroStatsFilter {
+input HomeIntroStatsFilter {
   title: StringFilter
   subtitle: StringFilter
 }
 
-input HomeHeroFilter {
+input HomeIntroFilter {
   badge: StringFilter
-  title: StringFilter
-  subtitle: StringFilter
   description: StringFilter
-  image: ImageFilter
-  imageAlt: StringFilter
+  comfortIcon: StringFilter
+  comfortTitle: StringFilter
+  comfortDescription: StringFilter
+  locationBadge: StringFilter
   sliderIntervalSeconds: NumberFilter
-  images: HomeHeroImagesFilter
-  stats: HomeHeroStatsFilter
+  images: HomeIntroImagesFilter
+  stats: HomeIntroStatsFilter
 }
 
-input HomeServicesSectionFilter {
-  label: StringFilter
+input BooleanFilter {
+  eq: Boolean
+  exists: Boolean
+}
+
+input HomeServicesItemsFilter {
+  id: StringFilter
+  enabled: BooleanFilter
+  bookable: BooleanFilter
+  icon: StringFilter
+  name: StringFilter
+  description: StringFilter
+  shortDescription: StringFilter
+  price: NumberFilter
+  durationMinutes: NumberFilter
+  image: ImageFilter
+}
+
+input HomeServicesFilter {
+  eyebrow: StringFilter
+  title: StringFilter
+  description: StringFilter
+  items: HomeServicesItemsFilter
+}
+
+input HomeProcessStepsFilter {
+  title: StringFilter
+  description: StringFilter
+  caption: StringFilter
+  icon: StringFilter
+}
+
+input HomeProcessFilter {
+  eyebrow: StringFilter
+  title: StringFilter
+  description: StringFilter
+  steps: HomeProcessStepsFilter
+}
+
+input HomeClinicInsuranceFilter {
+  enabled: BooleanFilter
+  icon: StringFilter
+  title: StringFilter
+  badge: StringFilter
+  description: StringFilter
+  disclaimer: StringFilter
+  footerNote: StringFilter
+}
+
+input HomeClinicFilter {
+  photo: ImageFilter
+  photoAlt: StringFilter
+  personName: StringFilter
+  personSubtitle: StringFilter
+  eyebrow: StringFilter
+  title: StringFilter
+  description: StringFilter
+  insurance: HomeClinicInsuranceFilter
+}
+
+input HomePricesFilter {
+  enabled: BooleanFilter
+  eyebrow: StringFilter
   title: StringFilter
   description: StringFilter
 }
 
-input HomeBenefitsFilter {
+input HomeContactWeeklyScheduleFilter {
+  day: NumberFilter
+  enabled: BooleanFilter
+  startTime: StringFilter
+  endTime: StringFilter
+}
+
+input HomeContactFooterInsuranceFilter {
+  enabled: BooleanFilter
+  icon: StringFilter
   title: StringFilter
-  text: StringFilter
-  image: ImageFilter
-  imageAlt: StringFilter
+  description: StringFilter
+}
+
+input HomeContactFilter {
+  description: StringFilter
+  address: StringFilter
+  phone: StringFilter
+  email: StringFilter
+  ico: StringFilter
+  latitude: NumberFilter
+  longitude: NumberFilter
+  mapLink: StringFilter
+  weeklySchedule: HomeContactWeeklyScheduleFilter
+  footerTitle: StringFilter
+  footerDescription: StringFilter
+  footerAccess: StringFilter
+  footerHoursNote: StringFilter
+  footerInsurance: HomeContactFooterInsuranceFilter
+}
+
+input DatetimeFilter {
+  after: String
+  before: String
+  eq: String
+  exists: Boolean
+  in: [String]
+}
+
+input HomeReservationsExtraOpenDatesFilter {
+  date: DatetimeFilter
+  startTime: StringFilter
+  endTime: StringFilter
+}
+
+input HomeReservationsClosedDateRangesFilter {
+  startDate: DatetimeFilter
+  endDate: DatetimeFilter
+  type: StringFilter
+  note: StringFilter
+  publicMessage: StringFilter
+  showNotice: BooleanFilter
+}
+
+input HomeReservationsLegalFilter {
+  privacyTitle: StringFilter
+  privacyText: StringFilter
+  cancellationTitle: StringFilter
+  cancellationText: StringFilter
+}
+
+input HomeReservationsEmailStyleFilter {
+  logoImage: ImageFilter
+  primaryColor: StringFilter
+  header: StringFilter
+  footer: StringFilter
+  signature: StringFilter
+}
+
+input HomeReservationsEmailTemplatesRequestFilter {
+  subject: StringFilter
+  title: StringFilter
+  introduction: StringFilter
+  button: StringFilter
+  closing: StringFilter
+}
+
+input HomeReservationsEmailTemplatesConfirmedFilter {
+  subject: StringFilter
+  title: StringFilter
+  introduction: StringFilter
+  button: StringFilter
+  closing: StringFilter
+}
+
+input HomeReservationsEmailTemplatesCancelledFilter {
+  subject: StringFilter
+  title: StringFilter
+  introduction: StringFilter
+  button: StringFilter
+  closing: StringFilter
+}
+
+input HomeReservationsEmailTemplatesFilter {
+  request: HomeReservationsEmailTemplatesRequestFilter
+  confirmed: HomeReservationsEmailTemplatesConfirmedFilter
+  cancelled: HomeReservationsEmailTemplatesCancelledFilter
+}
+
+input HomeReservationsFilter {
+  enabled: BooleanFilter
+  daysAhead: NumberFilter
+  slotMinutes: NumberFilter
+  minimumNoticeHours: NumberFilter
+  extraOpenDates: HomeReservationsExtraOpenDatesFilter
+  closedDateRanges: HomeReservationsClosedDateRangesFilter
+  legal: HomeReservationsLegalFilter
+  emailStyle: HomeReservationsEmailStyleFilter
+  emailTemplates: HomeReservationsEmailTemplatesFilter
 }
 
 input HomeGalleryItemsFilter {
   image: ImageFilter
   alt: StringFilter
   caption: StringFilter
+  enabled: BooleanFilter
 }
 
 input HomeGalleryFilter {
+  enabled: BooleanFilter
   label: StringFilter
   title: StringFilter
   description: StringFilter
   items: HomeGalleryItemsFilter
 }
 
-input HomePriceSectionItemsFilter {
-  name: StringFilter
-  price: StringFilter
-}
-
-input HomePriceSectionFilter {
-  label: StringFilter
+input HomeSeoFilter {
   title: StringFilter
   description: StringFilter
-  items: HomePriceSectionItemsFilter
+  socialTitle: StringFilter
+  socialDescription: StringFilter
+  socialImage: ImageFilter
+  businessName: StringFilter
+  businessDescription: StringFilter
 }
 
-input HomeBookingServicesFilter {
-  id: StringFilter
-  name: StringFilter
-  duration: StringFilter
-  price: StringFilter
-  description: StringFilter
+input HomeFaqItemsFilter {
+  question: StringFilter
+  answer: StringFilter
+  enabled: BooleanFilter
 }
 
-input HomeContactSectionFilter {
-  label: StringFilter
+input HomeFaqFilter {
+  enabled: BooleanFilter
+  eyebrow: StringFilter
   title: StringFilter
-  description: StringFilter
-  mapTitle: StringFilter
-  mapDescription: StringFilter
+  items: HomeFaqItemsFilter
 }
 
 input HomeFilter {
-  businessName: StringFilter
-  businessAddress: StringFilter
-  logoImage: ImageFilter
-  header: HomeHeaderFilter
-  hero: HomeHeroFilter
-  servicesSection: HomeServicesSectionFilter
-  benefits: HomeBenefitsFilter
+  intro: HomeIntroFilter
+  services: HomeServicesFilter
+  process: HomeProcessFilter
+  clinic: HomeClinicFilter
+  prices: HomePricesFilter
+  contact: HomeContactFilter
+  reservations: HomeReservationsFilter
   gallery: HomeGalleryFilter
-  steps: StringFilter
-  priceSection: HomePriceSectionFilter
-  bookingServices: HomeBookingServicesFilter
-  contactSection: HomeContactSectionFilter
+  seo: HomeSeoFilter
+  faq: HomeFaqFilter
 }
 
 type HomeConnectionEdges {
@@ -336,100 +633,242 @@ input DocumentMutation {
   home: HomeMutation
 }
 
-input HomeHeaderMutation {
-  brandTitle: String
-  brandSubtitle: String
-}
-
-input HomeHeroImagesMutation {
+input HomeIntroImagesMutation {
   image: String
   alt: String
 }
 
-input HomeHeroStatsMutation {
+input HomeIntroStatsMutation {
   title: String
   subtitle: String
 }
 
-input HomeHeroMutation {
+input HomeIntroMutation {
   badge: String
-  title: String
-  subtitle: String
   description: String
-  image: String
-  imageAlt: String
+  comfortIcon: String
+  comfortTitle: String
+  comfortDescription: String
+  locationBadge: String
   sliderIntervalSeconds: Float
-  images: [HomeHeroImagesMutation]
-  stats: [HomeHeroStatsMutation]
+  images: [HomeIntroImagesMutation]
+  stats: [HomeIntroStatsMutation]
 }
 
-input HomeServicesSectionMutation {
-  label: String
+input HomeServicesItemsMutation {
+  id: String
+  enabled: Boolean
+  bookable: Boolean
+  icon: String
+  name: String
+  description: String
+  shortDescription: String
+  price: Float
+  durationMinutes: Float
+  image: String
+}
+
+input HomeServicesMutation {
+  eyebrow: String
+  title: String
+  description: String
+  items: [HomeServicesItemsMutation]
+}
+
+input HomeProcessStepsMutation {
+  title: String
+  description: String
+  caption: String
+  icon: String
+}
+
+input HomeProcessMutation {
+  eyebrow: String
+  title: String
+  description: String
+  steps: [HomeProcessStepsMutation]
+}
+
+input HomeClinicInsuranceMutation {
+  enabled: Boolean
+  icon: String
+  title: String
+  badge: String
+  description: String
+  disclaimer: String
+  footerNote: String
+}
+
+input HomeClinicMutation {
+  photo: String
+  photoAlt: String
+  personName: String
+  personSubtitle: String
+  eyebrow: String
+  title: String
+  description: String
+  insurance: HomeClinicInsuranceMutation
+}
+
+input HomePricesMutation {
+  enabled: Boolean
+  eyebrow: String
   title: String
   description: String
 }
 
-input HomeBenefitsMutation {
+input HomeContactWeeklyScheduleMutation {
+  day: Float
+  enabled: Boolean
+  startTime: String
+  endTime: String
+}
+
+input HomeContactFooterInsuranceMutation {
+  enabled: Boolean
+  icon: String
   title: String
-  text: String
-  image: String
-  imageAlt: String
+  description: String
+}
+
+input HomeContactMutation {
+  description: String
+  address: String
+  phone: String
+  email: String
+  ico: String
+  latitude: Float
+  longitude: Float
+  mapLink: String
+  weeklySchedule: [HomeContactWeeklyScheduleMutation]
+  footerTitle: String
+  footerDescription: String
+  footerAccess: String
+  footerHoursNote: String
+  footerInsurance: HomeContactFooterInsuranceMutation
+}
+
+input HomeReservationsExtraOpenDatesMutation {
+  date: String
+  startTime: String
+  endTime: String
+}
+
+input HomeReservationsClosedDateRangesMutation {
+  startDate: String
+  endDate: String
+  type: String
+  note: String
+  publicMessage: String
+  showNotice: Boolean
+}
+
+input HomeReservationsLegalMutation {
+  privacyTitle: String
+  privacyText: String
+  cancellationTitle: String
+  cancellationText: String
+}
+
+input HomeReservationsEmailStyleMutation {
+  logoImage: String
+  primaryColor: String
+  header: String
+  footer: String
+  signature: String
+}
+
+input HomeReservationsEmailTemplatesRequestMutation {
+  subject: String
+  title: String
+  introduction: String
+  button: String
+  closing: String
+}
+
+input HomeReservationsEmailTemplatesConfirmedMutation {
+  subject: String
+  title: String
+  introduction: String
+  button: String
+  closing: String
+}
+
+input HomeReservationsEmailTemplatesCancelledMutation {
+  subject: String
+  title: String
+  introduction: String
+  button: String
+  closing: String
+}
+
+input HomeReservationsEmailTemplatesMutation {
+  request: HomeReservationsEmailTemplatesRequestMutation
+  confirmed: HomeReservationsEmailTemplatesConfirmedMutation
+  cancelled: HomeReservationsEmailTemplatesCancelledMutation
+}
+
+input HomeReservationsMutation {
+  enabled: Boolean
+  daysAhead: Float
+  slotMinutes: Float
+  minimumNoticeHours: Float
+  extraOpenDates: [HomeReservationsExtraOpenDatesMutation]
+  closedDateRanges: [HomeReservationsClosedDateRangesMutation]
+  legal: HomeReservationsLegalMutation
+  emailStyle: HomeReservationsEmailStyleMutation
+  emailTemplates: HomeReservationsEmailTemplatesMutation
 }
 
 input HomeGalleryItemsMutation {
   image: String
   alt: String
   caption: String
+  enabled: Boolean
 }
 
 input HomeGalleryMutation {
+  enabled: Boolean
   label: String
   title: String
   description: String
   items: [HomeGalleryItemsMutation]
 }
 
-input HomePriceSectionItemsMutation {
-  name: String
-  price: String
-}
-
-input HomePriceSectionMutation {
-  label: String
+input HomeSeoMutation {
   title: String
   description: String
-  items: [HomePriceSectionItemsMutation]
+  socialTitle: String
+  socialDescription: String
+  socialImage: String
+  businessName: String
+  businessDescription: String
 }
 
-input HomeBookingServicesMutation {
-  id: String
-  name: String
-  duration: String
-  price: String
-  description: String
+input HomeFaqItemsMutation {
+  question: String
+  answer: String
+  enabled: Boolean
 }
 
-input HomeContactSectionMutation {
-  label: String
+input HomeFaqMutation {
+  enabled: Boolean
+  eyebrow: String
   title: String
-  description: String
-  mapTitle: String
-  mapDescription: String
+  items: [HomeFaqItemsMutation]
 }
 
 input HomeMutation {
-  businessName: String
-  businessAddress: String
-  logoImage: String
-  header: HomeHeaderMutation
-  hero: HomeHeroMutation
-  servicesSection: HomeServicesSectionMutation
-  benefits: [HomeBenefitsMutation]
+  intro: HomeIntroMutation
+  services: HomeServicesMutation
+  process: HomeProcessMutation
+  clinic: HomeClinicMutation
+  prices: HomePricesMutation
+  contact: HomeContactMutation
+  reservations: HomeReservationsMutation
   gallery: HomeGalleryMutation
-  steps: [String]
-  priceSection: HomePriceSectionMutation
-  bookingServices: [HomeBookingServicesMutation]
-  contactSection: HomeContactSectionMutation
+  seo: HomeSeoMutation
+  faq: HomeFaqMutation
 }
 
 schema {

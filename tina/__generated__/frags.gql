@@ -1,21 +1,13 @@
 fragment HomeParts on Home {
   __typename
-  businessName
-  businessAddress
-  logoImage
-  header {
-    __typename
-    brandTitle
-    brandSubtitle
-  }
-  hero {
+  intro {
     __typename
     badge
-    title
-    subtitle
     description
-    image
-    imageAlt
+    comfortIcon
+    comfortTitle
+    comfortDescription
+    locationBadge
     sliderIntervalSeconds
     images {
       __typename
@@ -28,21 +20,161 @@ fragment HomeParts on Home {
       subtitle
     }
   }
-  servicesSection {
+  services {
     __typename
-    label
+    eyebrow
+    title
+    description
+    items {
+      __typename
+      id
+      enabled
+      bookable
+      icon
+      name
+      description
+      shortDescription
+      price
+      durationMinutes
+      image
+    }
+  }
+  process {
+    __typename
+    eyebrow
+    title
+    description
+    steps {
+      __typename
+      title
+      description
+      caption
+      icon
+    }
+  }
+  clinic {
+    __typename
+    photo
+    photoAlt
+    personName
+    personSubtitle
+    eyebrow
+    title
+    description
+    insurance {
+      __typename
+      enabled
+      icon
+      title
+      badge
+      description
+      disclaimer
+      footerNote
+    }
+  }
+  prices {
+    __typename
+    enabled
+    eyebrow
     title
     description
   }
-  benefits {
+  contact {
     __typename
-    title
-    text
-    image
-    imageAlt
+    description
+    address
+    phone
+    email
+    ico
+    latitude
+    longitude
+    mapLink
+    weeklySchedule {
+      __typename
+      day
+      enabled
+      startTime
+      endTime
+    }
+    footerTitle
+    footerDescription
+    footerAccess
+    footerHoursNote
+    footerInsurance {
+      __typename
+      enabled
+      icon
+      title
+      description
+    }
+  }
+  reservations {
+    __typename
+    enabled
+    daysAhead
+    slotMinutes
+    minimumNoticeHours
+    extraOpenDates {
+      __typename
+      date
+      startTime
+      endTime
+    }
+    closedDateRanges {
+      __typename
+      startDate
+      endDate
+      type
+      note
+      publicMessage
+      showNotice
+    }
+    legal {
+      __typename
+      privacyTitle
+      privacyText
+      cancellationTitle
+      cancellationText
+    }
+    emailStyle {
+      __typename
+      logoImage
+      primaryColor
+      header
+      footer
+      signature
+    }
+    emailTemplates {
+      __typename
+      request {
+        __typename
+        subject
+        title
+        introduction
+        button
+        closing
+      }
+      confirmed {
+        __typename
+        subject
+        title
+        introduction
+        button
+        closing
+      }
+      cancelled {
+        __typename
+        subject
+        title
+        introduction
+        button
+        closing
+      }
+    }
   }
   gallery {
     __typename
+    enabled
     label
     title
     description
@@ -51,34 +183,29 @@ fragment HomeParts on Home {
       image
       alt
       caption
+      enabled
     }
   }
-  steps
-  priceSection {
+  seo {
     __typename
-    label
     title
     description
+    socialTitle
+    socialDescription
+    socialImage
+    businessName
+    businessDescription
+  }
+  faq {
+    __typename
+    enabled
+    eyebrow
+    title
     items {
       __typename
-      name
-      price
+      question
+      answer
+      enabled
     }
-  }
-  bookingServices {
-    __typename
-    id
-    name
-    duration
-    price
-    description
-  }
-  contactSection {
-    __typename
-    label
-    title
-    description
-    mapTitle
-    mapDescription
   }
 }
