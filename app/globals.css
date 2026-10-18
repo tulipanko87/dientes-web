@@ -353,3 +353,20 @@ html { scroll-padding-top: 50px; }
 @media(max-width:1023px){ .stitch-page .dientes-mobile-toggle {display:inline-flex;} }
 @media(max-width:639px){.stitch-page header a[data-path="rezervovat-termin"] {padding:10px 12px; min-width:44px;min-height:44px;} .stitch-page header a[data-path="rezervovat-termin"] > span:last-child {display:none;} .stitch-page header a[data-path="rezervovat-termin"] > span:first-child {margin-right:0;} }
 @media(prefers-reduced-motion:reduce){.stitch-page .dientes-mobile-panel a {transition:none;}}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined' !important;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
