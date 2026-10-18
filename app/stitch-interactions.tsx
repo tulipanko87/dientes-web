@@ -293,11 +293,31 @@ export default function StitchInteractions() {
       const footer=card.querySelectorAll('.mt-space-sm span');
       if(footer[0]) footer[0].textContent=svc.duration||'Individuálne';
       if(footer[1]) footer[1].textContent=svc.price||'';
-      card.addEventListener('click',()=>{selectedService=index;choices.forEach((c,i)=>{
-        c.classList.toggle('border-primary',index===i);c.classList.toggle('bg-surface-mint-subtle',index===i);
-        c.classList.toggle('border-transparent',index!==i);c.classList.toggle('bg-surface-container-lowest',index!==i);
-      });render();});
-    });
+      card.addEventListener('click', () => {
+  selectedService = index;
+
+  choices.forEach((c, i) => {
+    const selected = i === index;
+
+    c.classList.toggle('border-primary', selected);
+    c.classList.toggle('bg-surface-mint-subtle', selected);
+    c.classList.toggle('border-transparent', !selected);
+    c.classList.toggle('bg-surface-container-lowest', !selected);
+
+    const check = c.querySelector('.check-indicator');
+
+    if (check) {
+      check.classList.toggle('text-primary', selected);
+      check.classList.toggle('text-slate-muted', !selected);
+      check.classList.toggle('opacity-30', !selected);
+    }
+
+    const radio = c.querySelector<HTMLInputElement>('input[type="radio"]');
+    if (radio) radio.checked = selected;
+  });
+
+  render();
+});
     const updateSummary=()=>{
       const svc=services[selectedService]||services[0];
       summaryService.textContent=svc?.name||'Dentálna hygiena';
