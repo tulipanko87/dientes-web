@@ -1,0 +1,37 @@
+[
+  {
+    "path": "/",
+    "expected": 200,
+    "actual": 200
+  },
+  {
+    "path": "/admin/index.html",
+    "expected": 200,
+    "actual": 200
+  },
+  {
+    "path": "/api/confirm-reservation",
+    "expected": 200,
+    "actual": 200
+  },
+  {
+    "path": "/api/cancel-reservation",
+    "expected": 200,
+    "actual": 200
+  },
+  {
+    "path": "/api/confirm-reservation",
+    "expected": 400,
+    "actual": 400
+  },
+  {
+    "path": "/api/reservation",
+    "expected": 400,
+    "actual": 400
+  },
+  {
+    "path": "/api/availability",
+    "expected": 500,
+    "actual": 500
+  }
+]

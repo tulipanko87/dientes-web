@@ -1,14 +1,10 @@
+import { readJson, reservationInput, sameOrigin, rateLimit, siteUrl as getSiteUrl } from "../../../lib/security";
 import { bookingCheck } from "../../../lib/booking-rules";
 import { patientMail } from "../../../lib/email-template";
 import crypto from "crypto";
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-
-type ReservationBody = {
-  service?: string; name?: string; email?: string; phone?: string;
-  date?: string; time?: string; durationMinutes?: number; note?: string;
-};
 
 function getCalendarClient() {
   const auth = new google.auth.JWT({
@@ -26,12 +22,14 @@ const transporter = nodemailer.createTransport({
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as ReservationBody;
-    const { service, name, email, phone, date, time, durationMinutes = 60, note } = body;
-
-    if (!service || !name || !email || !phone || !date || !time) {
-      return NextResponse.json({ error: "Chýbajú povinné údaje rezervácie." }, { status: 400 });
-    }
+    if (!sameOrigin(request)) return NextResponse.json({error: 'Nepovolený pôvod požiadavky.'}, {status: 403});
+    if (!rateLimit(request, 'reservation', 5)) return NextResponse.json({error: 'Príliš veľa požiadaviek.'}, {status: 429, headers: {'Retry-After': '600'}});
+    let raw: Record<string, unknown>;
+    try { raw = await readJson(request); } catch { return NextResponse.json({error: 'Neplatná požiadavka.'}, {status: 400}); }
+    const body = reservationInput(raw);
+    if (!body) return NextResponse.json({error: 'Skontrolujte povinné údaje a súhlas s podmienkami.'}, {status: 400});
+    const {service, name, email, phone, date, time, note} = body;
+    if (!rateLimit(request, 'reservation-email', 3, 600_000, email.toLowerCase())) return NextResponse.json({error: 'Príliš veľa požiadaviek.'}, {status: 429});
 
     const check = bookingCheck(service,date,time);
     if (check.error || !check.startAt || !check.duration) {
@@ -51,14 +49,16 @@ export async function POST(request: Request) {
         timeZone: "Europe/Bratislava", items: [{ id: calendarId }],
       },
     });
-    const busy = freebusy.data.calendars?.[calendarId]?.busy ?? [];
+    const availability = freebusy.data.calendars?.[calendarId];
+    if (!availability || availability.errors?.length || !availability.busy) throw new Error("Calendar unavailable");
+    const busy = availability.busy;
     if (busy.length) {
       return NextResponse.json({ error: "Tento termín je už obsadený." }, { status: 409 });
     }
 
     const confirmationToken = crypto.randomBytes(32).toString("hex");
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
-    const siteUrl = process.env.SITE_URL || "http://localhost:3000";
+    const siteUrl = getSiteUrl();
     const confirmUrl = `${siteUrl}/api/confirm-reservation?token=${encodeURIComponent(confirmationToken)}`;
     const formattedDate = new Date(`${date}T12:00:00`).toLocaleDateString("sk-SK");
 
@@ -98,8 +98,8 @@ export async function POST(request: Request) {
       success: true, pending: true,
       message: "Na váš e-mail sme poslali odkaz na potvrdenie. Termín pre vás držíme 10 minút.",
     });
-  } catch (error) {
-    console.error("Reservation error:", error);
+  } catch {
+    console.error("Reservation failed");
     return NextResponse.json({ error: "Rezerváciu sa nepodarilo pripraviť na potvrdenie." }, { status: 500 });
   }
 }

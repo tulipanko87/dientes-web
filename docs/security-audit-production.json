@@ -1,0 +1,222 @@
+{
+  "date": "2026-10-24",
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 2,
+      "moderate": 0,
+      "high": 6,
+      "critical": 0,
+      "total": 8
+    },
+    "dependencies": {
+      "prod": 722,
+      "dev": 654,
+      "optional": 143,
+      "peer": 13,
+      "peerOptional": 0,
+      "total": 1418
+    }
+  },
+  "packages": {
+    "@tinacms/graphql": {
+      "name": "@tinacms/graphql",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@tinacms/mdx",
+        "@tinacms/schema-tools"
+      ],
+      "effects": [
+        "@tinacms/search"
+      ],
+      "range": ">=0.60.8",
+      "nodes": [
+        "node_modules/@tinacms/graphql"
+      ],
+      "fixAvailable": {
+        "name": "tinacms",
+        "version": "1.2.1",
+        "isSemVerMajor": true
+      }
+    },
+    "@tinacms/mdx": {
+      "name": "@tinacms/mdx",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@tinacms/schema-tools"
+      ],
+      "effects": [
+        "@tinacms/graphql",
+        "tinacms"
+      ],
+      "range": "*",
+      "nodes": [
+        "node_modules/@tinacms/mdx"
+      ],
+      "fixAvailable": {
+        "name": "tinacms",
+        "version": "1.2.1",
+        "isSemVerMajor": true
+      }
+    },
+    "@tinacms/schema-tools": {
+      "name": "@tinacms/schema-tools",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "zod"
+      ],
+      "effects": [
+        "@tinacms/graphql",
+        "@tinacms/mdx",
+        "@tinacms/search",
+        "tinacms"
+      ],
+      "range": "<=0.0.0-fff7c61-20260805010007 || >=0.0.3",
+      "nodes": [
+        "node_modules/@tinacms/schema-tools"
+      ],
+      "fixAvailable": {
+        "name": "tinacms",
+        "version": "1.2.1",
+        "isSemVerMajor": true
+      }
+    },
+    "@tinacms/search": {
+      "name": "@tinacms/search",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@tinacms/graphql",
+        "@tinacms/schema-tools"
+      ],
+      "effects": [
+        "tinacms"
+      ],
+      "range": "*",
+      "nodes": [
+        "node_modules/@tinacms/search"
+      ],
+      "fixAvailable": {
+        "name": "tinacms",
+        "version": "1.2.1",
+        "isSemVerMajor": true
+      }
+    },
+    "katex": {
+      "name": "katex",
+      "severity": "low",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1241206,
+          "name": "katex",
+          "dependency": "katex",
+          "title": "KaTeX: Existing prototype pollution can bypass trust restrictions",
+          "url": "https://github.com/advisories/GHSA-238p-pmpm-9mq7",
+          "severity": "low",
+          "cwe": [
+            "CWE-807"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": ">=0.11.0 <0.18.2"
+        }
+      ],
+      "effects": [
+        "mermaid"
+      ],
+      "range": "0.11.0 - 0.18.1",
+      "nodes": [
+        "node_modules/katex"
+      ],
+      "fixAvailable": {
+        "name": "tinacms",
+        "version": "1.2.1",
+        "isSemVerMajor": true
+      }
+    },
+    "mermaid": {
+      "name": "mermaid",
+      "severity": "low",
+      "isDirect": false,
+      "via": [
+        "katex"
+      ],
+      "effects": [
+        "tinacms"
+      ],
+      "range": "10.9.0-rc.1 - 12.1.0",
+      "nodes": [
+        "node_modules/mermaid"
+      ],
+      "fixAvailable": {
+        "name": "tinacms",
+        "version": "1.2.1",
+        "isSemVerMajor": true
+      }
+    },
+    "tinacms": {
+      "name": "tinacms",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "@tinacms/mdx",
+        "@tinacms/schema-tools",
+        "@tinacms/search",
+        "mermaid",
+        "zod"
+      ],
+      "effects": [],
+      "range": "<=0.0.0-ffbb4fa-20260624122203 || >=0.67.1",
+      "nodes": [
+        "node_modules/tinacms"
+      ],
+      "fixAvailable": {
+        "name": "tinacms",
+        "version": "1.2.1",
+        "isSemVerMajor": true
+      }
+    },
+    "zod": {
+      "name": "zod",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1243066,
+          "name": "zod",
+          "dependency": "zod",
+          "title": "Zod can exhaust memory while validating oversized constrained collections",
+          "url": "https://github.com/advisories/GHSA-mrhx-c7xc-m3w5",
+          "severity": "high",
+          "cwe": [
+            "CWE-770"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": "<4.6.6"
+        }
+      ],
+      "effects": [
+        "@tinacms/schema-tools",
+        "tinacms"
+      ],
+      "range": "<4.6.6",
+      "nodes": [
+        "node_modules/zod"
+      ],
+      "fixAvailable": {
+        "name": "tinacms",
+        "version": "1.2.1",
+        "isSemVerMajor": true
+      }
+    }
+  }
+}

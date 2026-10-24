@@ -9,6 +9,9 @@ const eslintConfig = defineConfig([
   globalIgnores([
     // Default ignores of eslint-config-next:
     ".next/**",
+    ".node_modules-interrupted/**",
+    "tina/__generated__/**",
+    "public/admin/**",
     "out/**",
     "build/**",
     "next-env.d.ts",

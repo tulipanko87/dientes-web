@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Generated Tina clients can embed read tokens and local cache paths.
+/tina/__generated__/
+/public/admin/
+
+/.node_modules-interrupted/

@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import {site, bookableServices, activeServices, bookingSettings, money} from "../site-data";
+import type {PublicSite} from "../site-data";
+const money = (amount: number) => `${Number(amount || 0).toLocaleString('sk-SK')} €`;
+type BookingSettings = PublicSite["reservations"] & {weeklySchedule: PublicSite["contact"]["weeklySchedule"]};
 
 type Slot = {start?: string; end?: string};
 const dayOfWeek = (value: string) => new Date(`${value}T12:00:00`).getDay();
@@ -9,25 +11,26 @@ const minutes = (value: string) => {const [h,m] = value.split(":").map(Number);r
 const clock = (m: number) => `${String(Math.floor(m/60)).padStart(2,"0")}:${String(m%60).padStart(2,"0")}`;
 const datePart = (value?: string) => (value || "").slice(0,10);
 const fmtDate = (value: string) => new Date(`${value}T12:00:00`).toLocaleDateString("sk-SK", {day:"numeric",month:"long"});
-function getHours(date: string, settings: any) {
-  const closed = (settings.closedDateRanges || []).some((x:any)=> date >= datePart(x.startDate) && date <= datePart(x.endDate || x.startDate));
+function getHours(date: string, settings: BookingSettings) {
+  const closed = (settings.closedDateRanges || []).some((x)=> date >= datePart(x.startDate) && date <= datePart(x.endDate || x.startDate));
   if(closed) return null;
-  const extra = (settings.extraOpenDates || []).find((x:any)=>datePart(typeof x === "string"? x:x.date)===date);
+  const extra = (settings.extraOpenDates || []).find((x)=>datePart(typeof x === "string"? x:x.date)===date);
   if(extra) return {start:extra.startTime || "08:00",end:extra.endTime || "16:00"};
-  const day = (settings.weeklySchedule || []).find((x:any)=>Number(x.day)===dayOfWeek(date));
+  const day = (settings.weeklySchedule || []).find((x)=>Number(x.day)===dayOfWeek(date));
   return day?.enabled && day.startTime && day.endTime ? {start:day.startTime,end:day.endTime}:null;
 }
 function busy(date:string,time:string,duration:number,events:Slot[]) {
   const a = new Date(`${date}T${time}:00`).getTime(); const b=a+duration*60000;
   return events.some(e=>e.start && e.end && a < Date.parse(e.end) && b > Date.parse(e.start));
 }
-function getDuration(service: any, fallback=45) {return Number(String(service?.duration||"").match(/\d+/)?.[0] || fallback);}
+function getDuration(service: {duration?: string}, fallback=45) {return Number(String(service?.duration||"").match(/\d+/)?.[0] || fallback);}
 
-export default function StitchInteractions() {
+export default function StitchInteractions({data}: {data: PublicSite}) {
   useEffect(() => {
-    const data:any = site;
-    const settings:any = bookingSettings();
-    const services:any[] = bookableServices().map(s=>({...s,duration:`${s.durationMinutes} min`,price:money(s.price)}));
+    const activeServices = () => data.services.items.filter(s => s.enabled !== false);
+    const bookableServices = () => activeServices().filter(s => s.bookable !== false);
+    const settings = {...data.reservations, weeklySchedule: data.contact.weeklySchedule};
+    const services = bookableServices().map(s=>({...s,duration:`${s.durationMinutes} min`,price:money(s.price)}));
     const root = document.querySelector('.stitch-page');
     if (!root) return;
     const $ = <T extends Element = HTMLElement>(selector:string)=> root.querySelector<T>(selector);
@@ -49,7 +52,7 @@ export default function StitchInteractions() {
     }
     // Image content is supplied by Tina; preserve original Stitch cards, hover styles and animation classes.
     const heroImage = root.querySelector<HTMLImageElement>('main > div > section:first-child img');
-    const configuredHero = (data.intro?.images || []).filter((item:any) => typeof item?.image === 'string' && item.image.trim());
+    const configuredHero = (data.intro?.images || []).filter((item) => typeof item?.image === 'string' && item.image.trim());
     const heroSlides = configuredHero.length ? configuredHero : (data.intro?.images?.[0]?.image ? [{image:data.intro.images?.[0]?.image,alt:data.intro.images?.[0]?.alt}] : []);
     let sliderTimer: ReturnType<typeof setInterval> | undefined;
     if (heroImage && heroSlides.length) {
@@ -57,7 +60,7 @@ export default function StitchInteractions() {
       const showSlide = () => {
         const slide = heroSlides[index];
         heroImage.src = slide.image;
-        heroImage.alt = slide.alt || data.intro?.imageAlt || 'Dientes – dentálna hygiena';
+        heroImage.alt = slide.alt || 'Dientes – dentálna hygiena';
       };
       showSlide();
       if (heroSlides.length > 1) {
@@ -79,16 +82,16 @@ export default function StitchInteractions() {
     const galleryGrid = gallery?.querySelector('div.grid');
     if(data.gallery?.enabled===false)gallery?.remove();
     if (galleryGrid && data.gallery?.enabled!==false && Array.isArray(data.gallery?.items)) {
-      const photoItems = data.gallery.items.filter((item:any) => typeof item?.image === 'string' && item.image.trim() && item.enabled !== false);
+      const photoItems = data.gallery.items.filter((item) => typeof item?.image === 'string' && item.image.trim() && item.enabled !== false);
       const templates = Array.from(galleryGrid.children).filter((item): item is HTMLElement => item instanceof HTMLElement);
       if (templates.length) {
         const fragment = document.createDocumentFragment();
-        photoItems.forEach((item:any, i:number) => {
+        photoItems.forEach((item, i:number) => {
           const template = templates[i % templates.length].cloneNode(true) as HTMLElement;
           const img = template.querySelector('img');
           if (!img) return;
           img.src = item.image;
-          img.alt = item.alt || item.caption || 'Fotografia ambulancie Dientes';
+          img.alt = item.alt || ('caption' in item ? String(item.caption || '') : '') || 'Fotografia ambulancie Dientes';
           // Retain Stitch's bento composition, zoom animation and borders.
           fragment.append(template);
         });
@@ -106,7 +109,7 @@ export default function StitchInteractions() {
     setIcon('main > div > section:first-child .animate-pulse-subtle .material-symbols-outlined',intro.comfortIcon);
     setText('main > div > section:first-child .hero-stable-card .absolute.bottom-3 span:last-child',intro.locationBadge);
     const stats=$$('main > div > section:first-child .hero-stable-card .grid.grid-cols-2 > div');
-    (intro.stats||[]).forEach((item:any,i:number)=>{if(!stats[i])return;const spans=stats[i].querySelectorAll('span');if(spans[0])spans[0].textContent=item.title||'';if(spans[1])spans[1].textContent=item.subtitle||'';});
+    (intro.stats||[]).forEach((item,i:number)=>{if(!stats[i])return;const spans=stats[i].querySelectorAll('span');if(spans[0])spans[0].textContent=item.title||'';if(spans[1])spans[1].textContent=item.subtitle||'';});
     const sv=data.services||{};
     setText('#sluzby .font-label-eyebrow',sv.eyebrow);
     setText('#sluzby h2',sv.title);
@@ -116,7 +119,7 @@ export default function StitchInteractions() {
       const templates=Array.from(serviceGrid.children).filter((el):el is HTMLElement=>el instanceof HTMLElement);
       if(templates.length){
         const fragment=document.createDocumentFragment();
-        activeServices().forEach((svc:any,i:number)=>{
+        activeServices().forEach((svc,i:number)=>{
           const card=templates[i%templates.length].cloneNode(true) as HTMLElement;
           const t=card.querySelector('h3'),d=card.querySelector('p'),icon=card.querySelector('.material-symbols-outlined');
           if(t)t.textContent=svc.name||'';if(d)d.textContent=svc.description||'';
@@ -134,7 +137,7 @@ export default function StitchInteractions() {
     const stepsGrid=$('#priebeh .grid.grid-cols-1');
     if(stepsGrid){const templates=Array.from(stepsGrid.children).filter((el):el is HTMLElement=>el instanceof HTMLElement);
       if(templates.length){const fragment=document.createDocumentFragment();
-        (process.steps||[]).forEach((step:any,i:number)=>{
+        (process.steps||[]).forEach((step,i:number)=>{
           const card=templates[i%templates.length].cloneNode(true) as HTMLElement;
           const title=card.querySelector('h3'),desc=card.querySelector('p'),num=card.querySelector('.rounded-full');
           if(title)title.textContent=step.title||'';if(desc)desc.textContent=step.description||'';if(num)num.textContent=String(i+1);
@@ -168,7 +171,7 @@ export default function StitchInteractions() {
     const priceList=$('#cennik .divide-y');
     if(priceList){const templates=Array.from(priceList.children).filter((el):el is HTMLElement=>el instanceof HTMLElement);
       if(templates.length){const fragment=document.createDocumentFragment();
-        activeServices().forEach((svc:any,i:number)=>{const row=templates[i%templates.length].cloneNode(true) as HTMLElement;
+        activeServices().forEach((svc,i:number)=>{const row=templates[i%templates.length].cloneNode(true) as HTMLElement;
           const title=row.querySelector('.flex-col span:first-child'),desc=row.querySelector('.flex-col span:nth-child(2)'),price=row.querySelector(':scope > span:last-child');
           if(title)title.textContent=svc.name||'';if(desc)desc.textContent=svc.shortDescription||svc.description||'';if(price)price.textContent=money(svc.price);
           fragment.append(row);
@@ -202,7 +205,7 @@ export default function StitchInteractions() {
       if(cols[2]){const container=cols[2].querySelector('.flex.flex-col.gap-space-xs');if(container){
         container.replaceChildren();
         ([{day:1,name:'Pondelok'},{day:2,name:'Utorok'},{day:3,name:'Streda'},{day:4,name:'Štvrtok'},{day:5,name:'Piatok'},{day:6,name:'Sobota'},{day:0,name:'Nedeľa'}]).forEach(({day:dayNumber,name})=>{
-          const line=document.createElement('div');line.className='flex justify-between py-1';const day=contact.weeklySchedule?.find((x:any)=>Number(x.day)===dayNumber);
+          const line=document.createElement('div');line.className='flex justify-between py-1';const day=contact.weeklySchedule?.find((x)=>Number(x.day)===dayNumber);
           const left=document.createElement('span');left.className='text-on-surface font-semibold';left.textContent=name;
           const right=document.createElement('span');right.textContent=day?.enabled?`${day.startTime} – ${day.endTime}`:'Zatvorené';line.append(left,right);container.append(line);
         });const note=document.createElement('p');note.className='font-label-md text-label-md text-slate-muted mt-space-xs';note.textContent=contact.footerHoursNote||'';container.append(note);
@@ -221,8 +224,8 @@ export default function StitchInteractions() {
   };
 
   opening.textContent = (contact.weeklySchedule || [])
-    .filter((d: any) => d.enabled)
-    .map((d: any) =>
+    .filter((d) => d.enabled)
+    .map((d) =>
       `${dayNames[Number(d.day)] || 'Deň'} ${d.startTime}–${d.endTime}`
     )
     .join(' · ') || 'Na objednávku';
@@ -241,7 +244,7 @@ export default function StitchInteractions() {
     const times = $('#time-slots');
     const serviceChoices=$('#service-options');
     if(serviceChoices){const templates=Array.from(serviceChoices.children).filter((el):el is HTMLElement=>el instanceof HTMLElement);
-      if(templates.length){const fragment=document.createDocumentFragment();services.forEach((svc:any,i:number)=>{
+      if(templates.length){const fragment=document.createDocumentFragment();services.forEach((svc,i:number)=>{
         const card=templates[i%templates.length].cloneNode(true) as HTMLElement;
         const radio=card.querySelector<HTMLInputElement>('input[type="radio"]');if(radio){radio.checked=i===0;radio.value=svc.name;}
         fragment.append(card);
@@ -366,7 +369,7 @@ export default function StitchInteractions() {
       const hours=getHours(date.value,settings);
       times.replaceChildren();
       times.className='grid grid-cols-3 sm:grid-cols-4 gap-2';
-      if(!hours){selectedTime='';const closed=(settings.closedDateRanges||[]).find((x:any)=>date.value>=datePart(x.startDate)&&date.value<=datePart(x.endDate||x.startDate));const message=closed?.showNotice===false?'V tento deň neprijímame rezervácie.':(closed?.publicMessage||'V tento deň neprijímame rezervácie. Vyberte, prosím, iný termín.');showUnavailable(message);updateSummary();return;}
+      if(!hours){selectedTime='';const closed=(settings.closedDateRanges||[]).find((x)=>date.value>=datePart(x.startDate)&&date.value<=datePart(x.endDate||x.startDate));const message=closed?.showNotice===false?'V tento deň neprijímame rezervácie.':(closed?.publicMessage||'V tento deň neprijímame rezervácie. Vyberte, prosím, iný termín.');showUnavailable(message);updateSummary();return;}
       const duration=getDuration(svc,Number(settings.slotMinutes)||45);
       const stride=Number(settings.slotMinutes)||45;
       const start=minutes(hours.start),end=minutes(hours.end);
@@ -420,6 +423,7 @@ export default function StitchInteractions() {
     const onDate=()=>render();date.addEventListener('change',onDate);
     const refresh=async()=>{loading=true;availabilityError=false;render();try{const response=await fetch(`/api/availability?daysAhead=${daysAhead}`,{cache:'no-store'});if(!response.ok)throw Error('Kalendár nie je dostupný');const payload=await response.json();if(!Array.isArray(payload.busy))throw Error('Neplatná odpoveď kalendára');busySlots=payload.busy;}catch{availabilityError=true;busySlots=[];feedback.textContent='Nepodarilo sa načítať dostupnosť. Skúste stránku obnoviť.';}finally{loading=false;render();}};
     void refresh();
+    const honeypot=document.createElement('input');honeypot.name='website';honeypot.tabIndex=-1;honeypot.autocomplete='off';honeypot.setAttribute('aria-hidden','true');honeypot.style.display='none';form.append(honeypot);
     const onSubmit=async(ev:Event)=>{
       ev.preventDefault();if(sending)return;
       feedback.textContent='';feedback.className='mt-4 text-sm font-semibold text-red-700';
@@ -431,7 +435,7 @@ export default function StitchInteractions() {
       const svc=services[selectedService]||services[0];
       sending=true;if(submit)submit.disabled=true;
       try{
-        const resp=await fetch('/api/reservation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({service:svc?.name||'Dentálna hygiena',name:nameInput.value.trim(),phone:phoneInput.value.replace(/\s+/g,''),email:emailInput.value.trim(),note:noteInput?.value.trim()||'',date:date.value,time:selectedTime,durationMinutes:getDuration(svc,Number(settings.slotMinutes)||45)})});
+        const resp=await fetch('/api/reservation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({service:svc?.name||'Dentálna hygiena',name:nameInput.value.trim(),phone:phoneInput.value.replace(/\s+/g,''),email:emailInput.value.trim(),note:noteInput?.value.trim()||'',date:date.value,time:selectedTime,consent:checkbox.checked,website:honeypot.value})});
         const res=await resp.json();if(!resp.ok)throw Error(res.error||'Rezerváciu sa nepodarilo vytvoriť.');
         feedback.className='mt-4 rounded-xl border-2 border-red-400 bg-red-50 p-4 text-base font-bold text-red-800';feedback.textContent='Ešte jeden krok: skontrolujte e-mail a kliknite na odkaz na potvrdenie rezervácie do 10 minút.';
         checkbox.checked=false;void refresh();
@@ -441,7 +445,7 @@ export default function StitchInteractions() {
     form.addEventListener('submit',onSubmit);
 
     // Legal texts come from Tina CMS, displayed without leaving the booking.
-    const legal:any=data.reservations?.legal||{};
+    const legal=data.reservations?.legal||{};
     const original=checkbox.parentElement?.querySelector('span');
     if(original){original.innerHTML='Oboznámil/a som sa s <button type="button" data-legal="privacy" class="text-primary underline font-semibold">informáciami o spracovaní osobných údajov</button> a beriem na vedomie <button type="button" data-legal="cancellation" class="text-primary underline font-semibold">storno podmienky</button>.';}
     const overlay=document.createElement('div');overlay.className='fixed inset-0 z-[200] hidden items-center justify-center bg-[#071f1f]/50 p-4';
@@ -461,7 +465,7 @@ export default function StitchInteractions() {
     root.addEventListener('click',onLegal);
     const onOverlay=(e:MouseEvent)=>{if(e.target===overlay||(e.target as HTMLElement).closest('[data-close-legal]'))close();};overlay.addEventListener('click',onOverlay);
     const onEscape=(e:KeyboardEvent)=>{if(e.key==='Escape')close();};window.addEventListener('keydown',onEscape);
-    return()=>{if(sliderTimer)clearInterval(sliderTimer);date.removeEventListener('change',onDate);form.removeEventListener('submit',onSubmit);root.removeEventListener('click',onLegal);window.removeEventListener('keydown',onEscape);overlay.remove();legalFooter.remove();};
-  },[]);
+    return()=>{if(sliderTimer)clearInterval(sliderTimer);date.removeEventListener('change',onDate);form.removeEventListener('submit',onSubmit);root.removeEventListener('click',onLegal);window.removeEventListener('keydown',onEscape);overlay.remove();legalFooter.remove();honeypot.remove();};
+  },[data]);
   return null;
 }

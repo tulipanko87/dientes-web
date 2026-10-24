@@ -28,7 +28,11 @@ const iconStyle: React.CSSProperties = {
   fontFeatureSettings: 'liga', WebkitFontSmoothing: 'antialiased',
 };
 
-export default function IconPicker({ field, input }: any) {
+type IconPickerProps = {
+  field?: {label?: string | boolean};
+  input?: {value?: unknown; name?: string; onChange?(value: string | React.ChangeEvent<string>): void; onBlur?: (event?: React.FocusEvent<string>) => void};
+};
+export default function IconPicker({ field, input }: IconPickerProps) {
   const [query, setQuery] = useState('');
   const [expanded, setExpanded] = useState(false);
   const value = typeof input?.value === 'string' ? input.value : '';
@@ -42,7 +46,7 @@ export default function IconPicker({ field, input }: any) {
       <label style={{ display:'block', fontWeight:600, fontSize:14, marginBottom:8 }} htmlFor={input?.name}>{field?.label || 'Ikona'}</label>
       <div style={{display:'flex', alignItems:'center', gap:12, marginBottom:10}}>
         <span aria-hidden="true" style={{...iconStyle, fontSize:36, color:'#0d9488', minWidth:46, textAlign:'center'}}>{value || 'help'}</span>
-        <input id={input?.name} name={input?.name} value={value} onBlur={input?.onBlur}
+        <input id={input?.name} name={input?.name} value={value} onBlur={() => input?.onBlur?.()}
           onChange={e => setValue(e.target.value.trim().replace(/\s+/g, '_'))}
           placeholder="Napr. headphones alebo dentistry"
           style={{flex:1, minWidth:0, padding:'10px 12px', border:'1px solid #cbd5e1', borderRadius:7, background:'transparent', color:'inherit'}} />

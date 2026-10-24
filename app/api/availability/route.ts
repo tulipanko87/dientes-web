@@ -1,3 +1,4 @@
+import { rateLimit } from "../../../lib/security";
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
 
@@ -12,13 +13,13 @@ function getCalendarClient() {
 }
 
 export async function GET(request: Request) {
+  if (!rateLimit(request, "availability", 60, 60_000)) return NextResponse.json({error: "Príliš veľa požiadaviek."}, {status: 429});
   try {
     const { searchParams } = new URL(request.url);
 
     const requestedDaysAhead = Number(searchParams.get("daysAhead") ?? 90);
-    const daysAhead = Number.isFinite(requestedDaysAhead)
-      ? Math.min(Math.max(requestedDaysAhead, 1), 365)
-      : 90;
+    if (!Number.isInteger(requestedDaysAhead) || requestedDaysAhead < 1 || requestedDaysAhead > 365) return NextResponse.json({error: 'Neplatný rozsah dní.'}, {status: 400});
+    const daysAhead = requestedDaysAhead;
 
     const calendarId = process.env.GOOGLE_CALENDAR_ID as string;
 
@@ -61,13 +62,8 @@ export async function GET(request: Request) {
             .delete({
               calendarId,
               eventId: event.id,
-            })
-            .catch((error) => {
-              console.error(
-                `Nepodarilo sa odstrániť expirovanú pending rezerváciu ${event.id}:`,
-                error
-              );
-            });
+            }, {headers: {"If-Match": event.etag || "invalid"}})
+            .catch(() => { console.error('Expired reservation cleanup failed'); });
         }
       })
     );
@@ -82,11 +78,13 @@ export async function GET(request: Request) {
       },
     });
 
-    const busy = response.data.calendars?.[calendarId]?.busy ?? [];
+    const availability = response.data.calendars?.[calendarId];
+    if (!availability || availability.errors?.length || !availability.busy) throw new Error("Calendar unavailable");
+    const busy = availability.busy;
 
-    return NextResponse.json({ busy });
-  } catch (error) {
-    console.error("Availability error:", error);
+    return NextResponse.json({ busy }, {headers: {"Cache-Control": "no-store"}});
+  } catch {
+    console.error("Availability failed");
 
     return NextResponse.json(
       { error: "Nepodarilo sa načítať dostupné termíny." },

@@ -1,12 +1,12 @@
-import { defineConfig } from 'tinacms';
+import { defineConfig, type TinaField } from 'tinacms';
 import IconPicker from './icon-picker';
 
-const branch = process.env.NEXT_PUBLIC_TINA_BRANCH || process.env.VERCEL_GIT_COMMIT_REF || process.env.HEAD || 'main';
+const branch = process.env.VERCEL_GIT_COMMIT_REF || process.env.NEXT_PUBLIC_TINA_BRANCH || process.env.HEAD || 'main';
 const str = (name: string, label: string, multiline=false) => ({ type:'string' as const, name, label, ...(multiline ? {ui:{component:'textarea'}} : {}) });
 const img = (name: string, label: string) => ({type:'image' as const,name,label});
 const bool = (name: string,label: string) => ({type:'boolean' as const,name,label});
 const num = (name: string,label: string) => ({type:'number' as const,name,label});
-const namedList = (name: string,label: string,fields: any[], key='title') => ({type:'object' as const,name,label,list:true,ui:{itemProps:(item:any)=>({label: String(item?.[key]??'Nová položka')})},fields});
+const namedList = (name: string,label: string,fields: TinaField[], key='title') => ({type:'object' as const,name,label,list:true,ui:{itemProps:(item: Record<string, unknown>)=>({label: String(item?.[key]??'Nová položka')})},fields});
 const iconField={type:'string' as const,name:'icon',label:'Ikona',ui:{component:IconPicker}};
 const serviceFields=[str('id','Jedinečné ID služby (nemeníť po vytvorení)'),bool('enabled','Zobrazovať službu'),bool('bookable','Povoliť online rezerváciu'),iconField,str('name','Názov služby'),str('description','Podrobný popis na karte',true),str('shortDescription','Krátky popis v cenníku',true),num('price','Cena v €'),num('durationMinutes','Trvanie v minútach'),img('image','Voliteľná fotografia')];
 const scheduleFields=[{type:'number' as const,name:'day',label:'Deň (0=Ne, 1=Po, 2=Ut, 3=St, 4=Št, 5=Pi, 6=So)'},bool('enabled','Ordinujeme'),str('startTime','Od (HH:MM)'),str('endTime','Do (HH:MM)')];
@@ -43,7 +43,7 @@ export default defineConfig({
    {type:'object',name:'reservations',label:'7. Rezervácie a e-maily',fields:[
     bool('enabled','Povoliť online rezervácie'),num('daysAhead','Počet dní dopredu'),num('slotMinutes','Interval ponúkaných termínov v minútach'),num('minimumNoticeHours','Minimálny predstih v hodinách'),
     namedList('extraOpenDates','Mimoriadne otvorené dni',[{type:'datetime',name:'date',label:'Dátum',ui:{dateFormat:'DD.MM.YYYY'}},str('startTime','Od'),str('endTime','Do')],'date'),
-    namedList('closedDateRanges','Dovolenky a zatvorené obdobia',[{type:'datetime',name:'startDate',label:'Od',ui:{dateFormat:'DD.MM.YYYY'}},{type:'datetime',name:'endDate',label:'Do',ui:{dateFormat:'DD.MM.YYYY'}},str('type','Typ výnimky (vacation/closed)'),str('note','Interná poznámka'),str('publicMessage','Správa pre pacientov'),bool('showNotice','Zobraziť oznámenie')],'startDate'),
+    namedList('closedDateRanges','Dovolenky a zatvorené obdobia',[{type:'datetime',name:'startDate',label:'Od',ui:{dateFormat:'DD.MM.YYYY'}},{type:'datetime',name:'endDate',label:'Do',ui:{dateFormat:'DD.MM.YYYY'}},str('type','Typ výnimky (vacation/closed)'),str('note','Poznámka (verejný obsah CMS)'),str('publicMessage','Správa pre pacientov'),bool('showNotice','Zobraziť oznámenie')],'startDate'),
     {type:'object',name:'legal',label:'GDPR a storno podmienky',fields:[str('privacyTitle','Nadpis GDPR'),str('privacyText','Obsah GDPR',true),str('cancellationTitle','Nadpis storno'),str('cancellationText','Storno podmienky',true)]},
     {type:'object',name:'emailStyle',label:'Spoločný vzhľad e-mailov',fields:[img('logoImage','Logo'),str('primaryColor','Farba tlačidla (#RRGGBB)'),str('header','Hlavička'),str('footer','Pätička'),str('signature','Podpis')]},
     {type:'object',name:'emailTemplates',label:'Texty e-mailov',fields:[{type:'object',name:'request',label:'Žiadosť o potvrdenie',fields:emailFields},{type:'object',name:'confirmed',label:'Potvrdená rezervácia',fields:emailFields},{type:'object',name:'cancelled',label:'Zrušená rezervácia',fields:emailFields}]}

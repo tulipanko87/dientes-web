@@ -1,3 +1,4 @@
+import { escapeHtml as esc, siteUrl as getSiteUrl, validToken, rateLimit, sameOrigin, privateHeaders, actionPage, actionToken } from "../../../lib/security";
 import { patientMail } from "../../../lib/email-template";
 import nodemailer from "nodemailer";
 import { google } from "googleapis";
@@ -22,11 +23,19 @@ const transporter = nodemailer.createTransport({
 });
 
 export async function GET(request: Request) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const token = searchParams.get("token");
+  const token = new URL(request.url).searchParams.get('token');
+  if (!validToken(token)) return new NextResponse('Neplatný odkaz.', {status: 400, headers: privateHeaders});
+  if (!rateLimit(request, 'action-page', 60)) return new NextResponse('Príliš veľa požiadaviek.', {status: 429, headers: privateHeaders});
+  return new NextResponse(actionPage('cancel-reservation', token, 'Zrušiť rezerváciu'), {headers: {...privateHeaders, 'Content-Type': 'text/html; charset=utf-8'}});
+}
 
-    if (!token) {
+export async function POST(request: Request) {
+  if (!sameOrigin(request)) return new NextResponse('Nepovolená požiadavka.', {status: 403, headers: privateHeaders});
+  if (!rateLimit(request, 'action', 20)) return new NextResponse('Príliš veľa požiadaviek.', {status: 429, headers: privateHeaders});
+  try {
+    const token = await actionToken(request);
+
+    if (!validToken(token)) {
       return new NextResponse("Chýba token rezervácie.", { status: 400 });
     }
 
@@ -48,14 +57,17 @@ export async function GET(request: Request) {
       });
     }
 
+    const props = event.extendedProperties?.private || {};
+    if (props.status !== 'confirmed') return new NextResponse('Rezerváciu nemožno zrušiť.', {status: 409, headers: privateHeaders});
     const description = event.description || "";
-    const customerEmail = description.match(/Email:\s*(.+)/)?.[1]?.trim();
-    const customerName = description.match(/Meno:\s*(.+)/)?.[1]?.trim() || "Klient";
+    const customerEmail = props.customerEmail || description.match(/Email:\s*(.+)/)?.[1]?.trim();
+    const customerName = props.customerName || description.match(/Meno:\s*(.+)/)?.[1]?.trim() || "Klient";
 
+    if (!event.etag) throw new Error("Missing event version");
     await calendar.events.delete({
       calendarId,
       eventId: event.id,
-    });
+    }, {headers: {"If-Match": event.etag}});
 
     if (customerEmail) {
       await transporter.sendMail({
@@ -72,9 +84,9 @@ export async function GET(request: Request) {
       html: `
         <div style="font-family:Arial,sans-serif">
           <h2>Zrušená rezervácia</h2>
-          <p><strong>Meno:</strong> ${customerName}</p>
-          <p><strong>Email:</strong> ${customerEmail || "neuvedený"}</p>
-          <p><strong>Služba:</strong> ${event.summary}</p>
+          <p><strong>Meno:</strong> ${esc(customerName)}</p>
+          <p><strong>Email:</strong> ${esc(customerEmail || "neuvedený")}</p>
+          <p><strong>Služba:</strong> ${esc(event.summary)}</p>
         </div>
       `,
     });
@@ -85,19 +97,19 @@ export async function GET(request: Request) {
         <body style="font-family:Arial,sans-serif;text-align:center;padding:40px">
           <h1>Rezervácia bola zrušená</h1>
           <p>Termín bol odstránený z kalendára a na stránke sa znova uvoľní.</p>
-          <a href="${process.env.SITE_URL}">Späť na stránku Dientes</a>
+          <a href="${esc(getSiteUrl())}">Späť na stránku Dientes</a>
         </body>
       </html>
       `,
       {
         status: 200,
         headers: {
-          "Content-Type": "text/html; charset=utf-8",
+          ...privateHeaders, "Content-Type": "text/html; charset=utf-8",
         },
       }
     );
-  } catch (error) {
-    console.error("Cancel reservation error:", error);
+  } catch {
+    console.error("Reservation action failed");
 
     return new NextResponse("Rezerváciu sa nepodarilo zrušiť.", {
       status: 500,

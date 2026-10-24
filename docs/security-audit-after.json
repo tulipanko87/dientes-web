@@ -1,0 +1,525 @@
+{
+  "date": "2026-10-24",
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 2,
+      "moderate": 4,
+      "high": 14,
+      "critical": 0,
+      "total": 20
+    },
+    "dependencies": {
+      "prod": 722,
+      "dev": 654,
+      "optional": 143,
+      "peer": 13,
+      "peerOptional": 0,
+      "total": 1418
+    }
+  },
+  "packages": {
+    "@graphql-tools/graphql-file-loader": {
+      "name": "@graphql-tools/graphql-file-loader",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@graphql-tools/import",
+        "@graphql-tools/utils"
+      ],
+      "effects": [
+        "@tinacms/cli"
+      ],
+      "range": "<=8.1.19-alpha-20260811213401-1eff5799faeb287f78dcafd6415e2afe144cee07",
+      "nodes": [
+        "node_modules/@graphql-tools/graphql-file-loader"
+      ],
+      "fixAvailable": {
+        "name": "@tinacms/cli",
+        "version": "1.0.4",
+        "isSemVerMajor": true
+      }
+    },
+    "@graphql-tools/import": {
+      "name": "@graphql-tools/import",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@graphql-tools/utils"
+      ],
+      "effects": [
+        "@graphql-tools/graphql-file-loader"
+      ],
+      "range": "6.5.1 - 7.1.19-alpha-20260811213401-1eff5799faeb287f78dcafd6415e2afe144cee07",
+      "nodes": [
+        "node_modules/@graphql-tools/import"
+      ],
+      "fixAvailable": {
+        "name": "@tinacms/cli",
+        "version": "1.0.4",
+        "isSemVerMajor": true
+      }
+    },
+    "@graphql-tools/load": {
+      "name": "@graphql-tools/load",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@graphql-tools/schema",
+        "@graphql-tools/utils"
+      ],
+      "effects": [
+        "@tinacms/cli"
+      ],
+      "range": "<=8.1.16-rc-20260806160344-fea2a9cb67cc8f883edfb5fdf4843ab4c69bd409",
+      "nodes": [
+        "node_modules/@graphql-tools/load"
+      ],
+      "fixAvailable": {
+        "name": "@tinacms/cli",
+        "version": "1.0.4",
+        "isSemVerMajor": true
+      }
+    },
+    "@graphql-tools/merge": {
+      "name": "@graphql-tools/merge",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@graphql-tools/utils"
+      ],
+      "effects": [
+        "@graphql-tools/schema"
+      ],
+      "range": "<=9.2.3-alpha-20260811213401-1eff5799faeb287f78dcafd6415e2afe144cee07",
+      "nodes": [
+        "node_modules/@graphql-tools/load/node_modules/@graphql-tools/merge"
+      ],
+      "fixAvailable": {
+        "name": "@tinacms/cli",
+        "version": "1.0.4",
+        "isSemVerMajor": true
+      }
+    },
+    "@graphql-tools/schema": {
+      "name": "@graphql-tools/schema",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@graphql-tools/merge",
+        "@graphql-tools/utils"
+      ],
+      "effects": [
+        "@graphql-tools/load"
+      ],
+      "range": "<=10.1.0-alpha-20260811213401-1eff5799faeb287f78dcafd6415e2afe144cee07",
+      "nodes": [
+        "node_modules/@graphql-tools/load/node_modules/@graphql-tools/schema"
+      ],
+      "fixAvailable": {
+        "name": "@tinacms/cli",
+        "version": "1.0.4",
+        "isSemVerMajor": true
+      }
+    },
+    "@graphql-tools/utils": {
+      "name": "@graphql-tools/utils",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1241230,
+          "name": "@graphql-tools/utils",
+          "dependency": "@graphql-tools/utils",
+          "title": "GraphQL Tools has prototype pollution in well-established utility function `mergeDeep`",
+          "url": "https://github.com/advisories/GHSA-7mx3-vvmw-hjmv",
+          "severity": "high",
+          "cwe": [
+            "CWE-1321"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": "<=12.0.0"
+        }
+      ],
+      "effects": [
+        "@graphql-tools/graphql-file-loader",
+        "@graphql-tools/import",
+        "@graphql-tools/load",
+        "@graphql-tools/merge",
+        "@graphql-tools/schema"
+      ],
+      "range": "<=12.0.0",
+      "nodes": [
+        "node_modules/@graphql-tools/graphql-file-loader/node_modules/@graphql-tools/utils",
+        "node_modules/@graphql-tools/import/node_modules/@graphql-tools/utils",
+        "node_modules/@graphql-tools/load/node_modules/@graphql-tools/utils"
+      ],
+      "fixAvailable": {
+        "name": "@tinacms/cli",
+        "version": "1.0.4",
+        "isSemVerMajor": true
+      }
+    },
+    "@tailwindcss/typography": {
+      "name": "@tailwindcss/typography",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        "postcss-selector-parser"
+      ],
+      "effects": [
+        "@tinacms/cli"
+      ],
+      "range": "<=0.0.0-insiders.fda8ce5 || >=0.5.5",
+      "nodes": [
+        "node_modules/@tailwindcss/typography"
+      ],
+      "fixAvailable": {
+        "name": "@tinacms/cli",
+        "version": "1.0.4",
+        "isSemVerMajor": true
+      }
+    },
+    "@tinacms/app": {
+      "name": "@tinacms/app",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@tinacms/mdx",
+        "tinacms",
+        "zod"
+      ],
+      "effects": [
+        "@tinacms/cli"
+      ],
+      "range": "<=0.0.0-ffbb4fa-20260624122203 || >=1.2.0",
+      "nodes": [
+        "node_modules/@tinacms/app"
+      ],
+      "fixAvailable": {
+        "name": "@tinacms/cli",
+        "version": "1.0.4",
+        "isSemVerMajor": true
+      }
+    },
+    "@tinacms/cli": {
+      "name": "@tinacms/cli",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "@graphql-tools/graphql-file-loader",
+        "@graphql-tools/load",
+        "@tailwindcss/typography",
+        "@tinacms/app",
+        "@tinacms/graphql",
+        "@tinacms/schema-tools",
+        "@tinacms/search",
+        "tailwindcss",
+        "tinacms",
+        "zod"
+      ],
+      "effects": [],
+      "range": "<=0.0.0-ffbb4fa-20260624122203 || >=0.57.0",
+      "nodes": [
+        "node_modules/@tinacms/cli"
+      ],
+      "fixAvailable": {
+        "name": "@tinacms/cli",
+        "version": "1.0.4",
+        "isSemVerMajor": true
+      }
+    },
+    "@tinacms/graphql": {
+      "name": "@tinacms/graphql",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@tinacms/mdx",
+        "@tinacms/schema-tools"
+      ],
+      "effects": [
+        "@tinacms/cli",
+        "@tinacms/search"
+      ],
+      "range": ">=0.60.8",
+      "nodes": [
+        "node_modules/@tinacms/graphql"
+      ],
+      "fixAvailable": {
+        "name": "@tinacms/cli",
+        "version": "1.0.4",
+        "isSemVerMajor": true
+      }
+    },
+    "@tinacms/mdx": {
+      "name": "@tinacms/mdx",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@tinacms/schema-tools"
+      ],
+      "effects": [
+        "@tinacms/app",
+        "@tinacms/graphql",
+        "tinacms"
+      ],
+      "range": "*",
+      "nodes": [
+        "node_modules/@tinacms/mdx"
+      ],
+      "fixAvailable": {
+        "name": "tinacms",
+        "version": "1.2.1",
+        "isSemVerMajor": true
+      }
+    },
+    "@tinacms/schema-tools": {
+      "name": "@tinacms/schema-tools",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "zod"
+      ],
+      "effects": [
+        "@tinacms/cli",
+        "@tinacms/graphql",
+        "@tinacms/mdx",
+        "@tinacms/search",
+        "tinacms"
+      ],
+      "range": "<=0.0.0-fff7c61-20260805010007 || >=0.0.3",
+      "nodes": [
+        "node_modules/@tinacms/schema-tools"
+      ],
+      "fixAvailable": {
+        "name": "tinacms",
+        "version": "1.2.1",
+        "isSemVerMajor": true
+      }
+    },
+    "@tinacms/search": {
+      "name": "@tinacms/search",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        "@tinacms/graphql",
+        "@tinacms/schema-tools"
+      ],
+      "effects": [
+        "@tinacms/cli",
+        "tinacms"
+      ],
+      "range": "*",
+      "nodes": [
+        "node_modules/@tinacms/search"
+      ],
+      "fixAvailable": {
+        "name": "tinacms",
+        "version": "1.2.1",
+        "isSemVerMajor": true
+      }
+    },
+    "katex": {
+      "name": "katex",
+      "severity": "low",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1241206,
+          "name": "katex",
+          "dependency": "katex",
+          "title": "KaTeX: Existing prototype pollution can bypass trust restrictions",
+          "url": "https://github.com/advisories/GHSA-238p-pmpm-9mq7",
+          "severity": "low",
+          "cwe": [
+            "CWE-807"
+          ],
+          "cvss": {
+            "score": 0,
+            "vectorString": null
+          },
+          "range": ">=0.11.0 <0.18.2"
+        }
+      ],
+      "effects": [
+        "mermaid"
+      ],
+      "range": "0.11.0 - 0.18.1",
+      "nodes": [
+        "node_modules/katex"
+      ],
+      "fixAvailable": {
+        "name": "tinacms",
+        "version": "1.2.1",
+        "isSemVerMajor": true
+      }
+    },
+    "mermaid": {
+      "name": "mermaid",
+      "severity": "low",
+      "isDirect": false,
+      "via": [
+        "katex"
+      ],
+      "effects": [
+        "tinacms"
+      ],
+      "range": "10.9.0-rc.1 - 12.1.0",
+      "nodes": [
+        "node_modules/mermaid"
+      ],
+      "fixAvailable": {
+        "name": "tinacms",
+        "version": "1.2.1",
+        "isSemVerMajor": true
+      }
+    },
+    "postcss-nested": {
+      "name": "postcss-nested",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        "postcss-selector-parser"
+      ],
+      "effects": [
+        "tailwindcss"
+      ],
+      "range": "2.0.3 - 6.2.0",
+      "nodes": [
+        "node_modules/postcss-nested"
+      ],
+      "fixAvailable": {
+        "name": "@tinacms/cli",
+        "version": "1.0.4",
+        "isSemVerMajor": true
+      }
+    },
+    "postcss-selector-parser": {
+      "name": "postcss-selector-parser",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1241232,
+          "name": "postcss-selector-parser",
+          "dependency": "postcss-selector-parser",
+          "title": "PostCSS: Quadratic complexity in flat selector parsing allows CPU exhaustion",
+          "url": "https://github.com/advisories/GHSA-rj75-hqrm-r3gf",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-400",
+            "CWE-407"
+          ],
+          "cvss": {
+            "score": 5.9,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": "<7.1.6"
+        }
+      ],
+      "effects": [
+        "@tailwindcss/typography",
+        "postcss-nested",
+        "tailwindcss"
+      ],
+      "range": "<7.1.6",
+      "nodes": [
+        "node_modules/@tinacms/cli/node_modules/postcss-selector-parser",
+        "node_modules/postcss-nested/node_modules/postcss-selector-parser",
+        "node_modules/postcss-selector-parser"
+      ],
+      "fixAvailable": {
+        "name": "@tinacms/cli",
+        "version": "1.0.4",
+        "isSemVerMajor": true
+      }
+    },
+    "tailwindcss": {
+      "name": "tailwindcss",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        "postcss-nested",
+        "postcss-selector-parser"
+      ],
+      "effects": [
+        "@tinacms/cli"
+      ],
+      "range": "<=0.0.0-oxide-insiders.ff2c25f || 0.5.0 - 3.4.19",
+      "nodes": [
+        "node_modules/@tinacms/cli/node_modules/tailwindcss"
+      ],
+      "fixAvailable": {
+        "name": "@tinacms/cli",
+        "version": "1.0.4",
+        "isSemVerMajor": true
+      }
+    },
+    "tinacms": {
+      "name": "tinacms",
+      "severity": "high",
+      "isDirect": true,
+      "via": [
+        "@tinacms/mdx",
+        "@tinacms/schema-tools",
+        "@tinacms/search",
+        "mermaid",
+        "zod"
+      ],
+      "effects": [
+        "@tinacms/app",
+        "@tinacms/cli"
+      ],
+      "range": "<=0.0.0-ffbb4fa-20260624122203 || >=0.67.1",
+      "nodes": [
+        "node_modules/tinacms"
+      ],
+      "fixAvailable": {
+        "name": "tinacms",
+        "version": "1.2.1",
+        "isSemVerMajor": true
+      }
+    },
+    "zod": {
+      "name": "zod",
+      "severity": "high",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1243066,
+          "name": "zod",
+          "dependency": "zod",
+          "title": "Zod can exhaust memory while validating oversized constrained collections",
+          "url": "https://github.com/advisories/GHSA-mrhx-c7xc-m3w5",
+          "severity": "high",
+          "cwe": [
+            "CWE-770"
+          ],
+          "cvss": {
+            "score": 7.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+          },
+          "range": "<4.6.6"
+        }
+      ],
+      "effects": [
+        "@tinacms/app",
+        "@tinacms/cli",
+        "@tinacms/schema-tools",
+        "tinacms"
+      ],
+      "range": "<4.6.6",
+      "nodes": [
+        "node_modules/zod"
+      ],
+      "fixAvailable": {
+        "name": "tinacms",
+        "version": "1.2.1",
+        "isSemVerMajor": true
+      }
+    }
+  }
+}
